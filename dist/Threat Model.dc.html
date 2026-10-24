@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:wght@400;500&display=swap">
+<style>body{margin:0;background:#0d0d0b;font-family:'Bricolage Grotesque',sans-serif;color:#f2eee3;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}html{scroll-behavior:smooth}a{color:#f4b729}a:hover{color:#ffc53d}a:focus-visible{outline:2px solid #f4b729;outline-offset:2px}</style>
+</helmet>
+<div style="min-height:100vh;">
+<div style="position:sticky;top:0;z-index:10;background:rgba(13,13,11,.9);backdrop-filter:blur(10px);border-bottom:1px solid #1d1d18;">
+<div style="max-width:1120px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+<a href="CashDrop.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#f2eee3;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></a>
+<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;font-size:14px;">
+<a href="#parties" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Who sees what</a>
+<a href="#risks" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Risks</a>
+<a href="#controls" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Controls</a>
+<a href="#limits" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Limits</a>
+<a href="CashDrop%20Desktop.dc.html#create" style="height:40px;padding:0 18px;border-radius:999px;background:#f4b729;color:#15130d;font-weight:700;text-decoration:none;display:flex;align-items:center;" style-hover="background:#ffc53d;color:#15130d">Create a drop</a>
+</div>
+</div>
+</div>
+
+<div style="max-width:1120px;margin:0 auto;padding:80px 32px 56px;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">THREAT MODEL · v0.1 · TESTNET PROTOTYPE</div>
+<h1 style="margin:14px 0 0;max-width:820px;font-size:clamp(44px,6vw,68px);line-height:.98;font-weight:800;letter-spacing:-0.05em;">A CashDrop link is a bearer instrument. <span style="color:#f4b729;">Here’s what that means.</span></h1>
+<p style="margin:24px 0 0;max-width:680px;font-size:18px;line-height:1.55;color:#d6d1c1;">CashDrop moves value through a single-use shielded envelope. The claim link carries the secret that opens it. This page lists what each party can learn, what can go wrong, and what we do about it. It is written for users and reviewers, not as marketing.</p>
+<div style="margin-top:32px;border:1px solid #f4b729;background:#17140b;border-radius:18px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start;max-width:820px;">
+<svg viewBox="0 0 24 24" style="width:24px;height:24px;flex:none;fill:none;stroke:#f4b729;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"></path></svg>
+<div style="font-size:16px;line-height:1.5;"><b>The one rule.</b> Anyone who obtains the complete link can claim the money. Treat it like a seed phrase or a folded banknote. CashDrop protects the chain; it cannot protect the chat.</div>
+</div>
+</div>
+
+<div style="background:#121210;">
+<div style="max-width:1120px;margin:0 auto;padding:80px 32px;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">HOW IT MOVES</div>
+<h2 style="margin:12px 0 0;font-size:clamp(30px,4vw,42px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">Three shielded hops. No custody.</h2>
+<div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;">
+<div style="border:1px solid #2a2924;border-radius:16px;padding:22px;"><div style="font-family:'DM Mono',monospace;font-size:12px;color:#a9a593;letter-spacing:.14em;">01 · SENDER WALLET</div><div style="margin-top:10px;font-size:15px;line-height:1.5;color:#d6d1c1;">Sends a normal shielded payment into a fresh envelope created on the sender’s device.</div></div>
+<div style="border:1px solid #2a2924;border-radius:16px;padding:22px;"><div style="font-family:'DM Mono',monospace;font-size:12px;color:#a9a593;letter-spacing:.14em;">02 · ENVELOPE</div><div style="margin-top:10px;font-size:15px;line-height:1.5;color:#d6d1c1;">A one-time shielded wallet. Its secret lives only in the link fragment and the sender’s recovery file.</div></div>
+<div style="border:1px solid #2a2924;border-radius:16px;padding:22px;"><div style="font-family:'DM Mono',monospace;font-size:12px;color:#a9a593;letter-spacing:.14em;">03 · CLAIM</div><div style="margin-top:10px;font-size:15px;line-height:1.5;color:#d6d1c1;">The recipient’s device builds and signs a sweep to their own shielded address.</div></div>
+<div style="border:1px solid #2a2924;border-radius:16px;padding:22px;"><div style="font-family:'DM Mono',monospace;font-size:12px;color:#a9a593;letter-spacing:.14em;">OR · TAKE BACK</div><div style="margin-top:10px;font-size:15px;line-height:1.5;color:#d6d1c1;">Until claimed, the sender can sweep it home. First confirmed transaction wins.</div></div>
+</div>
+<div style="margin-top:20px;font-family:'DM Mono',monospace;font-size:13px;color:#a9a593;">https://cashdrop.example/claim<span style="color:#f4b729;">#ENCRYPTED_CLAIM_PACKAGE</span> &nbsp;← everything after # stays in the browser</div>
+</div>
+</div>
+
+<div id="parties" style="max-width:1120px;margin:0 auto;padding:80px 32px;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">WHO SEES WHAT</div>
+<h2 style="margin:12px 0 0;font-size:clamp(30px,4vw,42px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">Five parties. Five different views.</h2>
+<div style="margin-top:36px;overflow-x:auto;border:1px solid #2a2924;border-radius:18px;">
+<table style="width:100%;min-width:760px;border-collapse:collapse;font-size:14px;">
+<thead><tr style="text-align:left;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a9a593;">
+<th style="padding:16px 18px;border-bottom:1px solid #2a2924;font-weight:400;">PARTY</th><th style="padding:16px 18px;border-bottom:1px solid #2a2924;font-weight:400;">CAN LEARN</th><th style="padding:16px 18px;border-bottom:1px solid #2a2924;font-weight:400;">CANNOT LEARN</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:16px 18px;border-bottom:1px solid #22211c;font-weight:700;vertical-align:top;">Public chain</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">That shielded transactions occurred</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">Sender, recipient, envelope address, amount, note, that it was a CashDrop</td></tr>
+<tr><td style="padding:16px 18px;border-bottom:1px solid #22211c;font-weight:700;vertical-align:top;">Sender</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">Amount, note, secret, that the envelope was emptied, roughly when</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">The recipient’s destination address</td></tr>
+<tr><td style="padding:16px 18px;border-bottom:1px solid #22211c;font-weight:700;vertical-align:top;">Recipient</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">Amount, note, secret, their own wallet</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">The sender’s wallet or its history</td></tr>
+<tr><td style="padding:16px 18px;border-bottom:1px solid #22211c;font-weight:700;vertical-align:top;">CashDrop server</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">Requests for static files, basic network metadata</td><td style="padding:16px 18px;border-bottom:1px solid #22211c;color:#d6d1c1;vertical-align:top;">The link, keys, seed, amount, note, address, transaction material</td></tr>
+<tr><td style="padding:16px 18px;font-weight:700;vertical-align:top;">Messaging app</td><td style="padding:16px 18px;color:#d6d1c1;vertical-align:top;">Who talked, when, that a link was sent. The link itself if the chat isn’t end-to-end encrypted, or via previews and backups</td><td style="padding:16px 18px;color:#d6d1c1;vertical-align:top;">Anything on-chain, if the chat is properly encrypted</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="risks" style="background:#121210;">
+<div style="max-width:1120px;margin:0 auto;padding:80px 32px;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">RISKS</div>
+<h2 style="margin:12px 0 0;font-size:clamp(30px,4vw,42px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">What can go wrong, and what we do.</h2>
+<div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;">
+<div style="border:1px solid #2a2924;border-radius:18px;padding:24px;background:#0d0d0b;"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:19px;font-weight:800;letter-spacing:-0.03em;">Link interception</div><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#ff8a3d;border:1px solid #6b3416;border-radius:999px;padding:4px 10px;">HIGH</span></div><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">Anyone holding the secret can spend the funds.</p><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#d6d1c1;"><b style="color:#f4b729;">Mitigation:</b> native share sheet first, warnings on every share path, take-back until claimed.</p></div>
+<div style="border:1px solid #2a2924;border-radius:18px;padding:24px;background:#0d0d0b;"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:19px;font-weight:800;letter-spacing:-0.03em;">Link previews</div><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#f4b729;border:1px solid #5a4614;border-radius:999px;padding:4px 10px;">MEDIUM</span></div><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">Chat services may fetch or scan shared links.</p><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#d6d1c1;"><b style="color:#f4b729;">Mitigation:</b> secret lives in the # fragment, which isn’t sent in HTTP requests. Lowers risk; doesn’t remove it.</p></div>
+<div style="border:1px solid #2a2924;border-radius:18px;padding:24px;background:#0d0d0b;"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:19px;font-weight:800;letter-spacing:-0.03em;">Clipboard leakage</div><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#f4b729;border:1px solid #5a4614;border-radius:999px;padding:4px 10px;">MEDIUM</span></div><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">Other apps and clipboard history can read copied links.</p><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#d6d1c1;"><b style="color:#f4b729;">Mitigation:</b> never copy silently. Copy sits behind an explicit warning.</p></div>
+<div style="border:1px solid #2a2924;border-radius:18px;padding:24px;background:#0d0d0b;"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:19px;font-weight:800;letter-spacing:-0.03em;">Sender reclaim race</div><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#f4b729;border:1px solid #5a4614;border-radius:999px;padding:4px 10px;">BY DESIGN</span></div><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">The sender can take funds back before a claim confirms.</p><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#d6d1c1;"><b style="color:#f4b729;">Mitigation:</b> stated plainly everywhere. CashDrop is not escrow. Confirmations shown to both sides.</p></div>
+<div style="border:1px solid #2a2924;border-radius:18px;padding:24px;background:#0d0d0b;"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:19px;font-weight:800;letter-spacing:-0.03em;">Recipient malware</div><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#ff8a3d;border:1px solid #6b3416;border-radius:999px;padding:4px 10px;">HIGH</span></div><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">A compromised device can steal the link or destination.</p><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#d6d1c1;"><b style="color:#f4b729;">Mitigation:</b> outside our control. We minimise retention and clear state after claim.</p></div>
+<div style="border:1px solid #2a2924;border-radius:18px;padding:24px;background:#0d0d0b;"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:19px;font-weight:800;letter-spacing:-0.03em;">Compromised web app</div><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#ff8a3d;border:1px solid #6b3416;border-radius:999px;padding:4px 10px;">HIGH</span></div><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">A malicious deployment could exfiltrate keys.</p><p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#d6d1c1;"><b style="color:#f4b729;">Mitigation:</b> reproducible builds, pinned static assets, no third-party code, signed desktop releases.</p></div>
+</div>
+</div>
+</div>
+
+<div id="controls" style="max-width:1120px;margin:0 auto;padding:80px 32px;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">CONTROLS</div>
+<h2 style="margin:12px 0 0;font-size:clamp(30px,4vw,42px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">Built in from the first commit.</h2>
+<div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px 32px;font-size:15px;color:#d6d1c1;">
+<sc-for list="{{controls}}" as="c" hint-placeholder-count="12">
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #1d1d18;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;flex:none;margin-top:2px;fill:none;stroke:#f4b729;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg><span>{{c}}</span></div>
+</sc-for>
+</div>
+</div>
+
+<div id="limits" style="background:#f4b729;color:#15130d;">
+<div style="max-width:1120px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:48px;">
+<div>
+<h2 style="margin:0;font-size:clamp(36px,4.5vw,52px);line-height:1;font-weight:800;letter-spacing:-0.05em;">Honest limits.</h2>
+<p style="margin:16px 0 0;font-size:16px;line-height:1.55;max-width:420px;">CashDrop is a hackathon prototype. It has not been audited and should not hold amounts you can’t afford to lose.</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+<div><div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;border-top:1.5px solid #15130d;padding-top:12px;">DOES NOT HIDE</div><div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.4;"><span>That two people talked</span><span>IP addresses from every observer</span><span>Secrets on a compromised phone</span><span>Links in an insecure chat</span><span>Claim timing from every party</span></div></div>
+<div><div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;border-top:1.5px solid #15130d;padding-top:12px;">IS NOT</div><div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.4;"><span>Escrow or a smart contract</span><span>A bank or custodial service</span><span>A trustless marketplace</span><span>ZIP 324 compliant (yet)</span><span>Production-reviewed</span></div></div>
+</div>
+</div>
+</div>
+
+<div style="border-top:1px solid #1d1d18;">
+<div style="max-width:1120px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#a9a593;">
+<span>CashDrop · built on Zcash shielded payments</span>
+<div style="display:flex;gap:20px;"><a href="CashDrop.dc.html" style="color:#a9a593;" style-hover="color:#f2eee3">Home</a><a href="https://zips.z.cash/zip-0324" target="_blank" rel="noreferrer" style="color:#a9a593;" style-hover="color:#f2eee3">ZIP 324</a><a href="#" style="color:#a9a593;" style-hover="color:#f2eee3">Source code</a></div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { controls: [
+      'Secrets from a cryptographically secure random source', 'Fresh envelope per drop, never reused', 'All key operations happen on-device',
+      'Secrets kept out of query strings and server logs', 'No analytics, error reporting or third-party scripts', 'Strict Content Security Policy, no-referrer',
+      'Claim pages not cached', 'Sensitive state cleared after claim', 'Transparent destination addresses rejected',
+      'Testnet and mainnet separated visually and cryptographically', 'Funds verified on-chain before “ready to claim”', 'Explicit confirmation before broadcasting',
+      'Double submission prevented', '“Claimed” shown only after an authoritative spend', 'Secrets redacted from every error message'
+    ] };
+  }
+}
+</script>
+</body>
+</html>

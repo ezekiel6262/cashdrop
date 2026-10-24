@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:wght@400;500&display=swap">
+<style>body{margin:0;background:#070706;font-family:'Bricolage Grotesque',sans-serif;color:#f2eee3;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}button,input,textarea{font-family:inherit}a{color:#f4b729}a:hover{color:#ffc53d}input::placeholder,textarea::placeholder{color:#6f6c60}button:focus-visible,a:focus-visible{outline:2px solid #f4b729;outline-offset:2px}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:48px;padding:40px 20px;">
+
+<div style="width:230px;display:flex;flex-direction:column;gap:22px;padding-top:8px;">
+<a href="CashDrop.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+<svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg>
+<span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;color:#f2eee3;">CashDrop</span>
+</a>
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#6f6c60;">APP PROTOTYPE</div>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;color:#f4b729;margin-bottom:6px;">{{g.name}}</div>
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+<button onClick="{{it.go}}" style="text-align:left;background:{{it.bg}};color:{{it.color}};border:0;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;" style-hover="background:#1a1a15">{{it.label}}</button>
+</sc-for>
+</div>
+</sc-for>
+<div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #24231e;padding-top:16px;">
+<button onClick="{{reset}}" style="text-align:left;background:transparent;border:0;color:#a9a593;font-size:14px;padding:4px 0;cursor:pointer;" style-hover="color:#f2eee3">Reset demo</button>
+<a href="CashDrop.dc.html" style="font-size:14px;color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">← Back to website</a>
+</div>
+</div>
+
+<div style="padding:10px;border-radius:58px;background:#1b1b17;box-shadow:0 40px 120px rgba(0,0,0,.6);">
+<div style="position:relative;width:390px;height:844px;border-radius:48px;overflow:hidden;background:#0d0d0b;">
+
+<sc-if value="{{on.welcome}}" hint-placeholder-val="{{true}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<button onClick="{{nav.drops}}" style="background:transparent;border:0;color:#a9a593;font-size:16px;cursor:pointer;">Skip</button>
+</div>
+<div style="position:relative;height:300px;margin:24px -10px 0;">
+<div style="position:absolute;left:14px;right:4px;top:22px;transform:rotate(-5deg);opacity:.85;">
+<dc-import name="Envelope" variant="empty" amount="0.0500" note="" number="CD-2M8P" stamp="SEALED" hint-size="100%,220px"></dc-import>
+</div>
+<div style="position:absolute;left:8px;right:10px;top:84px;transform:rotate(3deg);">
+<dc-import name="Envelope" variant="sealed" amount="0.0100" note="Thanks for helping with the event" number="CD-7Q4K" stamp="SEALED" hint-size="100%,220px"></dc-import>
+</div>
+</div>
+<h1 style="margin:28px 0 0;font-size:34px;line-height:1.02;font-weight:800;letter-spacing:-0.045em;text-align:center;text-wrap:balance;">Cash you can hand over in a message.</h1>
+<p style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;text-align:center;text-wrap:pretty;">Seal shielded ZEC in a private link. They claim it when they’re ready, even if they don’t have a wallet yet.</p>
+<div style="flex:1;min-height:24px;"></div>
+<div style="display:flex;justify-content:center;gap:8px;margin-bottom:24px;"><span style="width:24px;height:6px;border-radius:3px;background:#f4b729;"></span><span style="width:6px;height:6px;border-radius:3px;background:#3a3930;"></span><span style="width:6px;height:6px;border-radius:3px;background:#3a3930;"></span></div>
+<button onClick="{{nav.how}}" style="height:56px;width:100%;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d" style-active="background:#e0a514">Show me how</button>
+<button onClick="{{nav.claim}}" style="height:52px;margin-top:6px;background:transparent;border:0;color:#d6d1c1;font-size:16px;cursor:pointer;" style-hover="color:#f2eee3">I received a link</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.how}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;">
+<button onClick="{{nav.welcome}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button onClick="{{nav.drops}}" style="background:transparent;border:0;color:#a9a593;font-size:16px;cursor:pointer;">Skip</button>
+</div>
+<div style="margin-top:22px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#f4b729;">HOW IT WORKS</div>
+<h1 style="margin:10px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">Three moves. No address swap.</h1>
+<div style="margin-top:40px;display:flex;flex-direction:column;">
+<div style="display:flex;gap:16px;">
+<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:48px;height:48px;border-radius:14px;background:#f4b729;color:#15130d;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></div><div style="width:2px;flex:1;background:#2e2d27;"></div></div>
+<div style="padding-bottom:28px;"><div style="font-size:21px;font-weight:800;letter-spacing:-0.03em;margin-top:2px;">Seal it</div><div style="margin-top:6px;font-size:15px;line-height:1.5;color:#cfcab9;">Pick an amount. We make a one-time shielded envelope on this device and you fund it from your wallet.</div></div>
+</div>
+<div style="display:flex;gap:16px;">
+<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:48px;height:48px;border-radius:14px;background:#26261f;color:#f4b729;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg></div><div style="width:2px;flex:1;background:#2e2d27;"></div></div>
+<div style="padding-bottom:28px;"><div style="font-size:21px;font-weight:800;letter-spacing:-0.03em;margin-top:2px;">Send it</div><div style="margin-top:6px;font-size:15px;line-height:1.5;color:#cfcab9;">Share the claim link or QR card through a private chat, or hand it over in person.</div></div>
+</div>
+<div style="display:flex;gap:16px;">
+<div style="width:48px;height:48px;border-radius:14px;background:#26261f;color:#f4b729;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg></div>
+<div><div style="font-size:21px;font-weight:800;letter-spacing:-0.03em;margin-top:2px;">They claim it</div><div style="margin-top:6px;font-size:15px;line-height:1.5;color:#cfcab9;">They open the link, see it verified on-chain, and move it to their own shielded wallet.</div></div>
+</div>
+</div>
+<div style="margin-top:32px;border:1px dashed #3a3930;border-radius:20px;padding:18px 20px;font-size:15px;line-height:1.5;color:#d6d1c1;"><b style="color:#f2eee3;">Not claimed yet?</b> You can take it back from your drops at any time before they do.</div>
+<div style="flex:1;min-height:24px;"></div>
+<div style="display:flex;justify-content:center;gap:8px;margin-bottom:24px;"><span style="width:6px;height:6px;border-radius:3px;background:#3a3930;"></span><span style="width:24px;height:6px;border-radius:3px;background:#f4b729;"></span><span style="width:6px;height:6px;border-radius:3px;background:#3a3930;"></span></div>
+<button onClick="{{nav.rule}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d" style-active="background:#e0a514">Next</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.rule}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;align-items:center;height:44px;">
+<button onClick="{{nav.how}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+</div>
+<div style="margin-top:10px;background:#f4b729;color:#15130d;border-radius:24px;padding:28px 24px 30px;">
+<div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;">THE ONE RULE</div>
+<div style="margin-top:12px;font-size:44px;line-height:.98;font-weight:800;letter-spacing:-0.05em;">The link is the money.</div>
+<div style="margin-top:14px;font-size:15px;line-height:1.5;">A CashDrop link works like a folded banknote. Whoever holds the full link can open it.</div>
+</div>
+<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;">
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="3">
+<button onClick="{{r.toggle}}" style="display:flex;gap:14px;align-items:flex-start;text-align:left;background:#1a1a15;border:0;border-radius:20px;padding:16px;color:#f2eee3;font-size:15px;line-height:1.4;cursor:pointer;" style-hover="background:#1f1f19">
+<span style="width:22px;height:22px;flex:none;border-radius:4px;background:{{r.boxBg}};border:1.5px solid {{r.boxBorder}};display:flex;align-items:center;justify-content:center;color:#15130d;">
+<sc-if value="{{r.checked}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></sc-if>
+</span>
+<span>{{r.text}}</span>
+</button>
+</sc-for>
+</div>
+<div style="margin-top:18px;display:flex;gap:12px;align-items:center;color:#a9a593;font-size:14px;"><svg viewBox="0 0 24 24" style="width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Keys are created and kept on this device only.</div>
+<div style="flex:1;min-height:24px;"></div>
+<div style="display:flex;justify-content:center;gap:8px;margin-bottom:24px;"><span style="width:6px;height:6px;border-radius:3px;background:#3a3930;"></span><span style="width:6px;height:6px;border-radius:3px;background:#3a3930;"></span><span style="width:24px;height:6px;border-radius:3px;background:#f4b729;"></span></div>
+<button onClick="{{startCreate}}" disabled="{{ruleBlocked}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;opacity:{{ruleOpacity}};" style-hover="background:#ffc53d">{{ruleCta}}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.create}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.drops}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">1 OF 3 · SEAL</span>
+<sc-if value="{{formTest}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{formMain}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin-top:22px;font-size:16px;color:#d6d1c1;">They will receive</div>
+<div style="display:flex;align-items:flex-end;gap:12px;border-bottom:2px solid #f4b729;padding-bottom:10px;margin-top:4px;">
+<input value="{{amountInput}}" onChange="{{onAmount}}" inputMode="decimal" aria-label="Amount in ZEC" style="flex:1;min-width:0;background:transparent;border:0;outline:none;color:#f2eee3;font-family:'DM Mono',monospace;font-size:54px;font-weight:500;letter-spacing:-0.03em;padding:0;line-height:1.05;">
+<span style="font-size:22px;font-weight:800;color:#f4b729;padding-bottom:8px;">ZEC</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:22px;">
+<sc-for list="{{presets}}" as="p" hint-placeholder-count="4">
+<button onClick="{{p.pick}}" style="height:44px;border-radius:999px;background:{{p.bg}};color:{{p.color}};border:1px solid {{p.border}};font-family:'DM Mono',monospace;font-size:15px;cursor:pointer;">{{p.label}}</button>
+</sc-for>
+</div>
+<div style="margin-top:22px;background:#1a1a15;border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:15px;">
+<div style="display:flex;justify-content:space-between;color:#a9a593;"><span>They receive</span><span style="font-family:'DM Mono',monospace;color:#f2eee3;">{{form.receive}} ZEC</span></div>
+<div style="display:flex;justify-content:space-between;color:#a9a593;"><span>Claim fee, reserved</span><span style="font-family:'DM Mono',monospace;color:#f2eee3;">0.0001 ZEC</span></div>
+<div style="height:1px;background:#2e2d27;margin:2px 0;"></div>
+<div style="display:flex;justify-content:space-between;font-weight:700;"><span>You fund</span><span style="font-family:'DM Mono',monospace;color:#f4b729;font-weight:500;">{{form.fund}} ZEC</span></div>
+</div>
+<div style="margin-top:24px;font-size:16px;">Private note <span style="color:#a9a593;">(optional)</span></div>
+<textarea value="{{note}}" onChange="{{onNote}}" maxLength="60" rows="2" placeholder="Thanks for helping with the event" style="margin-top:8px;width:100%;resize:none;background:#121210;border:1px solid #3a3930;border-radius:16px;padding:14px;color:#f2eee3;font-size:16px;outline:none;" style-focus="border-color:#5a4614"></textarea>
+<div style="margin-top:8px;font-size:13px;color:#a9a593;">Travels inside the link only. Never written on-chain.</div>
+<div style="margin-top:22px;font-size:16px;">Network</div>
+<div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;background:#1a1a15;border-radius:999px;padding:4px;">
+<button onClick="{{setTest}}" style="height:44px;border-radius:999px;border:0;background:{{seg.testBg}};color:{{seg.testColor}};font-size:16px;font-weight:700;cursor:pointer;">Testnet</button>
+<button onClick="{{setMain}}" style="height:44px;border-radius:999px;border:0;background:{{seg.mainBg}};color:{{seg.mainColor}};font-size:16px;font-weight:700;cursor:pointer;">Mainnet</button>
+</div>
+<div style="flex:1;min-height:28px;"></div>
+<button onClick="{{seal}}" disabled="{{form.blocked}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;opacity:{{form.opacity}};" style-hover="background:#ffc53d"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Seal the envelope</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.fund}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.drops}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">2 OF 3 · FUND</span>
+<sc-if value="{{ad.test}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{ad.main}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<h1 style="margin:22px 0 0;font-size:32px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">Fill the envelope</h1>
+<p style="margin:8px 0 0;font-size:16px;line-height:1.4;color:#d6d1c1;">Send exactly <span style="font-family:'DM Mono',monospace;color:#f4b729;font-weight:500;">{{ad.fund}} ZEC</span> from any shielded wallet.</p>
+<div style="margin:22px auto 0;width:207px;height:207px;border-radius:24px;background:#ebe4d3;padding:12px;flex:none;">{{qr}}</div>
+<div style="margin-top:20px;background:#1a1a15;border-radius:20px;padding:12px 12px 12px 16px;display:flex;align-items:center;justify-content:space-between;">
+<span style="font-family:'DM Mono',monospace;font-size:14px;color:#d6d1c1;">{{ad.tempAddr}}</span>
+<button onClick="{{copyAddr}}" aria-label="Copy address" style="width:44px;height:44px;border-radius:14px;border:1px solid #3a3930;background:transparent;color:#f2eee3;display:flex;align-items:center;justify-content:center;cursor:pointer;" style-hover="background:#26261f"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg></button>
+</div>
+<div style="margin-top:22px;display:flex;flex-direction:column;gap:18px;">
+<sc-for list="{{fundSteps}}" as="f" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:14px;font-size:16px;color:{{f.color}};font-weight:{{f.weight}};">
+<span style="width:24px;display:flex;justify-content:center;flex:none;">
+<sc-if value="{{f.active}}" hint-placeholder-val="{{false}}"><span style="width:14px;height:14px;border-radius:50%;background:#f4b729;box-shadow:0 0 0 5px #3a2e10;"></span></sc-if>
+<sc-if value="{{f.done}}" hint-placeholder-val="{{false}}"><span style="width:18px;height:18px;border-radius:50%;background:#f4b729;color:#15130d;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></span></sc-if>
+<sc-if value="{{f.pending}}" hint-placeholder-val="{{true}}"><span style="width:14px;height:14px;border-radius:50%;border:2px solid #55534a;"></span></sc-if>
+</span>
+<span>{{f.label}}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-height:24px;"></div>
+<sc-if value="{{fundReady}}" hint-placeholder-val="{{false}}">
+<button onClick="{{nav.share}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Continue to share</button>
+</sc-if>
+<sc-if value="{{fundWaiting}}" hint-placeholder-val="{{true}}">
+<button onClick="{{openWallet}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Open in my Zcash wallet</button>
+</sc-if>
+<button onClick="{{saveRecovery}}" style="margin-top:10px;height:50px;width:100%;flex:none;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;" style-hover="background:#1a1a15"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>Save recovery file</button>
+<div style="margin-top:12px;font-size:13px;color:#a9a593;text-align:center;">Closing this screen is fine. Your drop is saved on this device.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{on.share}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.drops}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">3 OF 3 · SHARE</span>
+<sc-if value="{{ad.test}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{ad.main}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin:24px auto 0;height:36px;padding:0 18px;border-radius:999px;border:1px solid #5a4614;background:#17140b;color:#f4b729;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>Funded and confirmed</div>
+<div style="margin-top:18px;">
+<dc-import name="Envelope" variant="sealed" amount="{{ad.amountStr}}" note="{{ad.note}}" number="{{ad.id}}" stamp="READY" hint-size="100%,214px"></dc-import>
+</div>
+<h2 style="margin:28px 0 0;font-size:28px;font-weight:800;letter-spacing:-0.045em;text-align:center;">Now hand it over.</h2>
+<p style="margin:8px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;text-align:center;">Pick a private channel. Whoever opens this link first can claim it.</p>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{shareLink}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;" style-hover="background:#ffc53d"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"></path></svg>Share privately</button>
+<div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<button onClick="{{sheets.qr}}" style="height:50px;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;" style-hover="background:#1a1a15"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"></path></svg>QR card</button>
+<button onClick="{{sheets.copy}}" style="height:50px;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;" style-hover="background:#1a1a15"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>Copy link</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{on.drops}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<sc-if value="{{formTest}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{formMain}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;">
+<div><h1 style="margin:0;font-size:36px;line-height:1;font-weight:800;letter-spacing:-0.045em;">Your drops</h1><div style="margin-top:8px;font-size:15px;color:#a9a593;">Saved on this device only</div></div>
+<button onClick="{{newDrop}}" style="height:44px;padding:0 20px;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;" style-hover="background:#ffc53d"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;"><path d="M12 5v14M5 12h14"></path></svg>New</button>
+</div>
+<div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div style="background:#1a1a15;border-radius:20px;padding:16px;"><div style="font-size:14px;color:#a9a593;">Waiting to be claimed</div><div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:20px;color:#f4b729;">{{stats.waiting}} ZEC</div></div>
+<div style="background:#1a1a15;border-radius:20px;padding:16px;"><div style="font-size:14px;color:#a9a593;">Claimed so far</div><div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:20px;color:#f2eee3;">{{stats.claimed}} ZEC</div></div>
+</div>
+<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;">
+<sc-for list="{{dropList}}" as="d" hint-placeholder-count="5">
+<button onClick="{{d.open}}" style="display:flex;align-items:center;gap:14px;text-align:left;width:100%;padding:14px 14px 14px 14px;border-radius:20px;border:1px solid {{d.border}};background:{{d.bg}};color:#f2eee3;cursor:pointer;" style-hover="filter:brightness(1.12)">
+<span style="width:44px;height:44px;flex:none;border-radius:12px;background:{{d.tileBg}};border:1.5px {{d.tileStyle}} {{d.tileBorder}};color:{{d.tileColor}};display:flex;align-items:center;justify-content:center;">
+<sc-if value="{{d.iMail}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></sc-if>
+<sc-if value="{{d.iClock}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></sc-if>
+<sc-if value="{{d.iCheck}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></sc-if>
+<sc-if value="{{d.iUndo}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M9 14L4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"></path></svg></sc-if>
+</span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+<span style="font-family:'DM Mono',monospace;font-size:17px;color:{{d.amtColor}};text-decoration:{{d.amtDecor}};">{{d.amountStr}} ZEC</span>
+<span style="font-size:15px;color:#a9a593;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{d.noteLabel}}</span>
+</span>
+<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none;">
+<span style="font-size:14px;font-weight:700;color:{{d.statusColor}};">{{d.label}}</span>
+<span style="font-size:14px;color:#a9a593;">{{d.when}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+<div style="flex:1;min-height:24px;"></div>
+<input type="file" accept=".json,application/json" ref="{{fileRef}}" onChange="{{onRestore}}" style="display:none;">
+<button onClick="{{pickFile}}" style="height:50px;width:100%;flex:none;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;" style-hover="background:#1a1a15"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 15V3M7 8l5-5 5 5M5 21h14"></path></svg>Restore from recovery file</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.detail}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.drops}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">DROP {{ad.id}}</span>
+<sc-if value="{{ad.test}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{ad.main}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin-top:16px;">
+<dc-import name="Envelope" variant="{{ad.variant}}" amount="{{ad.amountStr}}" note="{{ad.note}}" number="{{ad.id}}" stamp="{{ad.stamp}}" hint-size="100%,214px"></dc-import>
+</div>
+<h2 style="margin:26px 0 0;font-size:30px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">{{ad.title}}</h2>
+<div style="margin-top:6px;font-size:15px;color:#a9a593;">{{ad.sub}}</div>
+<div style="margin-top:24px;display:flex;flex-direction:column;gap:16px;">
+<sc-for list="{{ad.events}}" as="e" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:14px;font-size:16px;">
+<span style="width:12px;height:12px;border-radius:50%;flex:none;background:{{e.dot}};border:2px solid {{e.ring}};"></span>
+<span style="flex:1;color:{{e.color}};">{{e.label}}</span>
+<span style="font-size:14px;color:#a9a593;">{{e.time}}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-height:24px;"></div>
+<sc-if value="{{ad.isUnclaimed}}" hint-placeholder-val="{{true}}">
+<button onClick="{{nav.share}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Share again</button>
+<button onClick="{{sheets.takeback}}" style="margin-top:10px;height:50px;width:100%;flex:none;border-radius:999px;background:transparent;color:#ff8a3d;border:1px solid #6b3416;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;" style-hover="background:#1f130c"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M9 14L4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"></path></svg>Take it back</button>
+</sc-if>
+<sc-if value="{{ad.isDone}}" hint-placeholder-val="{{false}}">
+<button onClick="{{nav.drops}}" style="height:50px;width:100%;flex:none;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;cursor:pointer;" style-hover="background:#1a1a15">Back to your drops</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{on.claim}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<sc-if value="{{claimTest}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{claimMain}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin-top:20px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#f4b729;">FOR YOU</div>
+<h1 style="margin:8px 0 0;font-size:31px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">Someone sent you a private CashDrop.</h1>
+<div style="margin-top:22px;">
+<dc-import name="Envelope" variant="sealed" amount="0.0100" note="Thanks for helping with the event" number="CD-7Q4K" stamp="FOR YOU" hint-size="100%,214px"></dc-import>
+</div>
+<div style="margin-top:22px;background:#1a1a15;border-radius:20px;padding:18px;">
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:15px;">
+<span style="color:#a9a593;">{{verify.label}}</span>
+<sc-if value="{{verify.done}}" hint-placeholder-val="{{false}}"><span style="font-family:'DM Mono',monospace;color:#f4b729;">0.0101 ZEC inside</span></sc-if>
+</div>
+<div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;">
+<sc-for list="{{checks}}" as="c" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px;font-size:15px;color:{{c.color}};">
+<sc-if value="{{c.done}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:18px;height:18px;flex:none;fill:none;stroke:#f4b729;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></sc-if>
+<sc-if value="{{c.waiting}}" hint-placeholder-val="{{true}}"><span style="width:14px;height:14px;margin:0 2px;flex:none;border-radius:50%;border:2px solid #3a3930;border-top-color:#f4b729;"></span></sc-if>
+<span>{{c.label}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="margin-top:14px;border:1px solid #ff8a3d;background:#1f130c;border-radius:20px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4;">
+<svg viewBox="0 0 24 24" style="width:22px;height:22px;flex:none;fill:none;stroke:#ff8a3d;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"></path></svg>
+<span>Anyone with this link can claim it. Don’t forward it or screenshot it.</span>
+</div>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{nav.dest}}" disabled="{{verify.blocked}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;opacity:{{verify.opacity}};" style-hover="background:#ffc53d">Claim it</button>
+<button onClick="{{nav.welcome}}" style="height:48px;margin-top:6px;flex:none;background:transparent;border:0;color:#d6d1c1;font-size:16px;cursor:pointer;" style-hover="color:#f2eee3">What is CashDrop?</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.dest}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.claim}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.14em;color:#a9a593;">0.0100 ZEC</span>
+<sc-if value="{{claimTest}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{claimMain}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<h1 style="margin:22px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">Where should it go?</h1>
+<div style="margin-top:20px;font-size:16px;color:#d6d1c1;">Paste a shielded address</div>
+<div style="margin-top:8px;display:flex;gap:10px;align-items:flex-start;background:#121210;border:1px solid {{addrCheck.border}};border-radius:20px;padding:12px 12px 12px 14px;">
+<textarea value="{{addr}}" onChange="{{onAddr}}" rows="3" spellCheck="false" placeholder="u1…" aria-label="Shielded address" style="flex:1;min-width:0;resize:none;background:transparent;border:0;outline:none;color:#f2eee3;font-family:'DM Mono',monospace;font-size:15px;line-height:1.45;word-break:break-all;padding:4px 0 0;"></textarea>
+<button onClick="{{scanAddr}}" aria-label="Scan QR" style="width:44px;height:44px;flex:none;border-radius:14px;border:1px solid #3a3930;background:transparent;color:#f2eee3;display:flex;align-items:center;justify-content:center;cursor:pointer;" style-hover="background:#26261f"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"></path></svg></button>
+</div>
+<div style="margin-top:8px;min-height:20px;font-size:15px;line-height:1.35;color:{{addrCheck.color}};">{{addrCheck.msg}}</div>
+<div style="margin-top:12px;display:flex;align-items:center;gap:20px;color:#a9a593;font-size:15px;"><span style="flex:1;height:1px;background:#2e2d27;"></span>or<span style="flex:1;height:1px;background:#2e2d27;"></span></div>
+<button onClick="{{useWallet}}" style="margin-top:16px;display:flex;gap:14px;align-items:center;text-align:left;background:#1a1a15;border:1px solid #2e2d27;border-radius:22px;padding:14px 16px;color:#f2eee3;cursor:pointer;" style-hover="background:#1f1f19">
+<span style="width:40px;height:40px;flex:none;border-radius:12px;background:#26261f;color:#f4b729;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18M16 14h2"></path></svg></span>
+<span><span style="display:block;font-size:17px;font-weight:800;letter-spacing:-0.02em;">Open my Zcash wallet</span><span style="display:block;margin-top:2px;font-size:14px;color:#a9a593;">Use a wallet already on this phone</span></span>
+</button>
+<button onClick="{{sheets.nowallet}}" style="margin-top:10px;display:flex;gap:14px;align-items:center;text-align:left;background:transparent;border:1px dashed #5a4614;border-radius:22px;padding:14px 16px;color:#f2eee3;cursor:pointer;" style-hover="background:#14120c">
+<span style="width:40px;height:40px;flex:none;border-radius:12px;background:#1c1810;color:#f4b729;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;"><path d="M12 5v14M5 12h14"></path></svg></span>
+<span><span style="display:block;font-size:17px;font-weight:800;letter-spacing:-0.02em;">I don’t have a wallet yet</span><span style="display:block;margin-top:2px;font-size:14px;color:#a9a593;">The drop will wait while you set one up</span></span>
+</button>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{nav.review}}" disabled="{{addrCheck.blocked}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;opacity:{{addrCheck.opacity}};" style-hover="background:#ffc53d">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.review}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.dest}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">REVIEW</span>
+<sc-if value="{{claimTest}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{claimMain}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<h1 style="margin:22px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">One last look.</h1>
+<div style="position:relative;margin-top:26px;background:#ebe4d3;color:#1c1b17;border-radius:0 0 8px 8px;padding:30px 22px 22px;">
+<div style="position:absolute;left:12px;right:12px;top:-8px;display:flex;justify-content:space-between;"><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span><span style="width:16px;height:16px;border-radius:50%;background:#0d0d0b;"></span></div>
+<div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.22em;color:#5b574b;">CLAIM RECEIPT · CD-7Q4K</div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-family:'DM Mono',monospace;font-size:15px;">
+<div style="display:flex;justify-content:space-between;"><span>In the envelope</span><span>0.0101</span></div>
+<div style="display:flex;justify-content:space-between;"><span>Network fee</span><span>-0.0001</span></div>
+</div>
+<div style="margin:14px 0;border-top:1.5px dashed #a29c8a;"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:17px;font-weight:800;">You receive</span><span style="font-family:'DM Mono',monospace;font-size:30px;font-weight:500;letter-spacing:-0.02em;">0.0100 ZEC</span></div>
+<div style="margin:14px 0 10px;height:1.5px;background:#cfc7b2;"></div>
+<div style="font-size:14px;color:#5b574b;">Going to</div>
+<div style="margin-top:4px;font-family:'DM Mono',monospace;font-size:15px;">{{addrShort}}</div>
+<div style="margin-top:4px;font-size:14px;color:#5b574b;">{{destLabel}}</div>
+</div>
+<div style="margin-top:20px;display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:#d6d1c1;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;flex:none;fill:none;stroke:#f4b729;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>The transaction is built and signed on this device. The explorer will show a shielded transaction, nothing more.</div>
+<div style="flex:1;min-height:24px;"></div>
+<div style="position:relative;height:64px;flex:none;border-radius:999px;border:1px solid #5a4614;background:#17140b;overflow:hidden;">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:56px;color:#f4b729;font-size:17px;font-weight:700;opacity:{{slider.labelOpacity}};pointer-events:none;">{{slider.label}}</div>
+<div style="position:absolute;left:0;top:0;bottom:0;width:{{slider.fillW}}px;background:#2a2210;pointer-events:none;"></div>
+<button onPointerDown="{{onKnobDown}}" onKeyDown="{{onKnobKey}}" aria-label="Slide to open the envelope" style="position:absolute;left:6px;top:5px;width:52px;height:52px;border-radius:50%;background:#f4b729;color:#15130d;border:0;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;transform:translateX({{slider.x}}px);">
+<svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{on.claimed}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<sc-if value="{{claimTest}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{claimMain}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin-top:22px;">
+<dc-import name="Envelope" variant="opened" amount="0.0100" note="Thanks for helping with the event" number="CD-7Q4K" stamp="OPENED" hint-size="100%,214px"></dc-import>
+</div>
+<h1 style="margin:30px 0 0;font-size:40px;line-height:1;font-weight:800;letter-spacing:-0.05em;text-align:center;">It’s yours.</h1>
+<p style="margin:12px 0 0;font-size:16px;color:#d6d1c1;text-align:center;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">0.0100 ZEC</span> {{confirm.sub}}</p>
+<div style="margin-top:22px;background:#1a1a15;border-radius:20px;padding:18px;">
+<div style="display:flex;justify-content:space-between;font-size:15px;"><span style="color:#a9a593;">Confirmations</span><span style="font-family:'DM Mono',monospace;">{{confirm.n}} of 3</span></div>
+<div style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+<sc-for list="{{confirm.bars}}" as="b" hint-placeholder-count="3"><span style="height:5px;border-radius:3px;background:{{b.bg}};"></span></sc-for>
+</div>
+<div style="margin-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:15px;"><span style="font-family:'DM Mono',monospace;color:#d6d1c1;">tx 4c7e…a91b</span><a href="#" onClick="{{explorer}}" style="color:#f4b729;">View on explorer</a></div>
+</div>
+<div style="margin-top:20px;display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:#d6d1c1;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;flex:none;fill:none;stroke:#a9a593;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1l1-13M9 7V4h6v3"></path></svg>This link is now empty. You can delete the message it came in.</div>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{openWallet}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Open my wallet</button>
+<button onClick="{{newDrop}}" style="margin-top:10px;height:50px;width:100%;flex:none;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;cursor:pointer;" style-hover="background:#1a1a15">Send a CashDrop of your own</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.empty}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div>
+</div>
+<div style="margin:64px -4px 0;transform:rotate(-4deg);">
+<dc-import name="Envelope" variant="empty" amount="0.0000" note="Thanks for helping with the event" number="CD-7Q4K" stamp="EMPTY" hint-size="100%,214px"></dc-import>
+</div>
+<h1 style="margin:40px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;text-align:center;">This envelope is already empty.</h1>
+<p style="margin:12px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;text-align:center;text-wrap:pretty;">The money in this link has already moved on-chain. If it wasn’t you, ask the sender: they may have taken it back, or the link reached someone else first.</p>
+<div style="margin-top:22px;background:#1a1a15;border-radius:20px;padding:16px 18px;display:flex;justify-content:space-between;font-size:15px;"><span style="color:#a9a593;">Status checked</span><span>{{checkedAt}}</span></div>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{nav.welcome}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Got it</button>
+<button onClick="{{checkAgain}}" style="height:48px;margin-top:6px;flex:none;background:transparent;border:0;color:#d6d1c1;font-size:16px;cursor:pointer;" style-hover="color:#f2eee3">Check again</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.wrongnet}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;background:repeating-linear-gradient(-45deg,#0d0d0b 0 18px,#131311 18px 20px);">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div>
+</div>
+<div style="margin-top:130px;width:66px;height:66px;border-radius:18px;border:1.5px dashed #6ec1ff;color:#6ec1ff;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"></path></svg></div>
+<div style="margin-top:26px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#6ec1ff;">TEST MONEY</div>
+<h1 style="margin:8px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">This drop holds testnet ZEC.</h1>
+<p style="margin:12px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">Testnet coins are for trying things out and have no value. To claim it you need a testnet shielded address, starting with utest1.</p>
+<div style="margin-top:22px;background:#0f1720;border:1px solid #24384a;border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:15px;">
+<div style="display:flex;justify-content:space-between;"><span style="color:#a9a593;">This link</span><span style="color:#6ec1ff;">Testnet</span></div>
+<div style="display:flex;justify-content:space-between;"><span style="color:#a9a593;">Your app</span><span style="color:#f4b729;">Mainnet</span></div>
+</div>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{switchTestnet}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#6ec1ff;color:#0b1620;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#8fd0ff">Switch to testnet and claim</button>
+<button onClick="{{nav.welcome}}" style="height:48px;margin-top:6px;flex:none;background:transparent;border:0;color:#d6d1c1;font-size:16px;cursor:pointer;" style-hover="color:#f2eee3">Not now</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.wseed}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.dest}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">NEW WALLET · 1 OF 2</span>
+<span style="width:34px;"></span>
+</div>
+<h1 style="margin:22px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">Your recovery phrase.</h1>
+<p style="margin:10px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">These 12 words are your wallet. Write them on paper, in order. Anyone with them controls your money, so never type them into a chat.</p>
+<div style="position:relative;margin-top:22px;">
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;filter:{{seed.blur}};">
+<sc-for list="{{seed.words}}" as="w" hint-placeholder-count="12">
+<div style="background:#1a1a15;border-radius:12px;padding:10px 10px;display:flex;gap:8px;align-items:baseline;font-family:'DM Mono',monospace;"><span style="font-size:11px;color:#6f6c60;">{{w.n}}</span><span style="font-size:15px;">{{w.word}}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{seed.hidden}}" hint-placeholder-val="{{true}}">
+<button onClick="{{revealSeed}}" style="position:absolute;inset:0;background:rgba(13,13,11,.35);border:1px dashed #5a4614;border-radius:16px;color:#f2eee3;font-size:16px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:26px;height:26px;fill:none;stroke:#f4b729;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>Tap to reveal<span style="font-size:13px;font-weight:400;color:#a9a593;">Make sure nobody can see your screen</span></button>
+</sc-if>
+</div>
+<div style="margin-top:14px;display:flex;gap:12px;align-items:center;color:#a9a593;font-size:14px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Created on this phone. CashDrop never sees it.</div>
+<button onClick="{{toggleSaved}}" style="margin-top:18px;display:flex;gap:14px;align-items:center;text-align:left;background:#1a1a15;border:0;border-radius:18px;padding:16px;color:#f2eee3;font-size:15px;cursor:pointer;">
+<span style="width:22px;height:22px;flex:none;border-radius:4px;background:{{seed.boxBg}};border:1.5px solid {{seed.boxBorder}};display:flex;align-items:center;justify-content:center;color:#15130d;"><sc-if value="{{seed.saved}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></sc-if></span>
+I wrote all 12 words down on paper
+</button>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{nav.wcheck}}" disabled="{{seed.blocked}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;opacity:{{seed.opacity}};" style-hover="background:#ffc53d">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{on.wcheck}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<button onClick="{{nav.wseed}}" style="width:44px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#f2eee3;cursor:pointer;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#a9a593;">NEW WALLET · 2 OF 2</span>
+<span style="width:34px;"></span>
+</div>
+<h1 style="margin:22px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">Quick check.</h1>
+<p style="margin:10px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">Look at your paper. Which word was <b style="color:#f4b729;">number 4</b>?</p>
+<div style="margin-top:28px;display:flex;flex-direction:column;gap:10px;">
+<sc-for list="{{seedPick}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" style="height:56px;border-radius:18px;background:{{o.bg}};border:1px solid {{o.border}};color:#f2eee3;font-family:'DM Mono',monospace;font-size:18px;cursor:pointer;" style-hover="background:#1f1f19">{{o.word}}</button>
+</sc-for>
+</div>
+<div style="margin-top:14px;min-height:20px;font-size:15px;color:{{seedMsg.color}};">{{seedMsg.text}}</div>
+<div style="flex:1;min-height:24px;"></div>
+<div style="background:#1a1a15;border-radius:20px;padding:16px 18px;font-size:14px;line-height:1.5;color:#d6d1c1;">Once confirmed, we fill in your new shielded address and take you back to your CashDrop.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{on.state}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:28px 24px;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;flex:none;">
+<div style="display:flex;align-items:center;gap:10px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></div>
+<sc-if value="{{st.test}}" hint-placeholder-val="{{false}}"><div style="height:30px;padding:0 12px;border:1.5px dashed #6ec1ff;border-radius:999px;display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#6ec1ff;">TESTNET</div></sc-if>
+<sc-if value="{{st.main}}" hint-placeholder-val="{{true}}"><div style="height:30px;padding:0 12px;border:1.5px solid #f4b729;border-radius:999px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.16em;color:#f4b729;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>MAINNET</div></sc-if>
+</div>
+<div style="margin-top:120px;width:66px;height:66px;border-radius:18px;border:1.5px solid {{st.color}};color:{{st.color}};display:flex;align-items:center;justify-content:center;">
+<sc-if value="{{st.iAlert}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"></path></svg></sc-if>
+<sc-if value="{{st.iClock}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></sc-if>
+<sc-if value="{{st.iCoins}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><circle cx="9" cy="9" r="6"></circle><path d="M15.5 3.6A6 6 0 1 1 11 20.5M9 6v6M7 9h4"></path></svg></sc-if>
+<sc-if value="{{st.iLink}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg></sc-if>
+<sc-if value="{{st.iWifi}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 5.2-2.8M19 13a10 10 0 0 0-2.3-1.6M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8A15 15 0 0 0 11 5M12 20h.01"></path></svg></sc-if>
+</div>
+<div style="margin-top:26px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:{{st.color}};">{{st.eyebrow}}</div>
+<h1 style="margin:8px 0 0;font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-0.045em;">{{st.title}}</h1>
+<p style="margin:12px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">{{st.body}}</p>
+<div style="margin-top:22px;background:#1a1a15;border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:15px;">
+<sc-for list="{{st.rows}}" as="r" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px;"><span style="color:#a9a593;">{{r.k}}</span><span style="font-family:'DM Mono',monospace;font-size:14px;color:{{r.c}};text-align:right;">{{r.v}}</span></div></sc-for>
+</div>
+<div style="flex:1;min-height:24px;"></div>
+<button onClick="{{st.onPrimary}}" style="height:56px;width:100%;flex:none;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">{{st.primary}}</button>
+<button onClick="{{st.onSecondary}}" style="height:48px;margin-top:6px;flex:none;background:transparent;border:0;color:#d6d1c1;font-size:16px;cursor:pointer;" style-hover="color:#f2eee3">{{st.secondary}}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{sheetOpen}}" hint-placeholder-val="{{false}}">
+<div onClick="{{closeSheet}}" style="position:absolute;inset:0;z-index:20;background:rgba(5,5,4,.66);"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:21;background:#1a1a15;border-radius:32px 32px 0 0;padding:12px 24px 28px;display:flex;flex-direction:column;">
+<div style="width:40px;height:4px;border-radius:2px;background:#3a3930;margin:0 auto 22px;"></div>
+<sc-if value="{{sheet.takeback}}" hint-placeholder-val="{{false}}">
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-0.045em;">Take back {{ad.amountStr}} ZEC?</h2>
+<p style="margin:12px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">The money moves back to your wallet and the link stops working. If they claim at the same moment, whichever transaction confirms first wins.</p>
+<div style="margin-top:18px;background:#0d0d0b;border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:15px;">
+<div style="display:flex;justify-content:space-between;"><span style="color:#a9a593;">Returns to</span><span style="font-family:'DM Mono',monospace;">{{ad.returnAddr}}</span></div>
+<div style="display:flex;justify-content:space-between;"><span style="color:#a9a593;">Network fee</span><span style="font-family:'DM Mono',monospace;">0.0001 ZEC</span></div>
+</div>
+<button onClick="{{takeBack}}" style="margin-top:18px;height:56px;width:100%;border-radius:999px;background:#ff8a3d;color:#1a0e06;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ff9d5c">Yes, take it back</button>
+<button onClick="{{closeSheet}}" style="height:52px;margin-top:4px;background:transparent;border:0;color:#f2eee3;font-size:16px;cursor:pointer;">Keep it waiting</button>
+</sc-if>
+<sc-if value="{{sheet.qr}}" hint-placeholder-val="{{false}}">
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-0.045em;">QR card</h2>
+<p style="margin:8px 0 0;font-size:15px;line-height:1.5;color:#d6d1c1;">Print it, fold it into a card, hand it over. Whoever scans it can claim it, so keep it out of photos.</p>
+<div style="margin:18px auto 0;width:220px;height:220px;border-radius:24px;background:#ebe4d3;padding:14px;">{{claimQr}}</div>
+<div style="margin-top:12px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.2em;color:#a9a593;">{{ad.id}} · {{ad.amountStr}} ZEC</div>
+<button onClick="{{printCard}}" style="margin-top:18px;height:56px;width:100%;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Print card</button>
+<button onClick="{{closeSheet}}" style="height:52px;margin-top:4px;background:transparent;border:0;color:#f2eee3;font-size:16px;cursor:pointer;">Done</button>
+</sc-if>
+<sc-if value="{{sheet.copy}}" hint-placeholder-val="{{false}}">
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-0.045em;">Copy the money?</h2>
+<p style="margin:10px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">Copying puts the full link on your clipboard, where other apps and clipboard history can read it. Sharing directly is safer.</p>
+<div style="margin-top:16px;border:1px solid #ff8a3d;background:#1f130c;border-radius:18px;padding:12px 14px;font-family:'DM Mono',monospace;font-size:13px;color:#f4b729;word-break:break-all;">cashdrop.example/claim#{{ad.secretMask}}</div>
+<button onClick="{{shareLink}}" style="margin-top:18px;height:56px;width:100%;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Share privately instead</button>
+<button onClick="{{copyLink}}" style="margin-top:10px;height:50px;width:100%;border-radius:999px;background:transparent;color:#f2eee3;border:1px solid #3a3930;font-size:16px;cursor:pointer;" style-hover="background:#26261f">Copy anyway</button>
+</sc-if>
+<sc-if value="{{sheet.nowallet}}" hint-placeholder-val="{{false}}">
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-0.045em;">The drop will wait.</h2>
+<p style="margin:10px 0 0;font-size:16px;line-height:1.5;color:#d6d1c1;">Install any Zcash wallet that supports shielded addresses and back up its recovery phrase. Then open this link again and paste your new address.</p>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;font-size:15px;color:#d6d1c1;">
+<div style="display:flex;gap:12px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">01</span>Keep this message. The link is the money.</div>
+<div style="display:flex;gap:12px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">02</span>Set up a shielded wallet.</div>
+<div style="display:flex;gap:12px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">03</span>Come back and claim. The sender can still take it back until you do.</div>
+</div>
+<button onClick="{{nav.wseed}}" style="margin-top:22px;height:56px;width:100%;border-radius:999px;background:#f4b729;color:#15130d;border:0;font-size:17px;font-weight:700;cursor:pointer;" style-hover="background:#ffc53d">Create a wallet on this phone</button>
+<button onClick="{{closeSheet}}" style="height:52px;margin-top:4px;background:transparent;border:0;color:#f2eee3;font-size:16px;cursor:pointer;">I’ll do it later</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div style="position:absolute;left:24px;right:24px;bottom:120px;z-index:30;display:flex;justify-content:center;pointer-events:none;"><div style="background:#f2eee3;color:#15130d;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4);text-align:center;">{{toast}}</div></div>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  static SCREENS = ['welcome','how','rule','create','fund','share','drops','detail','claim','dest','review','claimed','empty','wrongnet','wseed','wcheck','state'];
+  static SEED = ['orbit','canvas','lantern','meadow','pilot','harbor','velvet','cobalt','summit','ember','quiet','willow'];
+  static STATES = {
+    underfunded:{ net:'testnet', icon:'coins', color:'#f4b729', eyebrow:'NOT ENOUGH YET', title:'The envelope is a little short.', body:'We received less than the exact amount, so the link isn’t ready. Top it up, or take back what’s there.', rows:[['Expected','0.0101 ZEC'],['Received','0.0080 ZEC','#ff8a3d'],['Still needed','0.0021 ZEC','#f4b729']], primary:'Send the remaining 0.0021 ZEC', p:'toast:Opening your wallet for 0.0021 ZEC…', secondary:'Take back what’s there', s:'toast:Taking back 0.0080 ZEC…' },
+    overfunded:{ net:'testnet', icon:'coins', color:'#f4b729', eyebrow:'A LITTLE EXTRA', title:'You sent more than needed.', body:'The envelope holds more than you planned. They can claim all of it, or you can take the extra back before you share.', rows:[['Planned','0.0101 ZEC'],['Received','0.0200 ZEC','#f4b729'],['Extra','0.0099 ZEC']], primary:'Keep it, they get 0.0199 ZEC', p:'share', secondary:'Take back the extra', s:'toast:Returning 0.0099 ZEC to your wallet…' },
+    lostrace:{ net:'mainnet', icon:'alert', color:'#ff8a3d', eyebrow:'SOMEONE GOT THERE FIRST', title:'Your claim didn’t go through.', body:'Another transaction emptied this envelope before yours confirmed. The sender may have taken it back, or the link reached someone else. Nothing left your wallet.', rows:[['Your claim','Rejected by the network'],['Envelope','Empty']], primary:'Got it', p:'welcome', secondary:'What happened?', s:'toast:First confirmed transaction wins. Ask the sender.' },
+    expired:{ net:'mainnet', icon:'clock', color:'#f4b729', eyebrow:'TIMED OUT', title:'Your claim expired before it landed.', body:'The network didn’t include your transaction in time. Nothing moved: the money is still in the envelope.', rows:[['Envelope','0.0101 ZEC inside','#f4b729'],['Your claim','Expired, block 2,814,330']], primary:'Try claiming again', p:'review', secondary:'Not now', s:'welcome' },
+    version:{ net:'mainnet', icon:'link', color:'#6ec1ff', eyebrow:'NEWER LINK', title:'This link needs a newer CashDrop.', body:'It was made with a version this app can’t read yet. The money is safe. Update CashDrop, then open the link again.', rows:[['Link version','v2'],['This app reads','v1']], primary:'Update CashDrop', p:'toast:Checking for updates…', secondary:'Not now', s:'welcome' },
+    offline:{ net:'mainnet', icon:'wifi', color:'#a9a593', eyebrow:'NO CONNECTION', title:'Can’t reach the Zcash network.', body:'We can’t check the envelope right now, so we won’t call it ready. Your link is fine. Try again when you’re back online.', rows:[['Last checked','Not yet'],['Your link','Unchanged, still works']], primary:'Try again', p:'claim', secondary:'Not now', s:'welcome' }
+  };
+  static initDrops() {
+    return [
+      { id:'CD-7Q4K', amount:0.01, note:'Thanks for helping with the event', status:'unclaimed', net:'testnet', when:'2 days', ago:'2 days ago', sealed:'Oct 22, 14:03', funded:'Oct 22, 14:11', ended:'' },
+      { id:'CD-3H8N', amount:0.05, note:'Happy birthday', status:'funding', net:'testnet', when:'Today', sealed:'Oct 24, 09:40', funded:'', ended:'' },
+      { id:'CD-9KX2', amount:0.02, note:'Refund, order 1042', status:'claimed', net:'testnet', when:'Oct 19', sealed:'Oct 18, 16:20', funded:'Oct 18, 16:31', ended:'Oct 19, 08:02' },
+      { id:'CD-5TBW', amount:0.005, note:'Coffee on me', status:'claimed', net:'testnet', when:'Oct 12', sealed:'Oct 12, 10:05', funded:'Oct 12, 10:12', ended:'Oct 12, 13:47' },
+      { id:'CD-2M8P', amount:0.01, note:'Sent to the wrong chat', status:'reclaimed', net:'testnet', when:'Oct 8', sealed:'Oct 8, 19:22', funded:'Oct 8, 19:30', ended:'Oct 8, 19:41' }
+    ];
+  }
+  state = {
+    screen:'welcome', sheet:null, toast:'', agree:[false,false,false],
+    amountInput:'0.0100', note:'', net:'testnet', drops:Component.initDrops(), activeId:'CD-7Q4K',
+    fundStage:0, checks:0, stateId:'offline', seedShown:false, seedSaved:false, seedPick:null, claimNet:'mainnet', claimSpent:false, addr:'', slide:0, claiming:false, confirms:1, checkedAt:'From the chain, just now'
+  };
+  timers = [];
+  fileRef = React.createRef();
+  qrCache = {};
+
+  componentDidMount() {
+    const h = (location.hash || '').slice(1);
+    this.go(Component.SCREENS.includes(h) ? h : 'welcome');
+  }
+  componentWillUnmount() { this.clear(); clearTimeout(this.tt); }
+  clear() { this.timers.forEach(t => { clearTimeout(t); clearInterval(t); }); this.timers = []; }
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  every(fn, ms) { this.timers.push(setInterval(fn, ms)); }
+  toast(msg) { this.setState({ toast: msg }); clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast: '' }), 2600); }
+  fmt(n) { return (Math.round(Number(n) * 10000) / 10000).toFixed(4); }
+  upd(id, patch) { this.setState(s => ({ drops: s.drops.map(d => d.id === id ? { ...d, ...patch } : d) })); }
+  active() { return this.state.drops.find(d => d.id === this.state.activeId) || this.state.drops[0]; }
+  now() { const d = new Date(); return d.toLocaleString('en-US', { month:'short', day:'numeric' }) + ', ' + d.toTimeString().slice(0,5); }
+
+  go(screen) {
+    this.clear();
+    if (screen === 'claim' && this.state.claimSpent) screen = 'empty';
+    const p = { screen, sheet:null };
+    if (screen === 'fund') {
+      p.fundStage = 0;
+      const id = this.state.activeId;
+      this.later(() => this.setState({ fundStage:1 }), 3000);
+      this.later(() => { this.setState({ fundStage:2 }); this.upd(id, { status:'unclaimed', funded:this.now(), when:'Just now', ago:'just now' }); }, 6500);
+    }
+    if (screen === 'claim') { p.checks = 0; this.every(() => this.setState(s => ({ checks: Math.min(4, s.checks + 1) })), 420); }
+    if (screen === 'review') { p.slide = 0; p.claiming = false; }
+    if (screen === 'wseed') { p.seedShown = false; p.seedSaved = false; }
+    if (screen === 'wcheck') { p.seedPick = null; }
+    if (screen === 'claimed') { p.confirms = 1; this.every(() => this.setState(s => ({ confirms: Math.min(3, s.confirms + 1) })), 2400); }
+    this.setState(p);
+    try { history.replaceState(null, '', '#' + screen); } catch (e) {}
+  }
+
+  qrSvg(seed) {
+    if (this.qrCache[seed]) return this.qrCache[seed];
+    const N = 25; let s = 0; for (const ch of seed) s = (s * 31 + ch.charCodeAt(0)) % 233280;
+    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    const inF = (x, y) => (x < 8 && y < 8) || (x >= N - 8 && y < 8) || (x < 8 && y >= N - 8);
+    const kids = []; const ink = '#15130d'; const paper = '#ebe4d3';
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!inF(x, y) && rnd() < 0.46) kids.push(React.createElement('rect', { key:x+'-'+y, x, y, width:1.02, height:1.02, fill:ink }));
+    [[0,0],[N-7,0],[0,N-7]].forEach(([x,y], i) => {
+      kids.push(React.createElement('rect', { key:'a'+i, x, y, width:7, height:7, fill:ink }));
+      kids.push(React.createElement('rect', { key:'b'+i, x:x+1, y:y+1, width:5, height:5, fill:paper }));
+      kids.push(React.createElement('rect', { key:'c'+i, x:x+2, y:y+2, width:3, height:3, fill:ink }));
+    });
+    return (this.qrCache[seed] = React.createElement('svg', { viewBox:`0 0 ${N} ${N}`, shapeRendering:'crispEdges', style:{ width:'100%', height:'100%', display:'block' } }, kids));
+  }
+
+  validate(a, net) {
+    a = a.trim().toLowerCase();
+    if (!a) return { ok:false, tone:'none', msg:'' };
+    if (/^t[13m]/.test(a)) return { ok:false, tone:'err', msg:'That’s a transparent address. CashDrop only sends to shielded addresses.' };
+    const isTest = a.startsWith('utest1') || a.startsWith('ztestsapling1');
+    const isMain = !isTest && (a.startsWith('u1') || a.startsWith('zs1'));
+    if (net === 'mainnet' && isTest) return { ok:false, tone:'err', msg:'That’s a testnet address. This drop holds mainnet ZEC.' };
+    if (net === 'testnet' && isMain) return { ok:false, tone:'err', msg:'That’s a mainnet address. This drop holds testnet ZEC.' };
+    if ((isTest || isMain) && a.length >= 40 && /^[a-z0-9]+$/.test(a)) return { ok:true, tone:'ok', msg:`Shielded ${net} address. Looks good.` };
+    return { ok:false, tone:'warn', msg:'That doesn’t look like a complete shielded address yet.' };
+  }
+  sampleAddr() { return (this.state.claimNet === 'testnet' ? 'utest1' : 'u1') + 'qk8f3z0n7d2ywl5r9xv4ct6aj0e8mhs2p7uqg3n9fz5kd'; }
+
+  decorate(d) {
+    const M = {
+      unclaimed:{ label:'Unclaimed', statusColor:'#f4b729', border:'#5a4614', bg:'#14120c', tileBg:'#f4b729', tileBorder:'#f4b729', tileStyle:'solid', tileColor:'#15130d', icon:'mail', stamp:'UNCLAIMED', variant:'sealed', title:'Waiting to be claimed' },
+      funding:{ label:'Needs funding', statusColor:'#6ec1ff', border:'#1a1a15', bg:'#1a1a15', tileBg:'transparent', tileBorder:'#6ec1ff', tileStyle:'dashed', tileColor:'#6ec1ff', icon:'clock', stamp:'UNFUNDED', variant:'sealed', title:'Needs funding' },
+      claimed:{ label:'Claimed', statusColor:'#f2eee3', border:'#1a1a15', bg:'#1a1a15', tileBg:'#ebe4d3', tileBorder:'#ebe4d3', tileStyle:'solid', tileColor:'#15130d', icon:'check', stamp:'CLAIMED', variant:'opened', title:'Claimed' },
+      reclaiming:{ label:'Taking back…', statusColor:'#ff8a3d', border:'#4a2a14', bg:'transparent', tileBg:'#26261f', tileBorder:'#26261f', tileStyle:'solid', tileColor:'#ff8a3d', icon:'undo', stamp:'RETURNING', variant:'sealed', title:'Taking it back…' },
+      reclaimed:{ label:'Taken back', statusColor:'#d6d1c1', border:'#2e2d27', bg:'transparent', tileBg:'#26261f', tileBorder:'#26261f', tileStyle:'solid', tileColor:'#a9a593', icon:'undo', stamp:'TAKEN BACK', variant:'empty', title:'Taken back', strike:true }
+    };
+    const m = M[d.status]; const amt = this.fmt(d.amount); const fund = this.fmt(d.amount + 0.0001);
+    const ev = (label, time, done) => ({ label, time, dot: done ? '#f4b729' : 'transparent', ring: done ? '#f4b729' : '#55534a', color: done ? '#f2eee3' : '#a9a593' });
+    const events = {
+      unclaimed:[ev('Sealed', d.sealed, 1), ev('Funded', d.funded, 1), ev('Waiting for them to claim', '', 0)],
+      funding:[ev('Sealed', d.sealed, 1), ev('Waiting for funding', '', 0)],
+      claimed:[ev('Sealed', d.sealed, 1), ev('Funded', d.funded, 1), ev('Claimed on-chain', d.ended, 1)],
+      reclaiming:[ev('Sealed', d.sealed, 1), ev('Funded', d.funded, 1), ev('Taking back, waiting for confirmation', '', 0)],
+      reclaimed:[ev('Sealed', d.sealed, 1), ev('Funded', d.funded, 1), ev('Taken back', d.ended, 1)]
+    }[d.status];
+    const sub = {
+      unclaimed:`Funded ${d.ago || 'recently'} · ${amt} ZEC inside`, funding:`Waiting for ${fund} ZEC`,
+      claimed:`Moved to their wallet · ${d.ended}`, reclaiming:'Signed on this device, waiting for the chain',
+      reclaimed:`Back in your wallet · ${d.ended}`
+    }[d.status];
+    let seed = 0; for (const c of d.id) seed += c.charCodeAt(0);
+    return { ...d, ...m, amountStr:amt, fund, events, sub, noteLabel: d.note || 'No note',
+      iMail:m.icon==='mail', iClock:m.icon==='clock', iCheck:m.icon==='check', iUndo:m.icon==='undo',
+      amtColor: m.strike ? '#a9a593' : '#f2eee3', amtDecor: m.strike ? 'line-through' : 'none',
+      isUnclaimed: d.status === 'unclaimed', isDone: d.status !== 'unclaimed' && d.status !== 'funding',
+      test: d.net === 'testnet', main: d.net === 'mainnet',
+      tempAddr: (d.net === 'testnet' ? 'utest1' : 'u1') + 'qx9d3f…7lk' + (seed % 9) + 'm7',
+      returnAddr: (d.net === 'testnet' ? 'utest1' : 'u1') + 'm4k…x09p',
+      secretMask: 'k' + d.id.slice(3).toLowerCase() + '••••••••••••' };
+  }
+
+  renderVals() {
+    const S = this.state; const go = n => () => this.go(n);
+    const nav = {}; Component.SCREENS.forEach(n => nav[n] = go(n));
+    const on = {}; Component.SCREENS.forEach(n => on[n] = S.screen === n);
+    const ad = this.decorate(this.active());
+    const amtNum = parseFloat(S.amountInput) || 0;
+    const formOk = amtNum > 0 && amtNum <= 100;
+    const presets = ['0.005','0.01','0.05','0.1'].map(v => {
+      const act = Math.abs(parseFloat(v) - amtNum) < 1e-9;
+      return { label:v, bg: act ? '#f4b729' : 'transparent', color: act ? '#15130d' : '#f2eee3', border: act ? '#f4b729' : '#3a3930', pick: () => this.setState({ amountInput: this.fmt(v) }) };
+    });
+    const rulesTxt = ['Anyone with the full link can claim it, so I’ll never post it publicly.', 'I’ll share links only in end-to-end encrypted chats or in person.', 'Once a drop is claimed, nobody can reverse it. Not even CashDrop.'];
+    const allAgreed = S.agree.every(Boolean);
+    const rules = rulesTxt.map((text, i) => ({ text, checked: S.agree[i], boxBg: S.agree[i] ? '#f4b729' : 'transparent', boxBorder: S.agree[i] ? '#f4b729' : '#55534a',
+      toggle: () => this.setState(s => ({ agree: s.agree.map((v, j) => j === i ? !v : v) })) }));
+    const fs = S.fundStage;
+    const fundSteps = ['Waiting for your payment', 'Payment detected', 'Confirmed and ready to share'].map((label, i) => {
+      const done = i < fs || (fs === 2 && i === 2); const active = i === fs && !done;
+      return { label, done, active, pending: !done && !active, color: done || active ? '#f2eee3' : '#a9a593', weight: active ? 700 : 400 };
+    });
+    const checkLabels = ['Right network', 'Link intact', 'Funds confirmed', 'Not yet claimed'];
+    const checks = checkLabels.map((label, i) => ({ label, done: i < S.checks, waiting: i >= S.checks, color: i < S.checks ? '#f2eee3' : '#a9a593' }));
+    const verified = S.checks >= 4;
+    const v = this.validate(S.addr, S.claimNet);
+    const toneColor = { ok:'#f4b729', err:'#ff8a3d', warn:'#a9a593', none:'#a9a593' }[v.tone];
+    const toneBorder = { ok:'#5a4614', err:'#7a3c18', warn:'#3a3930', none:'#3a3930' }[v.tone];
+    const max = 278; const pct = S.slide / max;
+    const sum = st => this.fmt(S.drops.filter(d => st.includes(d.status)).reduce((a, d) => a + d.amount, 0));
+    const a = S.addr.trim();
+    const groups = [
+      { name:'ONBOARDING', items:[['welcome','01 Welcome'],['how','02 How it works'],['rule','03 The one rule']] },
+      { name:'SEND', items:[['create','1 Create'],['fund','2 Fund'],['share','3 Share'],['drops','4 My drops'],['detail','5 Drop detail']] },
+      { name:'CLAIM', items:[['claim','1 Open link'],['dest','2 Destination'],['review','3 Review'],['claimed','4 Claimed']] },
+      { name:'NEW WALLET', items:[['wseed','1 Recovery phrase'],['wcheck','2 Quick check']] },
+      { name:'STATES', items:[['empty','Already empty'],['wrongnet','Wrong network'],['s:underfunded','Underfunded'],['s:overfunded','Overfunded'],['s:lostrace','Claim lost'],['s:expired','Claim expired'],['s:version','Unsupported link'],['s:offline','Network down']] }
+    ].map(g => ({ name:g.name, items:g.items.map(([id, label]) => {
+      const isState = id.startsWith('s:'); const sid = id.slice(2);
+      const act = isState ? (S.screen === 'state' && S.stateId === sid) : S.screen === id;
+      return { label, go: () => { if (isState) { this.setState({ stateId:sid }); this.go('state'); return; } if (id === 'claim') this.setState({ claimSpent:false }); if (id === 'detail') this.setState({ activeId:'CD-7Q4K' }); this.go(id); },
+      bg: act ? '#1f1c12' : 'transparent', color: act ? '#f4b729' : '#d6d1c1' }; }) }));
+    const run = x => () => { if (x.startsWith('toast:')) this.toast(x.slice(6)); else this.go(x); };
+    const sc = Component.STATES[S.stateId] || Component.STATES.offline;
+    const st = { ...sc, test: sc.net === 'testnet', main: sc.net === 'mainnet',
+      iAlert: sc.icon === 'alert', iClock: sc.icon === 'clock', iCoins: sc.icon === 'coins', iLink: sc.icon === 'link', iWifi: sc.icon === 'wifi',
+      rows: sc.rows.map(([k, v, c]) => ({ k, v, c: c || '#f2eee3' })), onPrimary: run(sc.p), onSecondary: run(sc.s) };
+    const seedOk = S.seedShown && S.seedSaved;
+    const seedPick = ['harbor','meadow','ember'].map(word => {
+      const picked = S.seedPick === word; const right = word === Component.SEED[3];
+      return { word, bg: picked ? (right ? '#17140b' : '#1f130c') : '#1a1a15', border: picked ? (right ? '#f4b729' : '#ff8a3d') : '#2e2d27',
+        pick: () => {
+          this.setState({ seedPick: word });
+          if (right) this.later(() => { this.setState({ addr: this.sampleAddr() }); this.go('dest'); this.toast('Wallet created. Your new address is filled in.'); }, 700);
+        } };
+    });
+    const seedMsg = S.seedPick == null ? { text:'', color:'#a9a593' } : S.seedPick === Component.SEED[3] ? { text:'That’s right.', color:'#f4b729' } : { text:'Not quite. Check your paper and try again.', color:'#ff8a3d' };
+    const url = 'https://cashdrop.example/claim#' + ad.secretMask.replace(/•/g, 'x');
+
+    return {
+      on, nav, groups, ad, rules, presets, fundSteps, checks, st, seedPick, seedMsg,
+      seed: { words: Component.SEED.map((word, i) => ({ word, n: String(i + 1).padStart(2, '0') })), hidden: !S.seedShown, blur: S.seedShown ? 'none' : 'blur(7px)',
+        saved: S.seedSaved, boxBg: S.seedSaved ? '#f4b729' : 'transparent', boxBorder: S.seedSaved ? '#f4b729' : '#55534a', blocked: !seedOk, opacity: seedOk ? 1 : 0.45 },
+      revealSeed: () => this.setState({ seedShown:true }),
+      toggleSaved: () => this.setState(s => ({ seedSaved: !s.seedSaved })),
+      toast: S.toast, hasToast: !!S.toast, sheetOpen: !!S.sheet,
+      sheet: { takeback: S.sheet === 'takeback', qr: S.sheet === 'qr', copy: S.sheet === 'copy', nowallet: S.sheet === 'nowallet' },
+      sheets: { takeback: () => this.setState({ sheet:'takeback' }), qr: () => this.setState({ sheet:'qr' }), copy: () => this.setState({ sheet:'copy' }), nowallet: () => this.setState({ sheet:'nowallet' }) },
+      closeSheet: () => this.setState({ sheet:null }),
+      reset: () => { this.setState({ drops: Component.initDrops(), activeId:'CD-7Q4K', agree:[false,false,false], amountInput:'0.0100', note:'', net:'testnet', claimNet:'mainnet', claimSpent:false, addr:'' }); this.go('welcome'); },
+      ruleBlocked: !allAgreed, ruleOpacity: allAgreed ? 1 : 0.45, ruleCta: allAgreed ? 'I understand, let’s start' : 'Tick all three to continue',
+      startCreate: () => allAgreed && this.go('create'),
+      newDrop: () => { this.setState({ amountInput:'0.0100', note:'' }); this.go(S.agree.every(Boolean) ? 'create' : 'rule'); },
+      amountInput: S.amountInput, note: S.note,
+      onAmount: e => { let t = e.target.value.replace(',', '.').replace(/[^0-9.]/g, ''); const parts = t.split('.'); if (parts.length > 2) t = parts[0] + '.' + parts.slice(1).join(''); if (parts[1] && parts[1].length > 4) t = parts[0] + '.' + parts[1].slice(0, 4); this.setState({ amountInput: t }); },
+      onNote: e => this.setState({ note: e.target.value }),
+      form: { receive: this.fmt(amtNum), fund: this.fmt(amtNum + 0.0001), blocked: !formOk, opacity: formOk ? 1 : 0.45 },
+      formTest: S.net === 'testnet', formMain: S.net === 'mainnet',
+      seg: { testBg: S.net === 'testnet' ? '#6ec1ff' : 'transparent', testColor: S.net === 'testnet' ? '#0b1620' : '#a9a593', mainBg: S.net === 'mainnet' ? '#f4b729' : 'transparent', mainColor: S.net === 'mainnet' ? '#15130d' : '#a9a593' },
+      setTest: () => this.setState({ net:'testnet' }), setMain: () => this.setState({ net:'mainnet' }),
+      seal: () => {
+        if (!formOk) return;
+        const C = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let id = 'CD-'; for (let i = 0; i < 4; i++) id += C[Math.floor(Math.random() * C.length)];
+        const drop = { id, amount: Math.round(amtNum * 10000) / 10000, note: S.note.trim(), status:'funding', net:S.net, when:'Today', sealed:this.now(), funded:'', ended:'' };
+        this.setState(s => ({ drops:[drop, ...s.drops], activeId:id }), () => this.go('fund'));
+      },
+      qr: this.qrSvg(ad.id + 'fund'), claimQr: this.qrSvg(ad.id + 'claim'),
+      fundReady: fs === 2, fundWaiting: fs < 2,
+      copyAddr: () => { try { navigator.clipboard.writeText(ad.tempAddr).catch(() => {}); } catch (e) {} this.toast('Envelope address copied'); },
+      openWallet: () => this.toast('Opening your Zcash wallet…'),
+      saveRecovery: () => {
+        const blob = new Blob([JSON.stringify({ version:1, drop:ad.id, network:ad.net, amount:ad.amountStr, createdAt:new Date().toISOString(), recovery:'encrypted-demo-placeholder' }, null, 2)], { type:'application/json' });
+        const el = document.createElement('a'); el.href = URL.createObjectURL(blob); el.download = `cashdrop-recovery-${new Date().toISOString().slice(0,10)}.json`; el.click();
+        this.toast('Recovery file saved');
+      },
+      shareLink: async () => {
+        this.setState({ sheet:null });
+        if (navigator.share) { try { await navigator.share({ title:'A private CashDrop', text:'Something for you.', url }); this.toast('Shared'); } catch (e) {} }
+        else this.toast('No share sheet here. Try the QR card.');
+      },
+      copyLink: () => { try { navigator.clipboard.writeText(url).catch(() => {}); } catch (e) {} this.setState({ sheet:null }); this.toast('Copied. Paste it into a private chat only.'); },
+      printCard: () => { this.setState({ sheet:null }); const q = new URLSearchParams(); window.open('QR%20Gift%20Card.dc.html', '_blank'); },
+      stats: { waiting: sum(['unclaimed','funding','reclaiming']), claimed: sum(['claimed']) },
+      dropList: S.drops.map(d => { const x = this.decorate(d); return { ...x, open: () => { this.setState({ activeId:d.id }); this.go(d.status === 'funding' ? 'fund' : 'detail'); } }; }),
+      fileRef: this.fileRef, pickFile: () => this.fileRef.current && this.fileRef.current.click(),
+      onRestore: e => { const f = e.target.files && e.target.files[0]; if (f) this.toast('Restored drop from ' + f.name); e.target.value = ''; },
+      takeBack: () => {
+        const id = S.activeId; this.upd(id, { status:'reclaiming' }); this.setState({ sheet:null }); this.toast('Signed on this device. Broadcasting…');
+        setTimeout(() => { this.upd(id, { status:'reclaimed', ended:this.now(), when:'Just now' }); this.toast('Taken back. The link no longer works.'); }, 3500);
+      },
+      claimTest: S.claimNet === 'testnet', claimMain: S.claimNet === 'mainnet',
+      verify: { done: verified, label: verified ? 'Verified on-chain' : 'Checking the chain…', blocked: !verified, opacity: verified ? 1 : 0.45 },
+      addr: S.addr, onAddr: e => this.setState({ addr: e.target.value.replace(/\s+/g, '') }),
+      addrCheck: { msg: v.msg, color: toneColor, border: toneBorder, blocked: !v.ok, opacity: v.ok ? 1 : 0.45 },
+      scanAddr: () => { this.setState({ addr: this.sampleAddr() }); this.toast('Address scanned'); },
+      useWallet: () => { this.setState({ addr: this.sampleAddr() }); this.toast('Address received from your wallet'); },
+      addrShort: a.length > 20 ? a.slice(0, 12) + '…' + a.slice(-5) : a,
+      destLabel: 'Shielded · ' + (S.claimNet === 'testnet' ? 'Testnet' : 'Mainnet'),
+      slider: { x: S.slide, fillW: S.slide + 40, labelOpacity: Math.max(0, 1 - pct * 1.4), label: S.claiming ? 'Signing on this device…' : 'Slide to open the envelope' },
+      onKnobDown: e => {
+        if (S.claiming) return;
+        const startX = e.clientX, start = this.state.slide;
+        const move = ev => this.setState({ slide: Math.max(0, Math.min(max, start + ev.clientX - startX)) });
+        const up = () => {
+          window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up);
+          if (this.state.slide > max * 0.88) { this.setState({ slide:max, claiming:true }); this.later(() => { this.setState({ claimSpent:true }); this.go('claimed'); }, 1100); }
+          else this.setState({ slide:0 });
+        };
+        window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+      },
+      onKnobKey: e => { if ((e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') && !this.state.claiming) { e.preventDefault(); this.setState({ slide:max, claiming:true }); this.later(() => { this.setState({ claimSpent:true }); this.go('claimed'); }, 1100); } },
+      confirm: { n: S.confirms, sub: S.confirms >= 3 ? 'is in your wallet.' : 'is on its way to your wallet.', bars: [0,1,2].map(i => ({ bg: i < S.confirms ? '#f4b729' : '#33322b' })) },
+      explorer: e => { e.preventDefault(); this.toast('The explorer shows: shielded transaction. Nothing more.'); },
+      checkedAt: S.checkedAt,
+      checkAgain: () => { this.setState({ checkedAt:'Checking…' }); setTimeout(() => this.setState({ checkedAt:'From the chain, just now' }), 1200); },
+      switchTestnet: () => { this.setState({ claimNet:'testnet', claimSpent:false, addr:'' }); this.go('claim'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

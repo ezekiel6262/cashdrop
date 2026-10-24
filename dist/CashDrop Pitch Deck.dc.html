@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:wght@400;500&display=swap">
+<style>body{margin:0;background:#000;font-family:'Bricolage Grotesque',sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#f4b729}a:hover{color:#ffc53d}</style>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+<section data-label="Title" data-screen-label="01" data-speaker-notes="Sending crypto to someone who doesn't already use it is backwards. Before you can pay them, they must install a wallet and send you an address. CashDrop lets the money arrive first." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:16px;"><svg viewBox="0 0 24 24" style="width:44px;height:44px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:40px;letter-spacing:-0.03em;">CashDrop</span></div>
+<h1 style="margin:56px 0 0;font-size:112px;line-height:.95;font-weight:800;letter-spacing:-0.05em;">The money arrives first. <span style="color:#f4b729;">The wallet can come later.</span></h1>
+<div style="margin-top:48px;font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.14em;color:#a9a593;">ZECATHON · SHIELDED ZEC, SENT LIKE CASH</div>
+</div>
+<div style="transform:rotate(3deg);"><dc-import name="Envelope" variant="sealed" amount="0.0100" note="Thanks for helping with the event" number="CD-7Q4K" stamp="SEALED" hint-size="100%,500px"></dc-import></div>
+</section>
+
+<section data-label="Problem" data-screen-label="02" data-speaker-notes="Six steps, five of them done by the person you're trying to pay. Every one is a chance to lose them, or lose the money." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:flex;flex-direction:column;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">THE PROBLEM</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;max-width:1400px;">Crypto makes the recipient do the work first.</h2>
+<div style="margin-top:80px;display:grid;grid-template-columns:repeat(6,1fr);gap:20px;">
+<div style="border:1.5px solid #2a2924;border-radius:24px;padding:32px;"><div style="font-family:'DM Mono',monospace;font-size:28px;color:#a9a593;">01</div><div style="margin-top:20px;font-size:32px;font-weight:700;line-height:1.15;">Install a wallet</div></div>
+<div style="border:1.5px solid #2a2924;border-radius:24px;padding:32px;"><div style="font-family:'DM Mono',monospace;font-size:28px;color:#a9a593;">02</div><div style="margin-top:20px;font-size:32px;font-weight:700;line-height:1.15;">Back up a seed phrase</div></div>
+<div style="border:1.5px solid #2a2924;border-radius:24px;padding:32px;"><div style="font-family:'DM Mono',monospace;font-size:28px;color:#a9a593;">03</div><div style="margin-top:20px;font-size:32px;font-weight:700;line-height:1.15;">Find the right address</div></div>
+<div style="border:1.5px solid #2a2924;border-radius:24px;padding:32px;"><div style="font-family:'DM Mono',monospace;font-size:28px;color:#a9a593;">04</div><div style="margin-top:20px;font-size:32px;font-weight:700;line-height:1.15;">Send it back</div></div>
+<div style="border:1.5px solid #2a2924;border-radius:24px;padding:32px;"><div style="font-family:'DM Mono',monospace;font-size:28px;color:#a9a593;">05</div><div style="margin-top:20px;font-size:32px;font-weight:700;line-height:1.15;">Check network & type</div></div>
+<div style="border:1.5px solid #f4b729;border-radius:24px;padding:32px;background:#17140b;"><div style="font-family:'DM Mono',monospace;font-size:28px;color:#f4b729;">06</div><div style="margin-top:20px;font-size:32px;font-weight:700;line-height:1.15;">Finally, you pay</div></div>
+</div>
+<div style="flex:1;"></div>
+<div style="font-size:36px;color:#d6d1c1;">Addresses are long. Transparent ones leak. One wrong paste and the money is gone.</div>
+</section>
+
+<section data-label="The flip" data-screen-label="03" data-speaker-notes="CashDrop reverses the order. The sender commits money first. The recipient only needs to act when they're ready." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:flex;flex-direction:column;justify-content:center;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">THE FLIP</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">“Here’s my address, pay me” becomes <span style="color:#f4b729;">“money is waiting, claim it.”</span></h2>
+<div style="margin-top:96px;display:flex;flex-direction:column;gap:28px;font-size:40px;">
+<div style="display:grid;grid-template-columns:320px 1fr;align-items:center;gap:40px;"><span style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.16em;color:#a9a593;">TODAY</span><span style="color:#a9a593;">Recipient makes wallet → shares address → sender pays</span></div>
+<div style="display:grid;grid-template-columns:320px 1fr;align-items:center;gap:40px;"><span style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.16em;color:#f4b729;">CASHDROP</span><span style="font-weight:700;">Sender seals payment → shares link → recipient claims</span></div>
+</div>
+</section>
+
+<section data-label="How it works" data-screen-label="04" data-speaker-notes="A fresh, single-use shielded envelope is created on the sender's device. The link carries the secret in the URL fragment. The recipient sweeps it to their own shielded wallet. Until then, the sender can take it back." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:flex;flex-direction:column;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">HOW IT WORKS</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">A one-time envelope, sealed on your device.</h2>
+<div style="margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;flex:1;">
+<div style="background:#17170f;border-radius:32px;padding:48px;"><div style="font-family:'DM Mono',monospace;font-size:64px;color:#f4b729;">01</div><div style="margin-top:28px;font-size:48px;font-weight:800;letter-spacing:-0.03em;">Seal</div><p style="margin:16px 0 0;font-size:30px;line-height:1.4;color:#d6d1c1;">Fresh shielded envelope created locally. Fund it from any Zcash wallet.</p></div>
+<div style="background:#17170f;border-radius:32px;padding:48px;"><div style="font-family:'DM Mono',monospace;font-size:64px;color:#f4b729;">02</div><div style="margin-top:28px;font-size:48px;font-weight:800;letter-spacing:-0.03em;">Send</div><p style="margin:16px 0 0;font-size:30px;line-height:1.4;color:#d6d1c1;">Claim link or QR card through an encrypted chat, or in person.</p></div>
+<div style="background:#17170f;border-radius:32px;padding:48px;"><div style="font-family:'DM Mono',monospace;font-size:64px;color:#f4b729;">03</div><div style="margin-top:28px;font-size:48px;font-weight:800;letter-spacing:-0.03em;">Claim</div><p style="margin:16px 0 0;font-size:30px;line-height:1.4;color:#d6d1c1;">Verified on-chain, swept to their own shielded wallet. Envelope empty.</p></div>
+</div>
+<div style="margin-top:36px;font-size:32px;color:#d6d1c1;"><b style="color:#f2eee3;">Changed your mind?</b> Take it back any time before they claim.</div>
+</section>
+
+<section data-label="Demo" data-screen-label="05" data-speaker-notes="Run the live demo on two devices. Keep the explorer tab open ahead of time. End by reopening the spent link to show it's empty, then reclaim a second drop." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:grid;grid-template-columns:1fr 1.1fr;gap:100px;">
+<div style="display:flex;flex-direction:column;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">LIVE DEMO</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">Real ZEC. Two devices. One link.</h2>
+<div style="flex:1;"></div>
+<div style="transform:rotate(-3deg);width:84%;"><dc-import name="Envelope" variant="opened" amount="0.0100" note="Thanks for helping with the event" number="CD-7Q4K" stamp="OPENED" hint-size="100%,420px"></dc-import></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;gap:22px;font-size:32px;">
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">01</span>Create a 0.01 ZEC drop and fund it</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">02</span>Wait for detection and confirmation</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">03</span>Send the link to a second device</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">04</span>Open it: funds verified on-chain</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">05</span>Paste a shielded address, slide to claim</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">06</span>Show the explorer, and what it can’t see</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">07</span>Reopen the link: already empty</div>
+<div style="display:flex;gap:24px;"><span style="font-family:'DM Mono',monospace;color:#f4b729;">08</span>Create another drop and take it back</div>
+</div>
+</section>
+
+<section data-label="Privacy" data-screen-label="06" data-speaker-notes="Fully shielded funding and claim. No custodial backend, no analytics, no third-party scripts. The secret never leaves the URL fragment." style="background:#121210;color:#f2eee3;padding:120px 140px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;">
+<div>
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">PRIVACY</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">The chain sees a shielded transaction. That’s it.</h2>
+<div style="margin-top:56px;display:flex;flex-direction:column;gap:20px;font-size:32px;color:#d6d1c1;">
+<div>× No sender, recipient, amount or note on-chain</div>
+<div>× Secrets never reach our servers</div>
+<div>× No accounts, analytics or trackers</div>
+</div>
+</div>
+<div style="border:1.5px solid #2a2924;border-radius:32px;padding:16px 48px;background:#0d0d0b;font-family:'DM Mono',monospace;font-size:28px;">
+<div style="display:flex;justify-content:space-between;padding:28px 0;border-bottom:1.5px solid #22211c;color:#a9a593;letter-spacing:.14em;font-size:24px;"><span>BLOCK EXPLORER</span><span>MAINNET</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1.5px solid #22211c;"><span style="color:#a9a593;">Type</span><span>Shielded (Orchard)</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1.5px solid #22211c;"><span style="color:#a9a593;">Sender</span><span style="width:240px;height:16px;border-radius:4px;background:#3a3930;"></span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1.5px solid #22211c;"><span style="color:#a9a593;">Recipient</span><span style="width:280px;height:16px;border-radius:4px;background:#3a3930;"></span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1.5px solid #22211c;"><span style="color:#a9a593;">Amount</span><span style="width:130px;height:16px;border-radius:4px;background:#3a3930;"></span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 0;"><span style="color:#a9a593;">Was it a CashDrop?</span><span style="width:170px;height:16px;border-radius:4px;background:#3a3930;"></span></div>
+</div>
+</section>
+
+<section data-label="The one rule" data-screen-label="07" data-speaker-notes="We treat the link like a seed phrase. Every share path is designed around it: native share first, copy behind a warning, take-back if it leaks." style="background:#f4b729;color:#15130d;padding:120px 140px;display:flex;flex-direction:column;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.24em;">THE ONE RULE</div>
+<h2 style="margin:24px 0 0;font-size:200px;line-height:.9;font-weight:800;letter-spacing:-0.055em;">The link is the money.</h2>
+<div style="flex:1;"></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;">
+<div style="border-top:3px solid #15130d;padding-top:28px;"><div style="font-size:40px;font-weight:800;">Share it privately</div><p style="margin:12px 0 0;font-size:28px;line-height:1.4;">Native share sheet first. Encrypted chats or in person.</p></div>
+<div style="border-top:3px solid #15130d;padding-top:28px;"><div style="font-size:40px;font-weight:800;">Never post it</div><p style="margin:12px 0 0;font-size:28px;line-height:1.4;">Copying sits behind a warning. Nothing goes to the clipboard silently.</p></div>
+<div style="border-top:3px solid #15130d;padding-top:28px;"><div style="font-size:40px;font-weight:800;">Leaked? Take it back</div><p style="margin:12px 0 0;font-size:28px;line-height:1.4;">Reclaim any unclaimed drop. First confirmed spend wins.</p></div>
+</div>
+</section>
+
+<section data-label="Honest limits" data-screen-label="08" data-speaker-notes="Be upfront. Judges trust teams that name their limits. We publish a full threat model." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:grid;grid-template-columns:1fr 1fr;gap:100px;">
+<div>
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">THREAT MODEL</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">We protect the chain. Not the chat.</h2>
+<p style="margin:40px 0 0;font-size:32px;line-height:1.45;color:#d6d1c1;">CashDrop hides the transaction graph. It can’t fix an insecure messenger, a compromised phone, or what people say out loud.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px;justify-content:center;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.16em;color:#a9a593;">IT IS NOT</div>
+<div style="display:flex;flex-wrap:wrap;gap:16px;">
+<span style="padding:16px 28px;border:1.5px solid #3a3930;border-radius:999px;font-size:30px;">Escrow</span>
+<span style="padding:16px 28px;border:1.5px solid #3a3930;border-radius:999px;font-size:30px;">Custodial</span>
+<span style="padding:16px 28px;border:1.5px solid #3a3930;border-radius:999px;font-size:30px;">A smart contract</span>
+<span style="padding:16px 28px;border:1.5px solid #3a3930;border-radius:999px;font-size:30px;">A bank account</span>
+<span style="padding:16px 28px;border:1.5px solid #3a3930;border-radius:999px;font-size:30px;">ZIP 324 compliant, yet</span>
+<span style="padding:16px 28px;border:1.5px solid #3a3930;border-radius:999px;font-size:30px;">Production-audited</span>
+</div>
+</div>
+</section>
+
+<section data-label="Why it wins" data-screen-label="09" data-speaker-notes="Map directly to the judging criteria." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:flex;flex-direction:column;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">JUDGING</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">Four reasons it belongs on Zcash.</h2>
+<div style="margin-top:72px;display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1;">
+<div style="border:1.5px solid #2a2924;border-radius:28px;padding:44px;"><div style="font-size:44px;font-weight:800;">Privacy</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">Fully shielded both ways. Secrets local. Explicit bearer-link threat model.</p></div>
+<div style="border:1.5px solid #2a2924;border-radius:28px;padding:44px;"><div style="font-size:44px;font-weight:800;">Usefulness</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">Pays people before they have a wallet. Gifts, refunds, rewards, onboarding.</p></div>
+<div style="border:1.5px solid #2a2924;border-radius:28px;padding:44px;"><div style="font-size:44px;font-weight:800;">Execution</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">Real funded drop, real claim, double-claim rejected, reclaim working.</p></div>
+<div style="border:1.5px solid #f4b729;border-radius:28px;padding:44px;background:#17140b;"><div style="font-size:44px;font-weight:800;color:#f4b729;">Originality</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">Push payment before onboarding. Productises a dormant protocol idea.</p></div>
+</div>
+</section>
+
+<section data-label="Roadmap" data-screen-label="10" data-speaker-notes="Developer platform only after the consumer security model is solid." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:flex;flex-direction:column;">
+<div style="font-family:'DM Mono',monospace;font-size:26px;letter-spacing:.2em;color:#f4b729;">ROADMAP</div>
+<h2 style="margin:24px 0 0;font-size:88px;line-height:1;font-weight:800;letter-spacing:-0.05em;">From hackathon to handoff.</h2>
+<div style="margin-top:96px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+<div style="border-top:4px solid #f4b729;padding-top:28px;"><div style="font-family:'DM Mono',monospace;font-size:26px;color:#f4b729;">NOW</div><div style="margin-top:12px;font-size:40px;font-weight:800;">Hackathon</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">Testnet drops, QR claim, shielded sweep, reclaim, threat model.</p></div>
+<div style="border-top:4px solid #3a3930;padding-top:28px;"><div style="font-family:'DM Mono',monospace;font-size:26px;color:#a9a593;">NEXT</div><div style="margin-top:12px;font-size:40px;font-weight:800;">Wallets</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">One-tap claim in compatible wallets. Deterministic sender recovery.</p></div>
+<div style="border-top:4px solid #3a3930;padding-top:28px;"><div style="font-family:'DM Mono',monospace;font-size:26px;color:#a9a593;">LATER</div><div style="margin-top:12px;font-size:40px;font-weight:800;">Consumer</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">Gift cards, printable envelopes, event drops, optional PIN.</p></div>
+<div style="border-top:4px solid #3a3930;padding-top:28px;"><div style="font-family:'DM Mono',monospace;font-size:26px;color:#a9a593;">THEN</div><div style="margin-top:12px;font-size:40px;font-weight:800;">Platform</div><p style="margin:14px 0 0;font-size:28px;line-height:1.4;color:#d6d1c1;">SDK, refund API, creator and support-desk integrations.</p></div>
+</div>
+</section>
+
+<section data-label="Close" data-screen-label="11" data-speaker-notes="CashDrop turns shielded ZEC into money you can hand to someone through the communication channel you already share." style="background:#0d0d0b;color:#f2eee3;padding:120px 140px;display:flex;flex-direction:column;justify-content:center;">
+<h2 style="margin:0;font-size:150px;line-height:.92;font-weight:800;letter-spacing:-0.055em;">Hand someone cash.<br><span style="color:#f4b729;">Through a message.</span></h2>
+<div style="margin-top:80px;display:flex;align-items:center;gap:16px;"><svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:36px;letter-spacing:-0.03em;">CashDrop</span><span style="margin-left:24px;font-family:'DM Mono',monospace;font-size:26px;color:#a9a593;">cashdrop.example</span></div>
+</section>
+
+</x-import>
+</x-dc>
+</body>
+</html>
