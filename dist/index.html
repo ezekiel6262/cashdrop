@@ -1,213 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:wght@400;500&display=swap">
-<style>body{margin:0;background:#0d0d0b;font-family:'Bricolage Grotesque',sans-serif;color:#f2eee3;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}html{scroll-behavior:smooth}a{color:#f4b729}a:hover{color:#ffc53d}a:focus-visible,button:focus-visible{outline:2px solid #f4b729;outline-offset:2px}</style>
-</helmet>
-<div style="min-height:100vh;">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CashDrop turns shielded testnet ZEC into a private claim link—no account, extension, or blockchain download."><meta property="og:title" content="CashDrop — private money, delivered as a link"><meta property="og:description" content="Send shielded ZEC before the recipient has a wallet. Browser-native and non-custodial."><meta property="og:image" content="https://cashdrop-theta.vercel.app/screenshots/01-cashdrop.png"><meta property="og:type" content="website"><meta name="theme-color" content="#0d0d0b"><title>CashDrop — Private money, delivered as a link</title><link rel="stylesheet" href="./site.css?v=1"></head>
+<body><header class="nav"><a class="brand" href="#top"><span class="brandmark">↓</span>CashDrop</a><nav><a href="#product">Product</a><a href="#privacy">Privacy</a><a href="#demo">Demo</a><a href="Threat%20Model.dc.html">Threat model</a><a class="pill small" href="app/?release=4">Open app ↗</a></nav></header>
+<main id="top">
+<section class="hero wrap"><div class="hero-copy"><div class="badge"><i></i>ZCASH TESTNET · LIVE BETA</div><h1>Private money,<br><em>delivered as a link.</em></h1><p class="lead">CashDrop lets you send shielded ZEC before the recipient has a wallet. Seal a one-time envelope, fund it, and hand it over in a message.</p><div class="actions"><a class="pill" href="app/?release=4">Create a CashDrop</a><a class="ghost" href="#demo">Watch the demo <span>▶</span></a></div><div class="proof"><span>✓ No account</span><span>✓ No extension</span><span>✓ Keys stay local</span></div></div>
+<div class="hero-art" aria-label="A CashDrop shared in a private chat"><div class="chat-head"><b>A</b><span>Ada<small>End-to-end encrypted chat</small></span></div><div class="bubble">A little something for the launch.</div><div class="envelope"><div class="env-top">CASHDROP <span>FOR YOU</span></div><strong>0.0100 <small>ZEC</small></strong><div class="flap"></div><div class="seal">↓</div><em>Tap the private link to claim</em></div><div class="link">cashdrop.app/#/claim?d=••••••</div><div class="reply">I don’t have a wallet yet.</div><div class="bubble">That’s the point. It can come later.</div></div></section>
 
-<div style="position:sticky;top:0;z-index:10;background:rgba(13,13,11,.86);backdrop-filter:blur(10px);">
-<div style="max-width:1120px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
-<a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#f2eee3;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="10" width="18" height="11" rx="2"></rect><path d="M3 12l9 5 9-5M12 2v6M9.5 5.5L12 8l2.5-2.5"></path></svg><span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;">CashDrop</span></a>
-<div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;font-size:14px;">
-<a href="#how" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">How it works</a>
-<a href="#privacy" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Privacy</a>
-<a href="#uses" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Use cases</a>
-<a href="Threat%20Model.dc.html" style="color:#a9a593;text-decoration:none;" style-hover="color:#f2eee3">Threat model</a>
-<a href="app/" style="height:40px;padding:0 18px;border-radius:999px;background:#f4b729;color:#15130d;font-weight:700;text-decoration:none;display:flex;align-items:center;" style-hover="background:#ffc53d;color:#15130d">Open web app</a>
-</div>
-</div>
-</div>
+<section class="ticker"><div>SHIELDED BY ZCASH</div><div>PROVED IN YOUR BROWSER</div><div>TESTNET READY</div><div>OPEN SOURCE</div></section>
 
-<div id="top" style="max-width:1120px;margin:0 auto;padding:72px 32px 96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px;align-items:center;">
-<div>
-<div style="display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 12px;border:1px solid #3a3930;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#d6d1c1;"><span style="width:6px;height:6px;border-radius:50%;background:#f4b729;"></span>ZCASH TESTNET BETA · NO REAL FUNDS</div>
-<h1 style="margin:22px 0 0;font-size:clamp(44px,6vw,68px);line-height:.98;font-weight:800;letter-spacing:-0.05em;">The money arrives first. <span style="color:#f4b729;">The wallet can come later.</span></h1>
-<p style="margin:24px 0 0;max-width:460px;font-size:17px;line-height:1.55;color:#d6d1c1;">CashDrop seals shielded ZEC inside a private link. Send it in an encrypted chat, print it on a card, slip it in a birthday envelope. Whoever opens it claims it.</p>
-<div style="margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;">
-<a href="app/" style="height:52px;padding:0 24px;border-radius:999px;background:#f4b729;color:#15130d;font-weight:700;font-size:16px;text-decoration:none;display:flex;align-items:center;" style-hover="background:#ffc53d;color:#15130d">Seal your first drop</a>
-<a href="app/" style="height:52px;padding:0 24px;border-radius:999px;border:1px solid #3a3930;color:#f2eee3;font-size:16px;text-decoration:none;display:flex;align-items:center;" style-hover="background:#1a1a15;color:#f2eee3">Open web wallet</a>
-<a href="downloads/CashDrop-testnet-beta.zip" style="height:52px;padding:0 24px;border-radius:999px;border:1px solid #3a3930;color:#f2eee3;font-size:16px;text-decoration:none;display:flex;align-items:center;" download>Download beta</a>
-</div>
-<div style="margin-top:24px;font-family:'DM Mono',monospace;font-size:12px;color:#a9a593;">No account. No address swap. Keys never leave your device.</div>
-</div>
-<div style="background:#161612;border:1px solid #2a2924;border-radius:24px;padding:18px;max-width:460px;width:100%;justify-self:center;display:flex;flex-direction:column;gap:12px;">
-<div style="display:flex;align-items:center;gap:12px;padding-bottom:6px;">
-<span style="width:34px;height:34px;border-radius:50%;background:#2b2b25;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">A</span>
-<span><span style="display:block;font-weight:700;font-size:15px;">Ada</span><span style="display:block;font-size:12px;color:#a9a593;">End-to-end encrypted chat</span></span>
-</div>
-<div style="align-self:flex-end;max-width:84%;background:#23231d;border-radius:16px;padding:10px 14px;font-size:14px;line-height:1.4;">Thanks for helping with the event! Something for you.</div>
-<div style="align-self:flex-end;width:82%;transform:rotate(3deg);margin:6px 6px 10px 0;">
-<dc-import name="Envelope" variant="sealed" amount="0.0100" note="Thanks for helping with the event" number="CD-7Q4K" stamp="SEALED" hint-size="100%,190px"></dc-import>
-</div>
-<div style="align-self:flex-end;max-width:84%;background:#23231d;border-radius:16px;padding:10px 14px;">
-<div style="font-family:'DM Mono',monospace;font-size:13px;color:#f4b729;word-break:break-all;">cashdrop.example/claim#k7Q2••••••••••</div>
-<div style="margin-top:4px;font-size:12px;color:#a9a593;">The secret lives after the #. It never reaches a server.</div>
-</div>
-<div style="align-self:flex-start;max-width:84%;background:#2b2b25;border-radius:16px;padding:10px 14px;font-size:14px;">Wait, I don’t even have a wallet yet</div>
-<div style="align-self:flex-end;max-width:84%;background:#23231d;border-radius:16px;padding:10px 14px;font-size:14px;">That’s the point. It’ll wait for you.</div>
-</div>
-</div>
+<section id="product" class="section wrap"><div class="eyebrow">ONE PRODUCT, FOUR REAL USES</div><div class="section-head"><h2>More than a payment link.</h2><p>CashDrop turns the shielded pool into a consumer product for gifts, payouts, fundraising, and onboarding.</p></div><div class="products">
+<article class="feature primary-card"><span>01 · CASHDROP</span><h3>Hand someone digital cash.</h3><p>Create one private envelope with an optional password and suggested deadline. The recipient claims to any shielded testnet address.</p><a href="app/?release=4">Create one →</a></article>
+<article class="feature"><span>02 · DROPBATCH</span><h3>Pay a room, privately.</h3><p>Generate independent envelopes for events, community rewards, payroll, or giveaways. Every recipient gets a different seed and address.</p></article>
+<article class="feature"><span>03 · PRIVATE FUND</span><h3>Raise without a donor graph.</h3><p>Share a campaign page backed by one shielded address. Donor identities, amounts, and public balance are deliberately not published.</p></article>
+<article class="feature"><span>04 · RECOVER</span><h3>The sender stays in control.</h3><p>Save an offline recovery bundle and sweep an unclaimed envelope back to a shielded wallet. No CashDrop account required.</p></article>
+</div></section>
 
-<div style="background:#121210;">
-<div style="max-width:1120px;margin:0 auto;padding:96px 32px;">
-<h2 style="margin:0;max-width:640px;font-size:clamp(32px,4vw,44px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">Crypto makes the recipient work first. CashDrop flips it.</h2>
-<div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px;">
-<div style="border:1px solid #2a2924;border-radius:18px;padding:26px;">
-<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#a9a593;">THE USUAL WAY</div>
-<ol style="margin:16px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px;color:#a9a593;">
-<li>They install a wallet</li><li>They write down a seed phrase</li><li>They find the right address</li><li>They send it back to you</li><li>You check the network and address type</li><li>Finally, you pay</li>
-</ol>
-<div style="margin-top:18px;font-size:14px;color:#d6d1c1;">Six steps, and the person you are paying does five of them.</div>
-</div>
-<div style="border:1px solid #f4b729;border-radius:18px;padding:26px;background:#17140b;">
-<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">WITH CASHDROP</div>
-<ol style="margin:16px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:18px;font-weight:700;">
-<li>You seal an amount</li><li>You send the link</li><li>They claim it, whenever they are ready</li>
-</ol>
-<div style="margin-top:18px;font-size:14px;color:#d6d1c1;">The money is already waiting before they ever open a wallet.</div>
-</div>
-</div>
-</div>
-</div>
+<section class="contrast"><div class="wrap two"><div><div class="eyebrow dark">THE USUAL CRYPTO PAYMENT</div><h2>They work before you pay.</h2><ol class="muted-list"><li>Install a wallet</li><li>Back up recovery words</li><li>Find the right address</li><li>Send it to the payer</li><li>Hope the network is right</li></ol></div><div class="fast"><div class="eyebrow">WITH CASHDROP</div><h2>You pay. They open.</h2><ol><li><b>01</b><span>Seal a fresh shielded envelope</span></li><li><b>02</b><span>Fund and share the private link</span></li><li><b>03</b><span>They claim when ready</span></li></ol></div></div></section>
 
-<div id="how" style="max-width:1120px;margin:0 auto;padding:96px 32px;">
-<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">HOW IT WORKS</div>
-<h2 style="margin:12px 0 0;font-size:clamp(32px,4vw,44px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">A one-time envelope, sealed on your device.</h2>
-<div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;">
-<div style="background:#17170f;border-radius:18px;padding:26px;"><div style="font-family:'DM Mono',monospace;font-size:34px;color:#f4b729;">01</div><div style="margin-top:14px;font-size:21px;font-weight:800;letter-spacing:-0.03em;">Seal</div><p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:#d6d1c1;">CashDrop creates a fresh, single-use shielded envelope locally. You fund it from any Zcash wallet with a normal shielded payment.</p></div>
-<div style="background:#17170f;border-radius:18px;padding:26px;"><div style="font-family:'DM Mono',monospace;font-size:34px;color:#f4b729;">02</div><div style="margin-top:14px;font-size:21px;font-weight:800;letter-spacing:-0.03em;">Send</div><p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:#d6d1c1;">You get a claim link and a QR card. Share it the way you already talk: an encrypted chat, a printed card, a note in person.</p></div>
-<div style="background:#17170f;border-radius:18px;padding:26px;"><div style="font-family:'DM Mono',monospace;font-size:34px;color:#f4b729;">03</div><div style="margin-top:14px;font-size:21px;font-weight:800;letter-spacing:-0.03em;">Claim</div><p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:#d6d1c1;">They open it, see the amount verified on-chain, and move it into their own shielded wallet. The envelope is empty after that.</p></div>
-</div>
-<div style="margin-top:24px;border:1px solid #2a2924;border-radius:16px;padding:16px 20px;display:flex;gap:14px;align-items:center;font-size:14px;color:#d6d1c1;">
-<svg viewBox="0 0 24 24" style="width:20px;height:20px;flex:none;fill:none;stroke:#f4b729;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;"><path d="M9 14L4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"></path></svg>
-<span><b style="color:#f2eee3;">Changed your mind?</b> Until it is claimed, you can take the money back. If you both try at once, the first transaction confirmed on-chain wins.</span>
-</div>
-</div>
+<section id="privacy" class="section wrap"><div class="eyebrow">WHY ZCASH</div><div class="section-head"><h2>Privacy is the feature—not the decoration.</h2><p>Zcash’s shielded pool hides sender, recipient, and amount. CashDrop keeps the entire transfer shielded and makes the experience understandable.</p></div><div class="privacy-grid"><div class="terminal"><div class="terminal-head">TESTNET EXPLORER VIEW <span>CONFIRMED</span></div><dl><dt>Transaction</dt><dd>Shielded</dd><dt>Sender</dt><dd class="redact"></dd><dt>Recipient</dt><dd class="redact long"></dd><dt>Amount</dt><dd class="redact short"></dd><dt>CashDrop?</dt><dd class="redact"></dd></dl></div><div class="privacy-copy"><h3>The chain learns less.</h3><ul><li><b>No public payment graph.</b> A claim does not announce who paid whom.</li><li><b>No account database.</b> The app is static and non-custodial.</li><li><b>No plaintext secrets on our server.</b> Claim material stays in the URL fragment and is encrypted.</li><li><b>Honest limits.</b> The lightwallet gateway can see network metadata; your chat must still be secure.</li></ul><a href="Threat%20Model.dc.html">Read the complete threat model →</a></div></div></section>
 
-<div id="privacy" style="background:#121210;">
-<div style="max-width:1120px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:56px;align-items:center;">
-<div>
-<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:#f4b729;">PRIVACY</div>
-<h2 style="margin:12px 0 0;font-size:clamp(32px,4vw,44px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">The chain sees a shielded transaction. That’s it.</h2>
-<p style="margin:18px 0 0;font-size:16px;line-height:1.55;color:#d6d1c1;">Zcash’s shielded pool does the hiding. CashDrop’s job is to make sure your money never leaves it, and that nothing about the drop ever touches our servers.</p>
-<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;font-size:14px;">
-<div style="display:flex;gap:10px;align-items:center;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;flex:none;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;"><path d="M6 6l12 12M18 6L6 18"></path></svg>We never receive the claim secret, keys, amount, note or address</div>
-<div style="display:flex;gap:10px;align-items:center;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;flex:none;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;"><path d="M6 6l12 12M18 6L6 18"></path></svg>No analytics, no trackers, no third-party scripts</div>
-<div style="display:flex;gap:10px;align-items:center;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;flex:none;fill:none;stroke:#f4b729;stroke-width:2;stroke-linecap:round;"><path d="M6 6l12 12M18 6L6 18"></path></svg>No accounts, so there is nothing to link to you</div>
-</div>
-</div>
-<div style="border:1px solid #2a2924;border-radius:18px;padding:8px 22px;background:#0d0d0b;font-family:'DM Mono',monospace;font-size:12px;">
-<div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #22211c;color:#a9a593;letter-spacing:.14em;font-size:11px;"><span>BLOCK EXPLORER VIEW</span><span>TESTNET</span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #22211c;"><span style="color:#a9a593;">Type</span><span>Shielded (Orchard)</span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #22211c;"><span style="color:#a9a593;">Confirmed</span><span>Yes</span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #22211c;"><span style="color:#a9a593;">Sender</span><span style="width:120px;height:8px;border-radius:2px;background:#3a3930;"></span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #22211c;"><span style="color:#a9a593;">Recipient</span><span style="width:140px;height:8px;border-radius:2px;background:#3a3930;"></span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #22211c;"><span style="color:#a9a593;">Amount</span><span style="width:64px;height:8px;border-radius:2px;background:#3a3930;"></span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #22211c;"><span style="color:#a9a593;">Note</span><span style="width:150px;height:8px;border-radius:2px;background:#3a3930;"></span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;"><span style="color:#a9a593;">Was it a CashDrop?</span><span style="width:84px;height:8px;border-radius:2px;background:#3a3930;"></span></div>
-</div>
-</div>
-</div>
+<section id="demo" class="section demo"><div class="wrap demo-inner"><div><div class="eyebrow">3-MINUTE WALKTHROUGH</div><h2>See the full hand-off.</h2><p>Learn why CashDrop exists, how Zcash protects the transfer, and how a sender creates, funds, shares, and reclaims an envelope.</p><div class="actions"><a class="pill dark-pill" href="demo/cashdrop-demo.mp4">Watch demo video</a><a class="ghost dark-ghost" href="https://github.com/ezekiel6262/cashdrop">View source ↗</a></div></div><a class="video-card" href="demo/cashdrop-demo.mp4" aria-label="Play CashDrop demo video"><span class="play">▶</span><div><b>CASHDROP DEMO</b><small>Product · privacy · send · receive</small></div></a></div></section>
 
-<div style="background:#f4b729;color:#15130d;">
-<div style="max-width:1120px;margin:0 auto;padding:88px 32px;">
-<h2 style="margin:0;font-size:clamp(40px,5vw,56px);line-height:1;font-weight:800;letter-spacing:-0.05em;">The link is the money.</h2>
-<div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px;">
-<div style="border-top:1.5px solid #15130d;padding-top:16px;"><div style="font-size:17px;font-weight:800;">Share it privately</div><p style="margin:8px 0 0;font-size:14px;line-height:1.5;">Anyone holding the full link can claim it. Use end-to-end encrypted chats, or hand over the QR card in person.</p></div>
-<div style="border-top:1.5px solid #15130d;padding-top:16px;"><div style="font-size:17px;font-weight:800;">Never post it</div><p style="margin:8px 0 0;font-size:14px;line-height:1.5;">Not in group chats, not on social, not in a support ticket screenshot. Treat it like a folded banknote.</p></div>
-<div style="border-top:1.5px solid #15130d;padding-top:16px;"><div style="font-size:17px;font-weight:800;">Leaked? Take it back</div><p style="margin:8px 0 0;font-size:14px;line-height:1.5;">If you sent it to the wrong place, reclaim it from your drops before anyone else does.</p></div>
-</div>
-</div>
-</div>
+<section class="section wrap"><div class="eyebrow">BUILT FOR THE ZECATHON</div><div class="section-head"><h2>Working beats hypothetical.</h2><p>The browser loads a real WebAssembly Zcash wallet engine, connects to testnet, derives unified addresses, scans compact blocks, constructs proofs locally, and broadcasts shielded transactions.</p></div><div class="stack"><div><b>WebZjs + librustzcash</b><span>Wallet logic and proving in WebAssembly</span></div><div><b>Zcash testnet</b><span>Real shielded addresses and protocol operations</span></div><div><b>AES-GCM + PBKDF2</b><span>Encrypted bearer links and password protection</span></div><div><b>Static PWA</b><span>No CashDrop backend, account, or custody</span></div></div></section>
 
-<div id="uses" style="max-width:1120px;margin:0 auto;padding:96px 32px 48px;">
-<h2 style="margin:0;font-size:clamp(32px,4vw,44px);line-height:1.02;font-weight:800;letter-spacing:-0.045em;">For every time you’d rather not ask for an address.</h2>
-<div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px;">
-<sc-for list="{{uses}}" as="u" hint-placeholder-count="6">
-<div style="border:1px solid #2a2924;border-radius:16px;padding:22px;" style-hover="border-color:#3a3930"><div style="font-size:17px;font-weight:800;letter-spacing:-0.02em;">{{u.t}}</div><p style="margin:8px 0 0;font-size:14px;line-height:1.5;color:#a9a593;">{{u.d}}</p></div>
-</sc-for>
-</div>
-</div>
+<section class="faq wrap"><h2>Before you drop.</h2><details open><summary>Is this real Zcash?</summary><p>Yes: the live beta uses the public Zcash testnet and produces real testnet shielded addresses and transactions. Testnet coins have no monetary value.</p></details><details><summary>Does the link contain the money?</summary><p>The link carries encrypted recovery material for a fresh shielded wallet. Treat it like cash: whoever can unlock the complete link may claim first.</p></details><details><summary>Can CashDrop recover my link?</summary><p>No. CashDrop is non-custodial. Save the recovery file when creating a drop or fund.</p></details><details><summary>Is it mainnet-ready?</summary><p>Not yet. The current release is explicitly testnet-only and needs an independent security review before handling real value.</p></details></section>
 
-<div id="threat" style="max-width:1120px;margin:0 auto;padding:48px 32px;">
-<div style="border:1px solid #2a2924;border-radius:20px;padding:30px;">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
-<h3 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-0.035em;">What CashDrop is not</h3>
-<div style="display:flex;gap:20px;align-items:center;"><button onClick="{{toggleThreat}}" style="background:transparent;border:0;color:#a9a593;font-size:14px;cursor:pointer;padding:0;" style-hover="color:#f2eee3">{{threatCta}}</button><a href="Threat%20Model.dc.html" style="color:#f4b729;font-size:14px;" style-hover="color:#ffc53d">Read the full threat model</a></div>
-</div>
-<div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;">
-<sc-for list="{{nots}}" as="n" hint-placeholder-count="6"><span style="height:32px;padding:0 14px;border:1px solid #3a3930;border-radius:999px;background:#161612;font-size:13px;display:flex;align-items:center;">{{n}}</span></sc-for>
-</div>
-<sc-if value="{{threatOpen}}" hint-placeholder-val="{{false}}">
-<div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;">
-<sc-for list="{{threat}}" as="t" hint-placeholder-count="4">
-<div style="background:#161612;border-radius:16px;padding:20px;">
-<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;color:#f4b729;">{{t.who}}</div>
-<div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.45;color:#d6d1c1;">
-<sc-for list="{{t.items}}" as="i" hint-placeholder-count="3"><div>{{i}}</div></sc-for>
-</div>
-</div>
-</sc-for>
-</div>
-<div style="margin-top:16px;font-size:14px;line-height:1.55;color:#a9a593;max-width:760px;">CashDrop protects the transaction graph. It cannot repair an insecure chat, a compromised phone, or what people choose to say. Prototype software: not reviewed for production use.</div>
-</sc-if>
-</div>
-</div>
-
-<div style="max-width:1120px;margin:0 auto;padding:72px 32px 88px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;">
-<h2 style="margin:0;max-width:620px;font-size:clamp(36px,4.5vw,52px);line-height:1;font-weight:800;letter-spacing:-0.05em;">Hand someone cash. <span style="color:#f4b729;">Through a message.</span></h2>
-<a href="app/" style="height:56px;padding:0 28px;border-radius:999px;background:#f4b729;color:#15130d;font-weight:700;font-size:17px;text-decoration:none;display:flex;align-items:center;" style-hover="background:#ffc53d;color:#15130d">Open web app</a>
-</div>
-
-<div style="border-top:1px solid #1d1d18;">
-<div style="max-width:1120px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#a9a593;">
-<span>CashDrop · built on Zcash shielded payments</span>
-<div style="display:flex;gap:20px;">
-<a href="Threat%20Model.dc.html" style="color:#a9a593;" style-hover="color:#f2eee3">Threat model</a>
-<a href="https://zips.z.cash/zip-0324" target="_blank" rel="noreferrer" style="color:#a9a593;" style-hover="color:#f2eee3">ZIP 324</a>
-<a href="https://github.com/ezekiel6262/cashdrop" target="_blank" rel="noreferrer" style="color:#a9a593;" style-hover="color:#f2eee3">Source code</a>
-</div>
-</div>
-</div>
-
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script>
-class Component extends DCLogic {
-  state = { threatOpen: false };
-  renderVals() {
-    const open = this.state.threatOpen;
-    return {
-      threatOpen: open,
-      threatCta: open ? 'Hide summary' : 'Quick summary',
-      toggleThreat: () => this.setState(s => ({ threatOpen: !s.threatOpen })),
-      openThreat: () => this.setState({ threatOpen: true }),
-      uses: [
-        { t:'Pay a friend', d:'Split the bill without asking them to dig up a wallet address first.' },
-        { t:'Bring someone into Zcash', d:'Show them real money waiting for them, then help them set up a wallet to receive it.' },
-        { t:'Private gifts', d:'Print the QR card and tuck it into a birthday card. Only the person holding it can open it.' },
-        { t:'Refunds', d:'Merchants can refund through the existing support thread without collecting or storing an address.' },
-        { t:'Creator rewards', d:'Thank a contributor in DMs without tying their wallet to their public handle.' },
-        { t:'Event cards', d:'Hand out cards that each hold a different secret and can be opened exactly once.' }
-      ],
-      nots: ['Not escrow', 'Not custodial', 'Not a bank account', 'Can’t secure an insecure chat', 'Can’t protect a compromised phone', 'Inspired by ZIP 324, not yet compliant'],
-      threat: [
-        { who:'THE CHAIN SEES', items:['A shielded transaction', 'Not sender, recipient or amount', 'Not the note, or that it was a CashDrop'] },
-        { who:'THE SENDER KNOWS', items:['Amount, note and secret', 'When the envelope was emptied', 'Roughly when it was claimed'] },
-        { who:'THE RECIPIENT KNOWS', items:['Amount and note', 'Their own destination wallet', 'Not the sender’s wallet history'] },
-        { who:'OUR SERVER SEES', items:['Requests for static files', 'Basic network metadata', 'Never the link, keys, amount or address'] }
-      ]
-    };
-  }
-}
-</script>
-</body>
-</html>
+<section class="final"><div class="wrap"><div class="eyebrow dark">CASH CAN TRAVEL IN A MESSAGE</div><h2>Seal it. Send it.<br>Let them open it.</h2><a class="pill black" href="app/?release=4">Launch CashDrop ↗</a></div></section>
+</main><footer class="wrap"><div class="brand"><span class="brandmark">↓</span>CashDrop</div><p>Private claim links for shielded ZEC · Zecathon 2026</p><div><a href="app/?release=4">App</a><a href="CashDrop%20Pitch%20Deck.dc.html">Pitch deck</a><a href="Threat%20Model.dc.html">Threat model</a><a href="https://github.com/ezekiel6262/cashdrop">GitHub</a></div></footer></body></html>

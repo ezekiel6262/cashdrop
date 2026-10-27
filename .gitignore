@@ -1,2 +1,5 @@
 .vercel
 .env*.local
+.video-tools/
+video-work/
+.edge-shot-profile/
