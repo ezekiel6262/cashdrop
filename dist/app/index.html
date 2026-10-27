@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d0d0b">
+  <meta name="description" content="Create and claim private Zcash testnet payment links in your browser.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>CashDrop — Testnet web app</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../">CashDrop</a>
+    <span class="network"><i></i>ZCASH TESTNET · NO REAL FUNDS</span>
+  </header>
+
+  <main>
+    <section id="intro" class="hero">
+      <p class="eyebrow">PRIVATE MONEY, DELIVERED AS A LINK</p>
+      <h1>The wallet can come <em>after</em> the money.</h1>
+      <p class="lede">Create and claim shielded testnet ZEC entirely in this browser. No account, extension, Docker, or blockchain download.</p>
+      <div class="actions">
+        <button id="start-create" class="primary">Create a CashDrop</button>
+        <button id="start-wallet" class="secondary">Create a testnet wallet</button>
+      </div>
+      <p class="privacy-line">Keys stay on this device · the claim secret remains after the # · powered by WebZjs</p>
+    </section>
+
+    <section id="workspace" class="workspace hidden" aria-live="polite">
+      <div class="stepper"><span class="active">1 · Prepare</span><span>2 · Fund</span><span>3 · Share</span></div>
+      <div id="panel" class="panel"></div>
+    </section>
+
+    <section class="trust-grid">
+      <article><b>Browser-native</b><span>The wallet engine and zero-knowledge proof generation run locally with WebAssembly.</span></article>
+      <article><b>Non-custodial</b><span>CashDrop does not receive your seed phrase, claim key, destination, amount, or note.</span></article>
+      <article><b>Public testnet</b><span>Transactions are real Zcash protocol operations, but testnet coins have no monetary value.</span></article>
+    </section>
+  </main>
+
+  <footer><a href="../Threat%20Model.dc.html">Threat model</a><a href="https://github.com/ChainSafe/WebZjs" target="_blank" rel="noreferrer">WebZjs source</a><a href="../">About CashDrop</a></footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "CashDrop Testnet",
+  "short_name": "CashDrop",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0d0d0b",
+  "theme_color": "#0d0d0b",
+  "description": "Private Zcash testnet payment links in your browser."
+}
