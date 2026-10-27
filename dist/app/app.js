@@ -1,171 +1,38 @@
-import initWasm, { initThreadPool, WebWallet, generate_seed_phrase } from './vendor/webzjs/webzjs_wallet.js';
+import initWasm,{initThreadPool,WebWallet,generate_seed_phrase}from'./vendor/webzjs/webzjs_wallet.js';
+const GATEWAY='https://zcash-testnet.chainsafe.dev',FEE=10000n,panel=document.querySelector('#panel'),workspace=document.querySelector('#workspace'),enc=new TextEncoder(),dec=new TextDecoder();let wasmReady,activeWallet;
+const b64=x=>btoa(String.fromCharCode(...x)).replaceAll('+','-').replaceAll('/','_').replaceAll('=',''),unb64=x=>Uint8Array.from(atob(x.replaceAll('-','+').replaceAll('_','/')+'='.repeat((4-x.length%4)%4)),c=>c.charCodeAt(0)),esc=x=>String(x??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])),toZat=x=>{let[a,b='']=String(x).split('.');return BigInt(a||0)*100000000n+BigInt(b.padEnd(8,'0').slice(0,8))},toZec=x=>{let a=x/100000000n,b=(x%100000000n).toString().padStart(8,'0').replace(/0+$/,'');return b?`${a}.${b}`:String(a)};
+async function initEngine(){if(!crossOriginIsolated)throw Error('The wallet engine requires cross-origin isolation. Reload the deployed page.');if(!wasmReady)wasmReady=(async()=>{await initWasm(new URL('./vendor/webzjs/webzjs_wallet_bg.wasm',import.meta.url));await initThreadPool(Math.min(4,Math.max(1,navigator.hardwareConcurrency||2)))})();return wasmReady}
+async function freshWallet(){await initEngine();if(activeWallet)try{activeWallet.free()}catch{}return activeWallet=new WebWallet('test',GATEWAY,1,1,null)}
+async function identity(label='CashDrop'){let wallet=await freshWallet(),latest=Number(await wallet.get_latest_block()),birthday=Math.max(0,latest-10),seed=generate_seed_phrase(),id=await wallet.create_account(label,seed,0,birthday),address=await wallet.get_current_address(id);return{wallet,birthday,seed,address}}
+async function passwordKey(password,salt,usage){let base=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,[usage])}
+async function encrypt(payload,password=''){let iv=crypto.getRandomValues(new Uint8Array(12)),key;if(password){let salt=crypto.getRandomValues(new Uint8Array(16));key=await passwordKey(password,salt,'encrypt');let d=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(JSON.stringify(payload)));return{d:b64(new Uint8Array(d)),n:b64(iv),s:b64(salt),l:'1'}}let raw=crypto.getRandomValues(new Uint8Array(32));key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['encrypt']);let d=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(JSON.stringify(payload)));return{d:b64(new Uint8Array(d)),n:b64(iv),k:b64(raw)}}
+async function decrypt(p,password=''){let key;if(p.l==='1'){if(!password)throw Error('A password is required.');key=await passwordKey(password,unb64(p.s),'decrypt')}else key=await crypto.subtle.importKey('raw',unb64(p.k),'AES-GCM',false,['decrypt']);let data=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(p.n)},key,unb64(p.d));return JSON.parse(dec.decode(data))}
+function show(html){workspace.classList.remove('hidden');panel.innerHTML=html;workspace.scrollIntoView({behavior:'smooth',block:'start'})}
+function err(e){console.error(e);return esc(e?.message||e)}
+function save(name,data){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+const linkFor=x=>`${location.origin}${location.pathname}#/claim?${new URLSearchParams(x)}`;
 
-const TESTNET_GATEWAY = 'https://zcash-testnet.chainsafe.dev';
-const FEE = 10_000n;
-const panel = document.querySelector('#panel');
-const workspace = document.querySelector('#workspace');
-let wasmReady;
-let activeWallet;
-
-const enc = new TextEncoder();
-const dec = new TextDecoder();
-const b64 = bytes => btoa(String.fromCharCode(...bytes)).replaceAll('+','-').replaceAll('/','_').replaceAll('=','');
-const unb64 = value => Uint8Array.from(atob(value.replaceAll('-','+').replaceAll('_','/') + '='.repeat((4-value.length%4)%4)), c => c.charCodeAt(0));
-const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-const zecToZat = value => { const [whole, frac=''] = String(value).split('.'); return BigInt(whole || 0) * 100_000_000n + BigInt(frac.padEnd(8,'0').slice(0,8)); };
-const zatToZec = value => { const whole=value/100_000_000n; const frac=(value%100_000_000n).toString().padStart(8,'0').replace(/0+$/,''); return frac ? `${whole}.${frac}` : String(whole); };
-
-async function initEngine() {
-  if (!crossOriginIsolated) throw new Error('The secure wallet engine requires cross-origin isolation. Reload the page after deployment.');
-  if (!wasmReady) wasmReady = (async () => {
-    await initWasm(new URL('./vendor/webzjs/webzjs_wallet_bg.wasm', import.meta.url));
-    await initThreadPool(Math.min(4, Math.max(1, navigator.hardwareConcurrency || 2)));
-  })();
-  return wasmReady;
+function createDrop(){
+ show(`<h2>Create a CashDrop</h2><p>A private digital envelope with an optional password, generated locally.</p><form id="drop-form"><label class="field"><span>Amount in testnet ZEC</span><input name="amount" type="number" min=".0002" step=".00000001" value=".01" required><small>Add 0.0001 ZEC for the claim fee.</small></label><label class="field"><span>Private note</span><textarea name="note" maxlength="120" rows="3"></textarea></label><label class="field"><span>Password (optional)</span><input name="password" type="password" minlength="6" autocomplete="new-password" placeholder="Share separately"><small>With a password, the key is not placed in the link.</small></label><label class="field"><span>Suggested claim deadline</span><input name="deadline" type="date"><small>A visible reminder, not an on-chain lock.</small></label><button class="primary">Generate private drop</button></form>`);
+ document.querySelector('#drop-form').onsubmit=async e=>{e.preventDefault();let f=new FormData(e.currentTarget),amount=String(f.get('amount')),note=String(f.get('note')||''),password=String(f.get('password')||''),deadline=String(f.get('deadline')||'');try{show('<h2>Preparing your drop</h2><div class="status busy">Creating a fresh shielded address…</div>');let x=await identity(),gift={v:2,type:'drop',network:'test',seed:x.seed,birthday:x.birthday,amount,note,deadline,createdAt:new Date().toISOString()},link=linkFor(await encrypt(gift,password)),fund=toZec(toZat(amount)+FEE);show(`<h2>Fund, then share</h2><p>Send exactly <strong>${fund} testnet ZEC</strong> here:</p><div class="address">${esc(x.address)}</div><div class="row" style="margin-top:16px"><button class="secondary" id="copy-address">Copy address</button><button class="secondary" id="save-recovery">Save recovery</button></div><label class="field"><span>Private claim link</span><textarea id="claim-link" rows="5" readonly>${esc(link)}</textarea><small>${password?'Password protected. Send the password separately.':'Whoever has the complete link can claim first.'}</small></label><button class="primary" id="copy-link">Copy claim link</button><p class="notice">Save recovery before sharing. Testnet coins have no monetary value.</p>`);document.querySelector('#copy-address').onclick=()=>navigator.clipboard.writeText(x.address);document.querySelector('#copy-link').onclick=()=>navigator.clipboard.writeText(link);document.querySelector('#save-recovery').onclick=()=>save(`cashdrop-${x.birthday}-recovery.json`,{type:'CashDrop recovery',version:2,network:'test',address:x.address,link,amount,note,deadline,seed:x.seed,birthday:x.birthday,passwordProtected:!!password})}catch(error){show(`<h2>Could not create the drop</h2><p class="error">${err(error)}</p><button class="secondary" id="retry">Try again</button>`);document.querySelector('#retry').onclick=createDrop}}
 }
 
-async function freshWallet() {
-  await initEngine();
-  if (activeWallet) { try { activeWallet.free(); } catch {} }
-  activeWallet = new WebWallet('test', TESTNET_GATEWAY, 1, 1, null);
-  return activeWallet;
+function createBatch(){
+ show('<h2>Create a DropBatch</h2><p>Separate private envelopes for a team, event, giveaway, or payroll run.</p><form id="batch-form"><label class="field"><span>Recipients</span><input name="count" type="number" min="2" max="20" value="3" required></label><label class="field"><span>Amount each (testnet ZEC)</span><input name="amount" type="number" min=".0002" step=".00000001" value=".01" required></label><label class="field"><span>Shared note</span><textarea name="note" maxlength="120" rows="2"></textarea></label><button class="primary">Create batch</button></form>');
+ document.querySelector('#batch-form').onsubmit=async e=>{e.preventDefault();let f=new FormData(e.currentTarget),count=Number(f.get('count')),amount=String(f.get('amount')),note=String(f.get('note')||'');try{show(`<h2>Building DropBatch</h2><div class="status busy">Preparing ${count} independent wallets…</div><p>Every recipient gets a different seed.</p>`);let wallet=await freshWallet(),latest=Number(await wallet.get_latest_block()),birthday=Math.max(0,latest-10),drops=[];for(let i=0;i<count;i++){panel.querySelector('.status').textContent=`Creating envelope ${i+1} of ${count}…`;let seed=generate_seed_phrase(),id=await wallet.create_account(`Drop ${i+1}`,seed,0,birthday),address=await wallet.get_current_address(id),payload={v:2,type:'batch',batchIndex:i+1,network:'test',seed,birthday,amount,note,createdAt:new Date().toISOString()},link=linkFor(await encrypt(payload));drops.push({recipient:i+1,address,link,seed,birthday,amount,note})}let fund=toZec(toZat(amount)+FEE);show(`<h2>DropBatch ready</h2><p>Fund every address with <strong>${fund} testnet ZEC</strong>. Send each person only their matching link.</p><div class="bundle"><table><thead><tr><th>#</th><th>Funding address</th><th>Private link</th></tr></thead><tbody>${drops.map((d,i)=>`<tr><td>${i+1}</td><td><code>${esc(d.address.slice(0,20))}…</code></td><td><button class="secondary copy-batch" data-i="${i}">Copy link</button></td></tr>`).join('')}</tbody></table></div><button class="primary" id="save-batch">Download private batch bundle</button><p class="notice">The bundle contains all recovery seeds. Never send the whole bundle to recipients.</p>`);document.querySelectorAll('.copy-batch').forEach(b=>b.onclick=()=>navigator.clipboard.writeText(drops[Number(b.dataset.i)].link));document.querySelector('#save-batch').onclick=()=>save(`cashdrop-batch-${birthday}.json`,{type:'CashDrop DropBatch recovery',version:1,network:'test',fundEachZec:fund,drops})}catch(error){show(`<h2>Batch creation paused</h2><p class="error">${err(error)}</p><button class="secondary" id="retry-batch">Try again</button>`);document.querySelector('#retry-batch').onclick=createBatch}}
 }
 
-async function encryptClaim(payload) {
-  const keyBytes = crypto.getRandomValues(new Uint8Array(32));
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const key = await crypto.subtle.importKey('raw', keyBytes, 'AES-GCM', false, ['encrypt']);
-  const encrypted = await crypto.subtle.encrypt({name:'AES-GCM',iv}, key, enc.encode(JSON.stringify(payload)));
-  return {d:b64(new Uint8Array(encrypted)),k:b64(keyBytes),n:b64(iv)};
+function createFund(){
+ show('<h2>Create a Private Fund</h2><p>Raise to one shielded address without publishing donors or their payments.</p><form id="fund-form"><label class="field"><span>Fund title</span><input name="title" maxlength="60" required></label><label class="field"><span>Goal in testnet ZEC</span><input name="goal" type="number" min=".0001" step=".00000001" value="1" required></label><label class="field"><span>Story</span><textarea name="description" maxlength="500" rows="4" required></textarea></label><label class="field"><span>Deadline (optional)</span><input name="deadline" type="date"></label><button class="primary">Create private fund</button></form>');
+ document.querySelector('#fund-form').onsubmit=async e=>{e.preventDefault();let f=new FormData(e.currentTarget),campaign={v:1,network:'test',title:String(f.get('title')),goal:String(f.get('goal')),description:String(f.get('description')),deadline:String(f.get('deadline')||'')};try{show('<h2>Preparing fund</h2><div class="status busy">Creating the organizer wallet…</div>');let x=await identity('Private Fund'),publicCampaign={...campaign,address:x.address,createdAt:new Date().toISOString()},publicLink=`${location.origin}${location.pathname}#/fund?c=${b64(enc.encode(JSON.stringify(publicCampaign)))}`;show(`<h2>Your fund is live</h2><p>The public link has the shielded address, never the recovery seed.</p><label class="field"><span>Public fund link</span><textarea id="fund-link" rows="5" readonly>${esc(publicLink)}</textarea></label><div class="row"><button class="primary" id="copy-fund">Copy public link</button><button class="secondary" id="save-fund">Save organizer recovery</button></div><p class="notice">CashDrop does not expose donor identities, amounts, or a public balance. The organizer may disclose progress separately.</p>`);document.querySelector('#copy-fund').onclick=()=>navigator.clipboard.writeText(publicLink);document.querySelector('#save-fund').onclick=()=>save(`cashdrop-fund-${x.birthday}-recovery.json`,{type:'CashDrop Private Fund recovery',version:1,network:'test',campaign:publicCampaign,publicLink,seed:x.seed,birthday:x.birthday})}catch(error){show(`<h2>Fund creation paused</h2><p class="error">${err(error)}</p><button class="secondary" id="retry-fund">Try again</button>`);document.querySelector('#retry-fund').onclick=createFund}}
 }
+function openFund(){try{let p=new URLSearchParams(location.hash.split('?')[1]||''),c=JSON.parse(dec.decode(unb64(p.get('c')||'')));if(c.network!=='test'||!c.address?.startsWith('utest1'))throw Error('This fund link is incomplete or not for testnet.');show(`<div class="campaign"><span class="eyebrow">PRIVATE FUND · TESTNET</span><h2>${esc(c.title)}</h2><p>${esc(c.description)}</p><div class="amount">Goal: ${esc(c.goal)} <span style="color:var(--gold)">ZEC</span></div>${c.deadline?`<p><strong>Deadline:</strong> ${esc(c.deadline)}</p>`:''}<label class="field"><span>Shielded contribution address</span><textarea id="fund-address" rows="4" readonly>${esc(c.address)}</textarea></label><button class="primary" id="copy-contribution">Copy address</button><p class="notice">Send only testnet ZEC. CashDrop publishes no donor list or inferred balance.</p></div>`);document.querySelector('#copy-contribution').onclick=()=>navigator.clipboard.writeText(c.address)}catch(error){show(`<h2>Invalid Private Fund</h2><p class="error">${err(error)}</p>`)}}
 
-async function decryptClaim({d,k,n}) {
-  const key = await crypto.subtle.importKey('raw', unb64(k), 'AES-GCM', false, ['decrypt']);
-  const plain = await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(n)}, key, unb64(d));
-  return JSON.parse(dec.decode(plain));
-}
+async function openClaim(){let p=Object.fromEntries(new URLSearchParams(location.hash.split('?')[1]||''));if(!p.d||!p.n||(!p.k&&p.l!=='1'))return show('<h2>Invalid CashDrop</h2><p class="error">This claim link is incomplete.</p>');if(p.l==='1'){show('<h2>Unlock your CashDrop</h2><p>The password was not stored in the link.</p><form id="unlock-form"><label class="field"><span>Password</span><input name="password" type="password" autocomplete="current-password" required autofocus></label><button class="primary">Open privately</button></form>');document.querySelector('#unlock-form').onsubmit=async e=>{e.preventDefault();try{await renderClaim(await decrypt(p,String(new FormData(e.currentTarget).get('password'))))}catch{panel.querySelector('.error')?.remove();panel.insertAdjacentHTML('beforeend','<p class="error">That password could not open this CashDrop.</p>')}};return}try{await renderClaim(await decrypt(p))}catch(error){show(`<h2>Invalid CashDrop</h2><p class="error">${err(error)}</p>`)}}
+async function renderClaim(gift,title='You received a CashDrop'){if(gift.network!=='test')throw Error('This drop is not for testnet.');let expired=gift.deadline&&new Date(gift.deadline+'T23:59:59')<new Date();show(`<h2>${esc(title)}</h2><div class="amount">${esc(gift.amount||'Available balance')} <span style="color:var(--gold)">ZEC</span></div>${gift.note?`<p>“${esc(gift.note)}”</p>`:''}${expired?'<p class="error">The suggested deadline passed; the sender may have reclaimed this.</p>':''}<p>Enter a shielded testnet address. The browser scans, proves, and sweeps locally.</p><label class="field"><span>Your shielded testnet address</span><textarea id="destination" rows="4" placeholder="utest1…"></textarea></label><div class="row"><button class="primary" id="claim">Claim privately</button><button class="secondary" id="new-wallet">I need an address</button></div><p class="notice">Anyone with the complete unlocked link can claim first.</p>`);let saved=sessionStorage.getItem('cashdrop-new-address');if(saved){document.querySelector('#destination').value=saved;sessionStorage.removeItem('cashdrop-new-address')}document.querySelector('#new-wallet').onclick=()=>{sessionStorage.setItem('cashdrop-return-link',location.href);createWallet(true)};document.querySelector('#claim').onclick=()=>claimGift(gift,document.querySelector('#destination').value.trim())}
+async function claimGift(gift,destination){if(!(destination.startsWith('utest1')||destination.startsWith('ztestsapling1')))return alert('Enter a shielded Zcash testnet address.');try{show('<h2>Opening the envelope</h2><div class="status busy">Loading the wallet engine…</div><p>Keep this tab open while compact blocks are scanned.</p>');let wallet=await freshWallet(),id=await wallet.create_account('Claim',gift.seed,0,Number(gift.birthday));panel.querySelector('.status').textContent='Scanning Zcash testnet…';await wallet.sync();let summary=await wallet.get_wallet_summary(),balances=summary?.account_balances,entries=Array.isArray(balances)?balances:Array.from(balances?.entries?.()||[]),account=entries.find(([x])=>Number(x)===Number(id)),pool=account?.[1]||{},spendable=BigInt(pool.sapling_balance?.spendable_value??pool.orchard_balance?.spendable_value??0);if(spendable<=FEE)throw Error('No spendable funds found. The drop may be unconfirmed, unfunded, or claimed.');panel.querySelector('.status').textContent='Generating the zero-knowledge proof locally…';let proposal=await wallet.propose_transfer(id,destination,spendable-FEE),txids=await wallet.create_proposed_transactions(proposal,gift.seed,0);panel.querySelector('.status').textContent='Broadcasting…';await wallet.send_authorized_transactions(txids);show(`<h2>CashDrop claimed</h2><div class="amount">${toZec(spendable-FEE)} ZEC</div><p>Accepted for broadcast.</p>`);history.replaceState(null,'',location.pathname)}catch(error){show(`<h2>Claim paused</h2><p class="error">${err(error)}</p><button class="secondary" id="retry-claim">Try again</button>`);document.querySelector('#retry-claim').onclick=()=>renderClaim(gift)}}
 
-function show(content) {
-  workspace.classList.remove('hidden');
-  panel.innerHTML = content;
-  workspace.scrollIntoView({behavior:'smooth',block:'start'});
-}
+function recover(){show('<h2>Recover or reclaim</h2><p>Open a recovery JSON from a drop, batch, or fund.</p><label class="field"><span>Recovery file</span><input id="recovery-file" type="file" accept="application/json,.json"></label><p class="notice">The file stays in this browser.</p>');document.querySelector('#recovery-file').onchange=async e=>{try{let data=JSON.parse(await e.target.files[0].text());if(data.type==='CashDrop DropBatch recovery'){show(`<h2>Choose an envelope</h2><div class="bundle">${data.drops.map((d,i)=>`<button class="secondary recover-batch" data-i="${i}">Reclaim ${i+1}</button>`).join(' ')}</div>`);document.querySelectorAll('.recover-batch').forEach(b=>b.onclick=()=>renderClaim(data.drops[Number(b.dataset.i)],'Reclaim this envelope'));return}if(!data.seed||data.birthday===undefined)throw Error('Unsupported recovery file.');await renderClaim({network:'test',seed:data.seed,birthday:data.birthday,amount:data.amount||data.campaign?.goal||'Available balance',note:data.note||data.campaign?.title||''},'Reclaim your funds')}catch(error){show(`<h2>Could not open recovery</h2><p class="error">${err(error)}</p><button class="secondary" id="retry-recovery">Try another</button>`);document.querySelector('#retry-recovery').onclick=recover}}}
+async function createWallet(returning=false){try{show('<h2>Your testnet wallet</h2><div class="status busy">Generating locally…</div>');let x=await identity('Browser wallet');show(`<h2>Back up your wallet</h2><label class="field"><span>Shielded testnet address</span><textarea id="wallet-address" rows="4" readonly>${esc(x.address)}</textarea></label><label class="field"><span>24-word recovery phrase</span><div class="secret">${esc(x.seed)}</div><small>Never share these words.</small></label><label class="field"><span><input id="backed-up" type="checkbox"> I saved the phrase privately</span></label><div class="row"><button class="secondary" id="copy-wallet">Copy address</button>${returning?'<button class="primary" id="return-claim" disabled>Return to claim</button>':''}</div>`);document.querySelector('#copy-wallet').onclick=()=>navigator.clipboard.writeText(x.address);let check=document.querySelector('#backed-up'),back=document.querySelector('#return-claim');if(back){check.onchange=()=>back.disabled=!check.checked;back.onclick=()=>{let link=sessionStorage.getItem('cashdrop-return-link');sessionStorage.setItem('cashdrop-new-address',x.address);sessionStorage.removeItem('cashdrop-return-link');location.href=link}}}catch(error){show(`<h2>Wallet unavailable</h2><p class="error">${err(error)}</p>`)}}
 
-function errorMessage(error) {
-  console.error(error);
-  return escapeHtml(error?.message || String(error));
-}
-
-async function createDrop() {
-  show(`<h2>Create a CashDrop</h2><p>Choose an amount and a private note. The one-time testnet wallet will be generated locally.</p>
-    <form id="drop-form">
-      <label class="field"><span>Amount in testnet ZEC</span><input name="amount" type="number" min="0.0002" max="1000" step="0.00000001" value="0.01" required><small>Includes a separate 0.0001 ZEC claim-fee reserve.</small></label>
-      <label class="field"><span>Private note</span><textarea name="note" maxlength="120" rows="3" placeholder="Thanks for helping with the event"></textarea></label>
-      <button class="primary" type="submit">Generate private drop</button>
-    </form>`);
-  document.querySelector('#drop-form').addEventListener('submit', async event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const amount = String(data.get('amount'));
-    const note = String(data.get('note') || '');
-    try {
-      show(`<h2>Preparing your drop</h2><div class="status busy">Loading the 60 MB shielded wallet engine…</div><p>The first load is cached by your browser.</p>`);
-      const wallet = await freshWallet();
-      panel.querySelector('.status').textContent = 'Reading the current Zcash testnet height…';
-      const latest = Number(await wallet.get_latest_block());
-      const birthday = Math.max(0, latest - 10);
-      const seed = generate_seed_phrase();
-      panel.querySelector('.status').textContent = 'Deriving a fresh shielded address locally…';
-      const accountId = await wallet.create_account('CashDrop', seed, 0, birthday);
-      const address = await wallet.get_current_address(accountId);
-      const claim = await encryptClaim({v:1,network:'test',seed,birthday,amount,note,createdAt:new Date().toISOString()});
-      const link = `${location.origin}${location.pathname}#/claim?${new URLSearchParams(claim)}`;
-      const funding = zatToZec(zecToZat(amount) + FEE);
-      show(`<h2>Fund, then share</h2><p>Send exactly <strong>${funding} testnet ZEC</strong> to this fresh shielded address:</p>
-        <div class="address" id="funding-address">${escapeHtml(address)}</div>
-        <div class="row" style="margin-top:16px"><button class="secondary" id="copy-address">Copy address</button><button class="secondary" id="save-recovery">Save recovery</button></div>
-        <label class="field"><span>Private claim link</span><textarea id="claim-link" rows="5" readonly>${escapeHtml(link)}</textarea><small>The seed and note are encrypted inside the URL fragment. Whoever has the complete link can claim first.</small></label>
-        <button class="primary" id="copy-link">Copy claim link</button>
-        <p class="notice">Share only through an end-to-end encrypted chat or in person. Testnet coins have no monetary value.</p>`);
-      document.querySelector('#copy-address').onclick = () => navigator.clipboard.writeText(address);
-      document.querySelector('#copy-link').onclick = () => navigator.clipboard.writeText(link);
-      document.querySelector('#save-recovery').onclick = () => {
-        const blob = new Blob([JSON.stringify({type:'CashDrop testnet recovery',address,link,amount,note,birthday},null,2)],{type:'application/json'});
-        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`cashdrop-${birthday}-recovery.json`; a.click(); URL.revokeObjectURL(a.href);
-      };
-    } catch (error) { show(`<h2>Could not create the drop</h2><p class="error">${errorMessage(error)}</p><button class="secondary" id="retry">Try again</button>`); document.querySelector('#retry').onclick=createDrop; }
-  });
-}
-
-async function openClaim() {
-  const query = location.hash.split('?')[1] || '';
-  const params = new URLSearchParams(query);
-  try {
-    if (!params.get('d') || !params.get('k') || !params.get('n')) throw new Error('This claim link is incomplete. Ask the sender to share the entire link.');
-    const gift = await decryptClaim({d:params.get('d'),k:params.get('k'),n:params.get('n')});
-    if (gift.network !== 'test') throw new Error(`This drop is for ${gift.network}, not testnet.`);
-    show(`<h2>You received a CashDrop</h2><div class="amount">${escapeHtml(gift.amount)} <span style="color:var(--gold)">ZEC</span></div>${gift.note?`<p>“${escapeHtml(gift.note)}”</p>`:''}
-      <p>Enter a shielded Zcash testnet address. The browser will find the note, construct the proof, and sweep it locally.</p>
-      <label class="field"><span>Your testnet shielded address</span><textarea id="destination" rows="4" placeholder="utest1… or ztestsapling1…"></textarea></label>
-      <div class="row"><button class="primary" id="claim">Claim privately</button><button class="secondary" id="new-wallet">I need an address</button></div>
-      <p class="notice">Anyone with this complete link can claim first. Never send it to support or paste it into another website.</p>`);
-    const savedDestination=sessionStorage.getItem('cashdrop-new-address');
-    if(savedDestination){document.querySelector('#destination').value=savedDestination;sessionStorage.removeItem('cashdrop-new-address');}
-    document.querySelector('#new-wallet').onclick=()=>{sessionStorage.setItem('cashdrop-return-link',location.href); createBrowserWallet(true);};
-    document.querySelector('#claim').onclick=()=>claimGift(gift,document.querySelector('#destination').value.trim());
-  } catch (error) { show(`<h2>Invalid CashDrop</h2><p class="error">${errorMessage(error)}</p><a class="button secondary" href="./">Open CashDrop</a>`); }
-}
-
-async function claimGift(gift, destination) {
-  if (!(destination.startsWith('utest1') || destination.startsWith('ztestsapling1'))) {
-    return alert('Enter a shielded Zcash testnet address.');
-  }
-  try {
-    show(`<h2>Opening the envelope</h2><div class="status busy">Loading the shielded wallet engine…</div><p>Keep this tab open while the compact blocks are scanned.</p>`);
-    const wallet = await freshWallet();
-    panel.querySelector('.status').textContent='Importing the one-time key…';
-    const accountId=await wallet.create_account('Claim',gift.seed,0,Number(gift.birthday));
-    panel.querySelector('.status').textContent='Scanning Zcash testnet from the drop birthday…';
-    await wallet.sync();
-    const summary=await wallet.get_wallet_summary();
-    const balances=summary?.account_balances;
-    const entries=Array.isArray(balances)?balances:Array.from(balances?.entries?.()||[]);
-    const account=entries.find(([id])=>Number(id)===Number(accountId));
-    const pool=account?.[1] || {};
-    const spendable=BigInt(pool.sapling_balance?.spendable_value ?? pool.orchard_balance?.spendable_value ?? 0);
-    if (spendable<=FEE) throw new Error('No spendable funds were found. The drop may still be unconfirmed, unfunded, or already claimed.');
-    panel.querySelector('.status').textContent='Generating the zero-knowledge proof locally…';
-    const proposal=await wallet.propose_transfer(accountId,destination,spendable-FEE);
-    const txids=await wallet.create_proposed_transactions(proposal,gift.seed,0);
-    panel.querySelector('.status').textContent='Broadcasting the shielded transaction…';
-    await wallet.send_authorized_transactions(txids);
-    show(`<h2>CashDrop claimed</h2><div class="amount">${zatToZec(spendable-FEE)} <span style="color:var(--gold)">ZEC</span></div><p>The shielded transaction was accepted for broadcast. Confirmation can take a few minutes.</p><a class="button primary" href="./">Create a CashDrop</a>`);
-    history.replaceState(null,'',location.pathname);
-  } catch (error) { show(`<h2>Claim paused</h2><p class="error">${errorMessage(error)}</p><button class="secondary" id="retry-claim">Try again</button>`); document.querySelector('#retry-claim').onclick=openClaim; }
-}
-
-async function createBrowserWallet(returnToClaim=false) {
-  try {
-    show(`<h2>Your testnet wallet</h2><div class="status busy">Generating locally…</div><p>Nothing is uploaded.</p>`);
-    const wallet=await freshWallet();
-    panel.querySelector('.status').textContent='Connecting to Zcash testnet…';
-    const latest=Number(await wallet.get_latest_block());
-    const seed=generate_seed_phrase();
-    const accountId=await wallet.create_account('Browser wallet',seed,0,Math.max(0,latest-10));
-    const address=await wallet.get_current_address(accountId);
-    show(`<h2>Back up your wallet</h2><p>Your address is ready. Write down the recovery words before receiving funds.</p>
-      <label class="field"><span>Shielded testnet address</span><textarea id="wallet-address" rows="4" readonly>${escapeHtml(address)}</textarea></label>
-      <label class="field"><span>24-word recovery phrase</span><div class="secret">${escapeHtml(seed)}</div><small>Never share these words. CashDrop cannot recover them.</small></label>
-      <label class="field"><span><input id="backed-up" type="checkbox"> I saved the recovery phrase privately</span></label>
-      <div class="row"><button class="secondary" id="copy-wallet">Copy address</button>${returnToClaim?'<button class="primary" id="return-claim" disabled>Return to claim</button>':''}</div>`);
-    document.querySelector('#copy-wallet').onclick=()=>navigator.clipboard.writeText(address);
-    const check=document.querySelector('#backed-up'); const back=document.querySelector('#return-claim');
-    if(back){check.onchange=()=>back.disabled=!check.checked;back.onclick=()=>{const link=sessionStorage.getItem('cashdrop-return-link');sessionStorage.setItem('cashdrop-new-address',address);sessionStorage.removeItem('cashdrop-return-link');location.href=link;};}
-  } catch(error){show(`<h2>Wallet unavailable</h2><p class="error">${errorMessage(error)}</p><button class="secondary" id="retry-wallet">Try again</button>`);document.querySelector('#retry-wallet').onclick=()=>createBrowserWallet(returnToClaim);}
-}
-
-document.querySelector('#start-create').onclick=createDrop;
-document.querySelector('#start-wallet').onclick=()=>createBrowserWallet(false);
-if(location.hash.startsWith('#/claim?')) openClaim();
-addEventListener('hashchange',()=>{if(location.hash.startsWith('#/claim?'))openClaim();});
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(console.warn);
+document.querySelector('#start-create').onclick=createDrop;document.querySelector('#start-batch').onclick=createBatch;document.querySelector('#start-fund').onclick=createFund;document.querySelector('#start-recover').onclick=recover;document.querySelector('#start-wallet').onclick=()=>createWallet();function route(){if(location.hash.startsWith('#/claim?'))openClaim();else if(location.hash.startsWith('#/fund?'))openFund()}route();addEventListener('hashchange',route);if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(console.warn);
