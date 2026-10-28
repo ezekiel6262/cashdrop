@@ -4,7 +4,7 @@
 
 ![CashDrop — private money delivered as a link](dist/screenshots/01-cashdrop.png)
 
-[Live app](https://cashdrop-theta.vercel.app/app/?release=4) · [Website](https://cashdrop-theta.vercel.app) · [Demo video](https://cashdrop-theta.vercel.app/demo/cashdrop-demo.mp4) · [Threat model](https://cashdrop-theta.vercel.app/Threat%20Model.dc.html)
+[Live app](https://www.cashdrop.live/app/?release=8) · [Website](https://www.cashdrop.live) · [Demo video](https://www.cashdrop.live/demo/cashdrop-demo.mp4) · [Threat model](https://www.cashdrop.live/Threat%20Model.dc.html)
 
 CashDrop is a browser-native, non-custodial way to send shielded Zcash before the recipient has a wallet. A sender creates a fresh one-time shielded wallet, funds its address, and shares an encrypted bearer link. The recipient opens that link and sweeps the funds into their own shielded testnet address.
 

@@ -7,7 +7,7 @@
 - [x] Public working testnet deployment
 - [x] Detailed README and architecture
 - [x] Privacy threat model
-- [x] 1080p narrated demo video (2–4 minutes)
+- [x] 1080p narrated demo video (1:48, within the two-minute submission limit)
 - [x] Submission-ready screenshots
 - [x] Pitch deck
 - [ ] Upload demo video to YouTube and paste the public URL into the submission
@@ -79,12 +79,12 @@ The hardest problem was bringing a real Zcash wallet into an ordinary browser. T
 
 ## Links
 
-- Live product: https://cashdrop-theta.vercel.app/app/?release=4
-- Website: https://cashdrop-theta.vercel.app
+- Live product: https://www.cashdrop.live/app/?release=8
+- Website: https://www.cashdrop.live
 - GitHub: https://github.com/ezekiel6262/cashdrop
-- Demo: https://cashdrop-theta.vercel.app/demo/cashdrop-demo.mp4
-- Pitch deck: https://cashdrop-theta.vercel.app/CashDrop%20Pitch%20Deck.dc.html
-- Threat model: https://cashdrop-theta.vercel.app/Threat%20Model.dc.html
+- Demo: https://www.cashdrop.live/demo/cashdrop-demo.mp4
+- Pitch deck: https://www.cashdrop.live/CashDrop%20Pitch%20Deck.dc.html
+- Threat model: https://www.cashdrop.live/Threat%20Model.dc.html
 
 ## Suggested screenshots order
 

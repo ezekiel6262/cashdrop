@@ -2,17 +2,18 @@ $ErrorActionPreference = 'Stop'
 $outDir = Join-Path $PSScriptRoot '..\video-work\audio'
 New-Item -ItemType Directory -Force $outDir | Out-Null
 $segments = @(
-  "Private money should feel as easy as handing someone cash. CashDrop turns shielded Zcash into a private claim link: no account, no browser extension, and the recipient does not need a wallet before you pay them.",
-  "On a transparent blockchain, a payment link can expose the sender, recipient, amount, and their future activity. Zcash's shielded pool hides that payment graph. CashDrop keeps both funding and claiming shielded, while making the experience understandable to ordinary users.",
-  "To send, open the web app and choose Create a CashDrop. Enter the amount and a private note. You can add a password, which removes the decryption key from the link, and a suggested deadline. CashDrop creates a fresh testnet seed and unified shielded address entirely inside the browser.",
-  "Send the displayed amount plus the small claim fee reserve to the new address. Save the recovery file before sharing. Then copy the private claim link and send it through an end-to-end encrypted chat. For a password protected drop, send the password separately. Treat the link like cash: whoever can unlock it may claim first.",
-  "The recipient opens the link and enters the password when required. They paste any shielded Zcash testnet destination. If they do not have one, CashDrop can create a browser wallet and recovery phrase. When they claim, Web Z J S scans compact blocks, constructs the transaction, generates the zero knowledge proof locally, and broadcasts a shielded sweep.",
-  "CashDrop also creates Drop Batches for events, rewards, giveaways, and payroll. Every recipient receives a separate seed and address. Private Fund creates a shareable campaign without publishing donors, contribution amounts, or a public payment graph. Organizers and senders can reclaim unspent funds with a local recovery file.",
-  "CashDrop is open source and live on Zcash testnet. It shows what shielded payments can become when privacy is built into the product instead of added as a label: private money, delivered as a link."
+  "This is CashDrop version three: private Zcash payments, delivered as a link. The new interface turns a difficult shielded transaction into a product anyone can understand, with no account, browser extension, or public payment graph.",
+  "Zcash is essential. On a transparent chain, a payment link can expose the sender, recipient, amount, and future activity. CashDrop keeps both funding and claiming inside the shielded pool, so privacy is architecture, not decoration.",
+  "To send, choose CashDrop, enter an amount and private note, and optionally add a password. A password keeps the decryption key out of the link. The browser creates a fresh testnet seed and shielded address locally.",
+  "Fund the displayed address with the amount plus the small claim fee reserve. Save the recovery file, then share the encrypted claim link privately. CashDrop never receives the seed, amount, note, password, or recipient destination.",
+  "The recipient opens the link, unlocks it when required, and enters any shielded testnet address. If they have no wallet, CashDrop creates one in the browser. Web Z J S scans, proves, and broadcasts the shielded claim locally.",
+  "The new Checkout mode creates an exact-price point-of-sale request and QR code. The merchant imports their recovery file to verify the real testnet transaction locally, seeing confirmed, pending, underpaid, or not found without creating a customer database.",
+  "Plans adds customer-approved weekly, monthly, or yearly renewals without permanent debit authority. Drop Batch supports rewards and payroll, Private Fund raises without a donor graph, and recovery lets senders reclaim an unspent envelope.",
+  "CashDrop is open source, non-custodial, and live at cashdrop dot live. It uses Web Z J S, librustzcash WebAssembly, A E S encryption, and real Zcash testnet operations. Private money can now be waiting before the wallet exists."
 )
 for ($i = 0; $i -lt $segments.Count; $i++) {
   $voice = New-Object -ComObject SAPI.SpVoice
-  $voice.Rate = -1
+  $voice.Rate = 3
   $stream = New-Object -ComObject SAPI.SpFileStream
   $file = Join-Path $outDir ("segment-{0:D2}.wav" -f ($i + 1))
   $stream.Open($file, 3, $false)
