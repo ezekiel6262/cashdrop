@@ -1,56 +1,29 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0d0d0b">
-  <meta name="description" content="Create and claim private Zcash testnet payment links in your browser.">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=6">
-  <link rel="stylesheet" href="./verification.css?v=1">
-  <title>CashDrop — Testnet web app</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0e0e10">
+  <meta name="description" content="Create, send, claim, and verify private Zcash testnet payments in your browser.">
+  <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="../assets/cashdrop-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&display=swap">
+  <link rel="stylesheet" href="./v3.css?v=1"><title>CashDrop — Private money, delivered as a link</title>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="../">CashDrop</a>
-    <span class="network"><i></i>ZCASH TESTNET · NO REAL FUNDS</span>
-  </header>
-
-  <main>
-    <section id="intro" class="hero">
-      <p class="eyebrow">PRIVATE MONEY, DELIVERED AS A LINK</p>
-      <h1>The wallet can come <em>after</em> the money.</h1>
-      <p class="lede">Create and claim shielded testnet ZEC entirely in this browser. No account, extension, Docker, or blockchain download.</p>
-      <div class="actions">
-        <button id="start-create" class="primary">Create a CashDrop</button>
-        <button id="start-batch" class="secondary">Create a DropBatch</button>
-      </div>
-      <p class="privacy-line">Keys stay on this device · the claim secret remains after the # · powered by WebZjs</p>
-    </section>
-
-    <section class="tool-grid" aria-label="CashDrop tools">
-      <button id="start-checkout" class="tool"><b>CashDrop Checkout</b><span>Create a private point-of-sale payment request for a product or service.</span></button>
-      <button id="start-verify" class="tool featured"><b>Verify a private payment</b><span>Merchant-only confirmation using a recovery file. The scan stays in this browser.</span></button>
-      <button id="start-plan" class="tool"><b>CashDrop Plans</b><span>Offer customer-approved private subscription renewals.</span></button>
-      <button id="start-fund" class="tool"><b>Private Fund</b><span>Raise shielded contributions through one shareable campaign page.</span></button>
-      <button id="start-recover" class="tool"><b>Recover or reclaim</b><span>Sweep an unclaimed drop using its private recovery file.</span></button>
-      <button id="start-wallet" class="tool"><b>Browser wallet</b><span>Create a testnet address without installing anything.</span></button>
-    </section>
-
-    <section id="workspace" class="workspace hidden" aria-live="polite">
-      <div class="stepper"><span class="active">1 · Prepare</span><span>2 · Fund</span><span>3 · Share</span></div>
-      <div id="panel" class="panel"></div>
-    </section>
-
-    <section class="trust-grid">
-      <article><b>Browser-native</b><span>The wallet engine and zero-knowledge proof generation run locally with WebAssembly.</span></article>
-      <article><b>Non-custodial</b><span>CashDrop does not receive your seed phrase, claim key, destination, amount, or note.</span></article>
-      <article><b>Public testnet</b><span>Transactions are real Zcash protocol operations, but testnet coins have no monetary value.</span></article>
-    </section>
-  </main>
-
-  <footer><a href="../Threat%20Model.dc.html">Threat model</a><a href="https://github.com/ChainSafe/WebZjs" target="_blank" rel="noreferrer">WebZjs source</a><a href="../">About CashDrop</a></footer>
-  <script src="./vendor/qrcode.min.js"></script>
-  <script type="module" src="./app.js?v=6"></script>
-</body>
-</html>
+  <header class="app-header"><a class="brand" href="../"><img src="../assets/cashdrop-mark.svg" alt=""><span>CashDrop</span></a><span class="network"><i></i> TESTNET</span><a class="header-action" href="../">About CashDrop</a></header>
+  <div class="app-shell">
+    <aside class="sidebar"><span class="side-label">CREATE</span><nav aria-label="CashDrop tools">
+      <button id="start-create" class="nav-item active"><i>A</i><span><b>CashDrop</b><small>One private envelope</small></span></button>
+      <button id="start-batch" class="nav-item"><i>B</i><span><b>DropBatch</b><small>Many independent drops</small></span></button>
+      <button id="start-fund" class="nav-item"><i>C</i><span><b>Private Fund</b><small>Raise without a donor graph</small></span></button>
+      <button id="start-checkout" class="nav-item"><i>D</i><span><b>Checkout</b><small>Exact-price point of sale</small></span></button>
+      <button id="start-plan" class="nav-item"><i>E</i><span><b>Plans</b><small>Customer-approved renewals</small></span></button>
+      <button id="start-verify" class="nav-item"><i>F</i><span><b>Verify</b><small>Scan a merchant recovery</small></span></button>
+      <button id="start-recover" class="nav-item"><i>G</i><span><b>Recover</b><small>Reclaim an envelope</small></span></button>
+      <button id="start-wallet" class="nav-item"><i>H</i><span><b>Wallet</b><small>Create a testnet address</small></span></button>
+    </nav><div class="engine-card"><span><i></i> ENGINE</span><b>WebZjs ready</b><span>SERVER</span><b>none</b></div></aside>
+    <main class="app-main"><div class="docbar"><span>CD-01 · CASHDROP</span><div><b class="on">1 · PREPARE</b><b>2 · FUND</b><b>3 · SHARE</b></div></div>
+      <section id="workspace" class="workspace"><div id="panel" class="panel"><span class="kicker">CASHDROP · NEW ENVELOPE</span><h1>Seal private money.<br><em>Share the link.</em></h1><p class="intro-copy">A fresh shielded address, an encrypted claim secret, and no CashDrop account. Everything important happens on this device.</p><button class="primary" id="welcome-create">Create a CashDrop →</button></div>
+        <aside class="envelope-preview" aria-hidden="true"><span class="preview-caption">SPECIMEN · LIVE</span><div class="envelope-card"><span class="serial">NO. 3194021 · SHIELDED</span><strong><span id="preview-amount">0.25</span> <i>ZEC</i></strong><em id="preview-note">your private note appears here</em><div class="seal"><img src="../assets/cashdrop-mark.svg" alt=""></div><span class="stamp" id="preview-stamp">UNSEALED</span></div><div class="spec-grid"><span><small>ENGINE</small>WebZjs</span><span><small>NETWORK</small>Testnet</span><span><small>CUSTODY</small>None</span><span><small>SERVER DATA</small>None</span></div></aside>
+      </section></main>
+  </div>
+  <script src="./vendor/qrcode.min.js"></script><script type="module" src="./app.js?v=7"></script>
+</body></html>

@@ -20,6 +20,8 @@ Zcash is essential to the design. A public-chain payment link would publish a la
 
 ## Product modes
 
+CashDrop v3 uses one wax-seal identity across the marketing site, installable PWA, recipient pages, merchant checkout, and recovery flows. The responsive interface switches between a dark sender console and cream recipient paper while retaining the real browser-native wallet engine.
+
 | Mode | Use case | Privacy property |
 |---|---|---|
 | CashDrop | One private gift, reward, refund, or payment | Optional password; encrypted bearer link |

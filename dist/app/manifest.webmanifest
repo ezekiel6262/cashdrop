@@ -3,7 +3,8 @@
   "short_name": "CashDrop",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0d0d0b",
-  "theme_color": "#0d0d0b",
-  "description": "Private Zcash testnet payment links in your browser."
+  "background_color": "#0e0e10",
+  "theme_color": "#0e0e10",
+  "description": "Private Zcash testnet payment links in your browser.",
+  "icons": [{"src":"../assets/cashdrop-app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }

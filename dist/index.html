@@ -1,29 +1,374 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CashDrop turns shielded testnet ZEC into a private claim link—no account, extension, or blockchain download."><meta property="og:title" content="CashDrop — private money, delivered as a link"><meta property="og:description" content="Send shielded ZEC before the recipient has a wallet. Browser-native and non-custodial."><meta property="og:image" content="https://cashdrop-theta.vercel.app/screenshots/01-cashdrop.png"><meta property="og:type" content="website"><meta name="theme-color" content="#0d0d0b"><title>CashDrop — Private money, delivered as a link</title><link rel="stylesheet" href="./site.css?v=1"></head>
-<body><header class="nav"><a class="brand" href="#top"><span class="brandmark">↓</span>CashDrop</a><nav><a href="#product">Product</a><a href="#privacy">Privacy</a><a href="#demo">Demo</a><a href="Threat%20Model.dc.html">Threat model</a><a class="pill small" href="app/?release=4">Open app ↗</a></nav></header>
-<main id="top">
-<section class="hero wrap"><div class="hero-copy"><div class="badge"><i></i>ZCASH TESTNET · LIVE BETA</div><h1>Private money,<br><em>delivered as a link.</em></h1><p class="lead">CashDrop lets you send shielded ZEC before the recipient has a wallet. Seal a one-time envelope, fund it, and hand it over in a message.</p><div class="actions"><a class="pill" href="app/?release=4">Create a CashDrop</a><a class="ghost" href="#demo">Watch the demo <span>▶</span></a></div><div class="proof"><span>✓ No account</span><span>✓ No extension</span><span>✓ Keys stay local</span></div></div>
-<div class="hero-art" aria-label="A CashDrop shared in a private chat"><div class="chat-head"><b>A</b><span>Ada<small>End-to-end encrypted chat</small></span></div><div class="bubble">A little something for the launch.</div><div class="envelope"><div class="env-top">CASHDROP <span>FOR YOU</span></div><strong>0.0100 <small>ZEC</small></strong><div class="flap"></div><div class="seal">↓</div><em>Tap the private link to claim</em></div><div class="link">cashdrop.app/#/claim?d=••••••</div><div class="reply">I don’t have a wallet yet.</div><div class="bubble">That’s the point. It can come later.</div></div></section>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Private Zcash payments, delivered as a link. Shielded, non-custodial, and entirely in your browser.">
+<link rel="icon" href="./assets/cashdrop-mark.svg" type="image/svg+xml">
+<title>CashDrop — Private money, delivered as a link</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&amp;display=swap">
+<style>
+html{scroll-behavior:smooth}body{margin:0;background:#161617;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:#f4b728;text-decoration:none}a:hover{color:#ffd166}
+::selection{background:#f4b728;color:#201515}
+:focus-visible{outline:2px solid #f4b728;outline-offset:2px}
+@keyframes cdrise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes cdflap{0%,10%{transform:translateZ(9px) rotateX(0deg)}26%,70%{transform:translateZ(-16px) rotateX(178deg)}86%,100%{transform:translateZ(9px) rotateX(0deg)}}
+@keyframes cdletter{0%,24%{transform:translateZ(0) translateY(0)}42%,60%{transform:translateZ(0) translateY(-62%)}76%,100%{transform:translateZ(0) translateY(0)}}
+@keyframes cdspin{to{transform:rotateY(360deg)}}
+@keyframes cdbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes cdshadow{0%,100%{opacity:.55;transform:rotateX(90deg) scale(1)}50%{opacity:.35;transform:rotateX(90deg) scale(.9)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="font-family:Geist,system-ui,sans-serif;color:#fafafa;background:#161617;min-height:100vh">
 
-<section class="ticker"><div>SHIELDED BY ZCASH</div><div>PROVED IN YOUR BROWSER</div><div>TESTNET READY</div><div>OPEN SOURCE</div></section>
+<div style="display:flex;justify-content:center;gap:10px;padding:9px 16px;border-bottom:1px solid #232324;font-size:12px;color:#a1a1aa;text-align:center;flex-wrap:wrap">
+  <span style="font-family:'Geist Mono',monospace;color:#f4b728">RELEASE 4</span><span>Live on Zcash testnet. Testnet coins have no monetary value.</span>
+</div>
 
-<section id="product" class="section wrap"><div class="eyebrow">ONE PRODUCT, SIX REAL USES</div><div class="section-head"><h2>More than a payment link.</h2><p>CashDrop turns the shielded pool into a consumer product for gifts, payouts, fundraising, checkout, subscriptions, and onboarding.</p></div><div class="products">
-<article class="feature primary-card"><span>01 · CASHDROP</span><h3>Hand someone digital cash.</h3><p>Create one private envelope with an optional password and suggested deadline. The recipient claims to any shielded testnet address.</p><a href="app/?release=4">Create one →</a></article>
-<article class="feature"><span>02 · DROPBATCH</span><h3>Pay a room, privately.</h3><p>Generate independent envelopes for events, community rewards, payroll, or giveaways. Every recipient gets a different seed and address.</p></article>
-<article class="feature"><span>03 · PRIVATE FUND</span><h3>Raise without a donor graph.</h3><p>Share a campaign page backed by one shielded address. Donor identities, amounts, and public balance are deliberately not published.</p></article>
-<article class="feature"><span>04 · RECOVER</span><h3>The sender stays in control.</h3><p>Save an offline recovery bundle and sweep an unclaimed envelope back to a shielded wallet. No CashDrop account required.</p></article>
-<article class="feature"><span>05 · CHECKOUT</span><h3>Private point of sale.</h3><p>Create an exact-price testnet checkout, then verify confirmed, pending, or underpaid status locally from the merchant recovery file.</p></article>
-<article class="feature"><span>06 · PLANS</span><h3>Subscriptions without wallet authority.</h3><p>Offer weekly, monthly, or yearly renewal pages. Customers approve each shielded renewal—CashDrop never stores debit permission.</p></article>
-</div></section>
+<nav style="position:sticky;top:0;z-index:5;background:#0e0e10;border-bottom:1px solid #232324">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,48px);height:60px;display:flex;align-items:center;gap:28px">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;color:#fafafa;margin-right:auto">
+      <svg width="30" height="30" viewBox="0 0 48 48" aria-hidden="true" style="flex:none"><circle cx="24" cy="24" r="21" fill="none" stroke="#f4b728" stroke-width="4" stroke-dasharray="2.6 2.4"></circle><circle cx="24" cy="24" r="18.5" fill="#f4b728"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:21px;letter-spacing:.08em;text-transform:uppercase">CashDrop</span>
+    </a>
+    <div style="display:flex;gap:24px;font-size:14px;font-weight:500">
+      <a href="#how" style="color:#a1a1aa" style-hover="color:#fafafa">How it works</a>
+      <a href="#modes" style="color:#a1a1aa" style-hover="color:#fafafa">Modes</a>
+      <a href="#merchants" style="color:#a1a1aa" style-hover="color:#fafafa">Merchants</a>
+      <a href="#limits" style="color:#a1a1aa" style-hover="color:#fafafa">Privacy</a>
+      <a href="#demo" style="color:#a1a1aa" style-hover="color:#fafafa">Demo</a>
+    </div>
+    <a href="./app/" style="background:#fafafa;color:#0e0e10;border-radius:999px;padding:9px 18px;font-size:14px;font-weight:500" style-hover="background:#f4b728;color:#201515">Open the app</a>
+  </div>
+</nav>
 
-<section class="contrast"><div class="wrap two"><div><div class="eyebrow dark">THE USUAL CRYPTO PAYMENT</div><h2>They work before you pay.</h2><ol class="muted-list"><li>Install a wallet</li><li>Back up recovery words</li><li>Find the right address</li><li>Send it to the payer</li><li>Hope the network is right</li></ol></div><div class="fast"><div class="eyebrow">WITH CASHDROP</div><h2>You pay. They open.</h2><ol><li><b>01</b><span>Seal a fresh shielded envelope</span></li><li><b>02</b><span>Fund and share the private link</span></li><li><b>03</b><span>They claim when ready</span></li></ol></div></div></section>
+<header id="top" style="position:relative;overflow:hidden;border-bottom:1px solid #232324;background:#161617">
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(20px,4vw,48px) clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:48px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px;animation:cdrise .7s ease-out both">
+      <span style="display:flex;align-items:center;gap:10px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.06em;color:#a1a1aa"><span style="width:7px;height:7px;border-radius:50%;background:#f4b728;box-shadow:0 0 0 4px rgba(244,183,40,.18)"></span>SHIELDED · NON-CUSTODIAL · IN-BROWSER</span>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(60px,8.4vw,116px);line-height:.9;letter-spacing:.005em;text-transform:uppercase">Private money,<br><span style="font-family:Newsreader,serif;font-style:italic;font-weight:300;text-transform:none;letter-spacing:-.02em;color:#f4b728;font-size:.92em">delivered as a link.</span></h1>
+      <p style="margin:0;max-width:30em;font-size:18px;line-height:1.55;color:#a1a1aa">Send shielded Zcash to someone who has no wallet yet. CashDrop seals it in a one-time envelope, on your device, and hands you a link. <span style="color:#fafafa">The wallet can come after the money.</span></p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="./app/" style="background:#f4b728;color:#201515;border-radius:999px;padding:14px 26px;font-size:15px;font-weight:600" style-hover="background:#ffd166;color:#201515">Create a CashDrop</a>
+        <a href="#how" style="border:1px solid #5c5c61;color:#fafafa;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:500" style-hover="border-color:#fafafa;color:#fafafa">See how it works</a>
+      </div>
+    </div>
 
-<section id="privacy" class="section wrap"><div class="eyebrow">WHY ZCASH</div><div class="section-head"><h2>Privacy is the feature—not the decoration.</h2><p>Zcash’s shielded pool hides sender, recipient, and amount. CashDrop keeps the entire transfer shielded and makes the experience understandable.</p></div><div class="privacy-grid"><div class="terminal"><div class="terminal-head">TESTNET EXPLORER VIEW <span>CONFIRMED</span></div><dl><dt>Transaction</dt><dd>Shielded</dd><dt>Sender</dt><dd class="redact"></dd><dt>Recipient</dt><dd class="redact long"></dd><dt>Amount</dt><dd class="redact short"></dd><dt>CashDrop?</dt><dd class="redact"></dd></dl></div><div class="privacy-copy"><h3>The chain learns less.</h3><ul><li><b>No public payment graph.</b> A claim does not announce who paid whom.</li><li><b>No account database.</b> The app is static and non-custodial.</li><li><b>No plaintext secrets on our server.</b> Claim material stays in the URL fragment and is encrypted.</li><li><b>Honest limits.</b> The lightwallet gateway can see network metadata; your chat must still be secure.</li></ul><a href="Threat%20Model.dc.html">Read the complete threat model →</a></div></div></section>
+    <div ref="{{ stageRef }}" style="position:relative;justify-self:center;width:min(100%,540px);aspect-ratio:1/1;perspective:1500px;animation:cdrise .9s .15s ease-out both">
+      <div ref="{{ tiltRef }}" style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(16deg) rotateY(-24deg);transition:transform .8s cubic-bezier(.2,.8,.2,1)">
+        <div style="position:absolute;left:12%;right:12%;bottom:6%;height:90px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent);filter:blur(6px);transform-origin:center;animation:cdshadow 6s ease-in-out infinite"></div>
+        <div style="position:absolute;left:10%;top:34%;width:80%;aspect-ratio:1.6;transform-style:preserve-3d;animation:cdbob 6s ease-in-out infinite">
+          <div style="position:absolute;inset:0;border-radius:8px;background:#e3dac6;transform:translateZ(-8px);box-shadow:0 40px 60px -20px rgba(0,0,0,.7)"></div>
+          <div style="position:absolute;inset:0;border-radius:8px;background:#d6ccb5;transform:translateZ(-7px) translateY(3px)"></div>
+          <div style="position:absolute;left:6%;right:6%;top:5%;height:88%;transform-style:preserve-3d;animation:cdletter 9s cubic-bezier(.6,0,.3,1) infinite">
+            <div style="position:absolute;inset:0;border-radius:4px;background:#fffefb;border:1px solid #eceae3;padding:16px 18px;display:flex;flex-direction:column;gap:6px;color:#201515;box-shadow:0 6px 16px -8px rgba(0,0,0,.35)">
+              <span style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;color:#6f6a5e">NO. 3194021 · SHIELDED</span>
+              <span style="font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(30px,4vw,44px);letter-spacing:-.05em;line-height:1">0.25<span style="font-size:.38em;letter-spacing:0;margin-left:6px;color:#9a6a00">ZEC</span></span>
+              <span style="font-family:Newsreader,serif;font-style:italic;font-weight:300;font-size:16px;color:#36342e">for Ana — dinner is on me.</span>
+            </div>
+          </div>
+          <div style="position:absolute;inset:0;border-radius:8px;background:linear-gradient(170deg,#fffefb 40%,#f3ede2);clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);transform:translateZ(4px)">
+            <div style="position:absolute;left:0;right:0;bottom:0;height:100%;background:linear-gradient(to top right,transparent calc(50% - .6px),#d9d1bf 50%,transparent calc(50% + .6px)) left bottom/50% 48% no-repeat,linear-gradient(to top left,transparent calc(50% - .6px),#d9d1bf 50%,transparent calc(50% + .6px)) right bottom/50% 48% no-repeat"></div>
+            <span style="position:absolute;left:18px;bottom:14px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;color:#6f6a5e">FOR YOU</span>
+            <span style="position:absolute;right:18px;bottom:14px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;padding:4px 7px;border:1px solid #201515;border-radius:4px;color:#201515">SEALED</span>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:0;height:56%;transform-origin:50% 0;transform-style:preserve-3d;animation:cdflap 9s cubic-bezier(.6,0,.3,1) infinite">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,#f8f4f0,#ebe4d6);clip-path:polygon(0 0,100% 0,50% 100%);border-radius:8px 8px 0 0;backface-visibility:hidden;-webkit-backface-visibility:hidden"></div><div style="position:absolute;inset:0;background:linear-gradient(0deg,#ddd3be,#cfc4ab);clip-path:polygon(0 0,100% 0,50% 100%);transform:rotateY(180deg) translateZ(.5px);backface-visibility:hidden;-webkit-backface-visibility:hidden"></div>
+            <div style="position:absolute;left:50%;top:100%;width:58px;height:58px;transform:translate(-50%,-62%) translateZ(3px);backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:50%;box-shadow:0 6px 12px -4px rgba(0,0,0,.45)"><svg width="58" height="58" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+          </div>
+        </div>
+        <div style="position:absolute;left:2%;top:10%;transform:translateZ(90px);width:64px;height:64px;transform-style:preserve-3d"><div style="width:100%;height:100%;transform-style:preserve-3d;animation:cdbob 5.6000000000000005s ease-in-out 0s infinite"><div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:cdspin 7s linear 0s infinite"><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-3px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-2px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(0px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(2px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(3px)"></div><div style="position:absolute;inset:0;transform:translateZ(4px);backface-visibility:hidden"><svg width="64" height="64" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(4px);backface-visibility:hidden"><svg width="64" height="64" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div>
+        <div style="position:absolute;right:4%;top:22%;transform:translateZ(-60px);width:44px;height:44px;transform-style:preserve-3d"><div style="width:100%;height:100%;transform-style:preserve-3d;animation:cdbob 4.4s ease-in-out -1.2s infinite"><div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:cdspin 5.5s linear -1.2s infinite"><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-2px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(0px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(2px)"></div><div style="position:absolute;inset:0;transform:translateZ(3px);backface-visibility:hidden"><svg width="44" height="44" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(3px);backface-visibility:hidden"><svg width="44" height="44" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div>
+        <div style="position:absolute;right:0%;bottom:34%;transform:translateZ(120px);width:34px;height:34px;transform-style:preserve-3d"><div style="width:100%;height:100%;transform-style:preserve-3d;animation:cdbob 5.2s ease-in-out -2.4s infinite"><div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:cdspin 6.5s linear -2.4s infinite"><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-1.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-0.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(0.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(1.5px)"></div><div style="position:absolute;inset:0;transform:translateZ(2.5px);backface-visibility:hidden"><svg width="34" height="34" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(2.5px);backface-visibility:hidden"><svg width="34" height="34" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div>
+        <div style="position:absolute;left:-2%;bottom:18%;transform:translateZ(150px);padding:9px 14px;border-radius:999px;background:rgba(14,14,16,.82);border:1px solid #2c2c30;backdrop-filter:blur(8px);font-family:'Geist Mono',monospace;font-size:12px;color:#a1a1aa;white-space:nowrap;box-shadow:0 20px 40px -20px rgba(0,0,0,.8)"><span style="color:#f4b728">#</span>/claim?d=7HqK2vR9…</div>
+        <div style="position:absolute;right:-2%;top:6%;transform:translateZ(60px);padding:8px 12px;border-radius:999px;background:#f4b728;color:#201515;font-family:'Geist Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;box-shadow:0 20px 40px -20px rgba(0,0,0,.8)">SHIELDED · ZK</div>
+      </div>
+    </div>
+  </div>
+</header>
 
-<section id="demo" class="section demo"><div class="wrap demo-inner"><div><div class="eyebrow">3-MINUTE WALKTHROUGH</div><h2>See the full hand-off.</h2><p>Learn why CashDrop exists, how Zcash protects the transfer, and how a sender creates, funds, shares, and reclaims an envelope.</p><div class="actions"><a class="pill dark-pill" href="demo/cashdrop-demo.mp4">Watch demo video</a><a class="ghost dark-ghost" href="https://github.com/ezekiel6262/cashdrop">View source ↗</a></div></div><a class="video-card" href="demo/cashdrop-demo.mp4" aria-label="Play CashDrop demo video"><span class="play">▶</span><div><b>CASHDROP DEMO</b><small>Product · privacy · send · receive</small></div></a></div></section>
+<section aria-label="Anatomy of a claim link" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px)">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:28px">
+    <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(32px,3.6vw,46px);text-transform:uppercase;letter-spacing:.02em">Anatomy of a link</h2>
+    <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#a1a1aa">FIG. 01 — WHY THE KEY NEVER REACHES A SERVER</span>
+  </div>
+  <div style="position:relative;border:1px solid #2c2c30;border-radius:18px;background:linear-gradient(180deg,#141416 0%,#0e0e10 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -40px rgba(0,0,0,.8);overflow:hidden">
 
-<section class="section wrap"><div class="eyebrow">BUILT FOR THE ZECATHON</div><div class="section-head"><h2>Working beats hypothetical.</h2><p>The browser loads a real WebAssembly Zcash wallet engine, connects to testnet, derives unified addresses, scans compact blocks, constructs proofs locally, and broadcasts shielded transactions.</p></div><div class="stack"><div><b>WebZjs + librustzcash</b><span>Wallet logic and proving in WebAssembly</span></div><div><b>Zcash testnet</b><span>Real shielded addresses and protocol operations</span></div><div><b>AES-GCM + PBKDF2</b><span>Encrypted bearer links and password protection</span></div><div><b>Static PWA</b><span>No CashDrop backend, account, or custody</span></div></div></section>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))">
+      <div style="padding:28px 24px;border-right:1px solid #232324;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:15px;color:#a1a1aa;white-space:nowrap">cashdrop.app/app/</span>
+        <span style="height:3px;border-radius:2px;background:#5c5c61"></span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.04em;text-transform:uppercase">Origin</b>
+        <span style="font-size:14px;line-height:1.5;color:#a1a1aa">The only part any server receives.</span>
+      </div>
+      <div style="padding:28px 24px;border-right:1px solid #232324;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:15px;color:#f4b728;font-weight:500">#/claim?</span>
+        <span style="height:3px;border-radius:2px;background:#f4b728"></span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.04em;text-transform:uppercase">Fragment</b>
+        <span style="font-size:14px;line-height:1.5;color:#a1a1aa">Browsers never transmit anything after the #.</span>
+      </div>
+      <div style="padding:28px 24px;border-right:1px solid #232324;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:15px">d=7HqK2vR9…</span>
+        <span style="height:3px;border-radius:2px;background:#f4b728;opacity:.7"></span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.04em;text-transform:uppercase">Ciphertext</b>
+        <span style="font-size:14px;line-height:1.5;color:#a1a1aa">Seed, amount and note under AES-256-GCM.</span>
+      </div>
+      <div style="padding:28px 24px;border-right:1px solid #232324;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:15px">&amp;n=Yk3pQ1…</span>
+        <span style="height:3px;border-radius:2px;background:#f4b728;opacity:.5"></span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.04em;text-transform:uppercase">Nonce</b>
+        <span style="font-size:14px;line-height:1.5;color:#a1a1aa">96 random bits, fresh every time.</span>
+      </div>
+      <div style="padding:28px 24px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:15px">&amp;k=Zt8vW2… <span style="color:#696970">or &amp;l=1</span></span>
+        <span style="height:3px;border-radius:2px;background:#f4b728;opacity:.3"></span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.04em;text-transform:uppercase">Key — or a lock</b>
+        <span style="font-size:14px;line-height:1.5;color:#a1a1aa">Add a password and the key leaves the link entirely.</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="faq wrap"><h2>Before you drop.</h2><details open><summary>Is this real Zcash?</summary><p>Yes: the live beta uses the public Zcash testnet and produces real testnet shielded addresses and transactions. Testnet coins have no monetary value.</p></details><details><summary>Does the link contain the money?</summary><p>The link carries encrypted recovery material for a fresh shielded wallet. Treat it like cash: whoever can unlock the complete link may claim first.</p></details><details><summary>Can CashDrop recover my link?</summary><p>No. CashDrop is non-custodial. Save the recovery file when creating a drop or fund.</p></details><details><summary>Is it mainnet-ready?</summary><p>Not yet. The current release is explicitly testnet-only and needs an independent security review before handling real value.</p></details></section>
+<div style="background:#fffefb;color:#201515">
+  <section id="how" style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,128px) clamp(20px,4vw,48px) 64px">
+    <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9a6a00"><span style="width:24px;height:2px;background:#f4b728"></span>How it works</span>
+    <h2 style="margin:18px 0 56px;font-family:Newsreader,serif;font-weight:300;font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-.03em;max-width:15em">Three moves for the sender. <em style="color:#6f6a5e">One for the recipient.</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
+      <div style="background:#f8f4f0;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:14px;min-height:240px">
+        <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#6f6a5e">01</span>
+        <h3 style="margin:auto 0 0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:30px;text-transform:uppercase;letter-spacing:.03em">Seal</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#36342e">Amount, note, optional password. A fresh shielded address is derived on your device.</p>
+      </div>
+      <div style="background:#f8f4f0;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:14px;min-height:240px">
+        <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#6f6a5e">02</span>
+        <h3 style="margin:auto 0 0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:30px;text-transform:uppercase;letter-spacing:.03em">Fund</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#36342e">Send the amount plus a 0.0001 reserve from any shielded wallet. Save the recovery file.</p>
+      </div>
+      <div style="background:#f8f4f0;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:14px;min-height:240px">
+        <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#6f6a5e">03</span>
+        <h3 style="margin:auto 0 0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:30px;text-transform:uppercase;letter-spacing:.03em">Share</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#36342e">Paste the link into an encrypted chat. The password, if any, travels another way.</p>
+      </div>
+      <div style="background:#201515;color:#fffefb;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:14px;min-height:240px">
+        <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728">→ RECIPIENT</span>
+        <h3 style="margin:auto 0 0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:30px;text-transform:uppercase;letter-spacing:.03em">Claim</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#d9d4c7">Open it, make a wallet if needed, and the browser proves and sweeps the funds locally.</p>
+      </div>
+    </div>
+  </section>
 
-<section class="final"><div class="wrap"><div class="eyebrow dark">CASH CAN TRAVEL IN A MESSAGE</div><h2>Seal it. Send it.<br>Let them open it.</h2><a class="pill black" href="app/?release=4">Launch CashDrop ↗</a></div></section>
-</main><footer class="wrap"><div class="brand"><span class="brandmark">↓</span>CashDrop</div><p>Private claim links for shielded ZEC · Zecathon 2026</p><div><a href="app/?release=4">App</a><a href="CashDrop%20Pitch%20Deck.dc.html">Pitch deck</a><a href="Threat%20Model.dc.html">Threat model</a><a href="https://github.com/ezekiel6262/cashdrop">GitHub</a></div></footer></body></html>
+  <section id="modes" style="max-width:1200px;margin:0 auto;padding:64px clamp(20px,4vw,48px) clamp(80px,10vw,128px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px">
+      <div>
+        <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9a6a00"><span style="width:24px;height:2px;background:#f4b728"></span>Seven modes</span>
+        <h2 style="margin:18px 0 0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(40px,4.8vw,60px);line-height:.95;text-transform:uppercase;letter-spacing:.02em">One envelope,<br>many occasions.</h2>
+      </div>
+      <a href="./app/" style="border:1px solid #201515;color:#201515;border-radius:999px;padding:12px 22px;font-size:15px;font-weight:500" style-hover="background:#201515;color:#fffefb">Try them in the app →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));border-top:1px solid #201515">
+      <a href="./app/" style="padding:24px 20px 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;background:#f4b728;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px;font-weight:500">A</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">CashDrop</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">One private gift, refund or payment.</span>
+      </a>
+      <a href="./app/" style="padding:24px 20px 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;border:1px solid #c5c0b1;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px">B</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">DropBatch</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">Events, rewards, private payroll. One seed per person.</span>
+      </a>
+      <a href="./app/" style="padding:24px 20px 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;border:1px solid #c5c0b1;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px">C</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">Private Fund</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">Raise with a public story and no donor list.</span>
+      </a>
+      <a href="./app/" style="padding:24px 20px 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;border:1px solid #c5c0b1;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px">D</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">Checkout</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">Exact-price point of sale, with a real QR.</span>
+      </a>
+      <a href="./app/" style="padding:24px 20px 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;border:1px solid #c5c0b1;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px">E</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">Plans</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">Weekly, monthly or yearly — customer approves each renewal.</span>
+      </a>
+      <a href="./app/" style="padding:24px 20px 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;border:1px solid #c5c0b1;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px">F</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">Recover</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">Sweep back what nobody claimed.</span>
+      </a>
+      <a href="./app/" style="padding:24px 0 28px 0;display:flex;flex-direction:column;gap:10px;color:#201515;border-bottom:1px solid #eceae3" style-hover="color:#201515;background:#f8f4f0">
+        <span style="width:32px;height:32px;border-radius:4px;border:1px solid #c5c0b1;display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:13px">G</span>
+        <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-top:8px">Wallet</b>
+        <span style="font-size:14px;line-height:1.5;color:#36342e">A first address, no extension.</span>
+      </a>
+    </div>
+  </section>
+</div>
+
+
+<section id="merchants" style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,128px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px 80px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.06em;color:#f4b728">FOR MERCHANTS</span>
+    <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(44px,5.4vw,72px);line-height:.92;text-transform:uppercase">Take payment.<br><span style="font-family:Newsreader,serif;font-style:italic;font-weight:300;text-transform:none;color:#f4b728">Keep no customer file.</span></h2>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#a1a1aa;max-width:32em">Checkout turns any phone into a shielded point of sale. Plans sell subscriptions where the customer approves every renewal. To confirm a payment, your browser rebuilds the merchant wallet from its recovery file and scans testnet itself — no account, no dashboard, no customer record.</p>
+    <ol style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;border-top:1px solid #5c5c61">
+      <li style="display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728">01</span><span>Set a merchant, an item and an exact price.</span></li>
+      <li style="display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728">02</span><span>The customer scans the QR and pays shielded.</span></li>
+      <li style="display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728">03</span><span>Verify on your own device before you hand anything over.</span></li>
+    </ol>
+  </div>
+  <div style="position:relative;border:1px solid #2c2c30;border-radius:18px;background:linear-gradient(180deg,#141416 0%,#0e0e10 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -40px rgba(0,0,0,.8);overflow:hidden;padding:24px;display:flex;flex-direction:column;gap:16px">
+
+    <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:#696970">LOCAL MERCHANT VERIFICATION · TESTNET</span>
+    <b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;text-transform:uppercase;letter-spacing:.03em">Ada’s Coffee · Coffee and pastry</b>
+    <div style="display:flex;align-items:center;gap:14px;padding:18px;border:1px solid #232324;border-radius:12px;background:#181818">
+      <span style="width:40px;height:40px;border-radius:50%;background:#f4b728;color:#201515;display:grid;place-items:center;font-weight:700;flex:none">✓</span>
+      <div style="display:flex;flex-direction:column;gap:2px;margin-right:auto"><span style="font-family:'Geist Mono',monospace;font-weight:500;font-size:32px;letter-spacing:-.04em;line-height:1">CONFIRMED</span><span style="font-size:13px;color:#a1a1aa">14 confirmations · orchard pool</span></div>
+      <span style="font-family:'Geist Mono',monospace;font-size:15px">0.01 ZEC</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <span style="padding:5px 12px;border-radius:999px;background:#f4b728;color:#201515;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em">CONFIRMED</span>
+      <span style="padding:5px 12px;border-radius:999px;border:1px solid #fafafa;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em">PENDING</span>
+      <span style="padding:5px 12px;border-radius:999px;border:1px solid #fafafa;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em">UNDERPAID</span>
+      <span style="padding:5px 12px;border-radius:999px;border:1px dashed #5c5c61;color:#a1a1aa;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em">NOT FOUND</span>
+    </div>
+    <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#696970">Checked on this device · seed not uploaded · no customer record</span>
+  </div>
+</section>
+<section aria-label="Specification" style="border-bottom:1px solid #232324">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))">
+    <div style="padding:56px clamp(20px,3vw,40px);border-right:1px solid #232324;display:flex;flex-direction:column;gap:12px"><span style="font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(56px,6vw,76px);line-height:1;letter-spacing:-.06em">0</span><span style="font-size:14px;line-height:1.5;color:#a1a1aa">Servers, accounts or databases that ever hold your money.</span></div>
+    <div style="padding:56px clamp(20px,3vw,40px);border-right:1px solid #232324;display:flex;flex-direction:column;gap:12px"><span style="font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(56px,6vw,76px);line-height:1;letter-spacing:-.06em">256<span style="font-size:.35em;letter-spacing:0;color:#f4b728;margin-left:6px">BIT</span></span><span style="font-size:14px;line-height:1.5;color:#a1a1aa">AES-GCM envelope, sealed with the Web Crypto API.</span></div>
+    <div style="padding:56px clamp(20px,3vw,40px);border-right:1px solid #232324;display:flex;flex-direction:column;gap:12px"><span style="font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(56px,6vw,76px);line-height:1;letter-spacing:-.06em">250k</span><span style="font-size:14px;line-height:1.5;color:#a1a1aa">PBKDF2 rounds behind every password.</span></div>
+    <div style="padding:56px clamp(20px,3vw,40px);display:flex;flex-direction:column;gap:12px"><span style="font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(56px,6vw,76px);line-height:1;letter-spacing:-.06em">.0001</span><span style="font-size:14px;line-height:1.5;color:#a1a1aa">ZEC reserved so the recipient never pays a fee.</span></div>
+  </div>
+</section>
+
+
+<section aria-label="What the chain sees" style="background:#fffefb;color:#201515">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,120px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px 80px;align-items:center">
+    <div style="border:1px solid #c5c0b1;border-radius:8px;overflow:hidden;background:#fffefb">
+      <div style="display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #eceae3;background:#f8f4f0;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em"><span style="color:#6f6a5e">TESTNET EXPLORER VIEW</span><span>CONFIRMED</span></div>
+      <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);font-size:14px">
+        <dt style="padding:14px 18px;border-bottom:1px solid #eceae3;color:#6f6a5e">Transaction</dt><dd style="margin:0;padding:14px 18px;border-bottom:1px solid #eceae3;font-weight:500">Shielded</dd>
+        <dt style="padding:14px 18px;border-bottom:1px solid #eceae3;color:#6f6a5e">Sender</dt><dd style="margin:0;padding:14px 18px;border-bottom:1px solid #eceae3"><span style="display:block;height:14px;width:62%;border-radius:2px;background:repeating-linear-gradient(90deg,#201515 0 8px,#36342e 8px 10px)"></span></dd>
+        <dt style="padding:14px 18px;border-bottom:1px solid #eceae3;color:#6f6a5e">Recipient</dt><dd style="margin:0;padding:14px 18px;border-bottom:1px solid #eceae3"><span style="display:block;height:14px;width:88%;border-radius:2px;background:repeating-linear-gradient(90deg,#201515 0 8px,#36342e 8px 10px)"></span></dd>
+        <dt style="padding:14px 18px;border-bottom:1px solid #eceae3;color:#6f6a5e">Amount</dt><dd style="margin:0;padding:14px 18px;border-bottom:1px solid #eceae3"><span style="display:block;height:14px;width:30%;border-radius:2px;background:repeating-linear-gradient(90deg,#201515 0 8px,#36342e 8px 10px)"></span></dd>
+        <dt style="padding:14px 18px;color:#6f6a5e">CashDrop?</dt><dd style="margin:0;padding:14px 18px"><span style="display:block;height:14px;width:48%;border-radius:2px;background:repeating-linear-gradient(90deg,#201515 0 8px,#36342e 8px 10px)"></span></dd>
+      </dl>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9a6a00"><span style="width:24px;height:2px;background:#f4b728"></span>Why Zcash</span>
+      <h2 style="margin:0;font-family:Newsreader,serif;font-weight:300;font-size:clamp(40px,5vw,60px);line-height:1.02;letter-spacing:-.03em">The chain learns <em style="color:#6f6a5e">less.</em></h2>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:#36342e;max-width:34em">On a transparent chain, a payment link would publish who paid whom, how much, and everything they do next. Zcash’s shielded pool hides all of it — and CashDrop keeps both the funding and the claim shielded.</p>
+    </div>
+  </div>
+</section>
+<section id="limits" style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,128px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px 96px">
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.06em;color:#f4b728">HONEST LIMITS</span>
+    <h2 style="margin:0;font-family:Newsreader,serif;font-weight:300;font-size:clamp(44px,5.4vw,68px);line-height:1;letter-spacing:-.03em">A link is cash.<br><em style="color:#a1a1aa">Treat it like cash.</em></h2>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#a1a1aa;max-width:32em">Shielding hides the payment from the chain. It can’t hide a link pasted into the wrong chat — so here is exactly where the edges are.</p>
+    <a href="Threat Model.dc.html" style="font-size:15px;font-weight:500">Read the full threat model →</a>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;border-top:1px solid #5c5c61">
+    <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:20px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728;padding-top:2px">01</span><span style="font-size:16px;line-height:1.5">Whoever holds the complete unlocked link can claim first.</span></li>
+    <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:20px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728;padding-top:2px">02</span><span style="font-size:16px;line-height:1.5">A compromised device or insecure chat can leak it.</span></li>
+    <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:20px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728;padding-top:2px">03</span><span style="font-size:16px;line-height:1.5">The lightwallet gateway sees request timing and network metadata.</span></li>
+    <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:20px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728;padding-top:2px">04</span><span style="font-size:16px;line-height:1.5">Deadlines are reminders in this beta, not consensus timelocks.</span></li>
+    <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:20px 0;border-bottom:1px solid #232324"><span style="font-family:'Geist Mono',monospace;font-size:13px;color:#f4b728;padding-top:2px">05</span><span style="font-size:16px;line-height:1.5">Testnet only. Independent security review comes before mainnet.</span></li>
+  </ol>
+</section>
+
+<section style="background:#fffefb;color:#201515">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,120px) clamp(20px,4vw,48px)">
+    <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9a6a00"><span style="width:24px;height:2px;background:#f4b728"></span>Under the hood</span>
+    <h2 style="margin:18px 0 48px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(36px,4.2vw,52px);line-height:.95;text-transform:uppercase;letter-spacing:.02em">Two browsers and a blockchain.<br><span style="color:#6f6a5e">Nothing in between.</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px">
+      <div style="border:1px solid #c5c0b1;border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:8px;min-height:150px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#6f6a5e">NODE 01</span><b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.03em">Sender browser</b><span style="font-size:14px;line-height:1.5;color:#36342e">WebZjs WASM wallet, fresh seed, AES-GCM envelope.</span></div>
+      <div style="border:1px solid #201515;border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:8px;min-height:150px;background:#f8f4f0"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#9a6a00">→ SHIELDED FUNDING TX</span><b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.03em">One-time address</b><span style="font-size:14px;line-height:1.5;color:#36342e">Lives in the Zcash shielded pool. Holds the funds, nothing else.</span></div>
+      <div style="border:1px solid #c5c0b1;border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:8px;min-height:150px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#9a6a00">→ LINK, OFF-CHAIN</span><b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.03em">Recipient browser</b><span style="font-size:14px;line-height:1.5;color:#36342e">Decrypts locally, scans compact blocks, builds the proof.</span></div>
+      <div style="border:1px solid #c5c0b1;border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:8px;min-height:150px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#9a6a00">→ SHIELDED CLAIM TX</span><b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.03em">Recipient wallet</b><span style="font-size:14px;line-height:1.5;color:#36342e">Any shielded testnet address — or one made on the spot.</span></div>
+    </div>
+    <p style="margin:32px 0 0;font-size:14px;color:#6f6a5e;max-width:62ch">A static PWA. No CashDrop API, user database, custodial wallet or analytics pipeline — there is nowhere for your keys to go.</p>
+  </div>
+</section>
+
+
+<section id="demo" style="background:#fffefb;color:#201515">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,120px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px 80px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9a6a00"><span style="width:24px;height:2px;background:#f4b728"></span>3-minute walkthrough</span>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(40px,4.8vw,60px);line-height:.95;text-transform:uppercase">See the whole hand-off.</h2>
+      <a href="https://cashdrop-theta.vercel.app/demo/cashdrop-demo.mp4" target="_blank" style="position:relative;display:flex;align-items:flex-end;aspect-ratio:16/9;border-radius:8px;background:#201515;color:#fffefb;padding:20px;overflow:hidden" style-hover="color:#fffefb">
+        <span style="position:absolute;inset:0;background-image:linear-gradient(#36342e 1px,transparent 1px),linear-gradient(90deg,#36342e 1px,transparent 1px);background-size:40px 40px;opacity:.5"></span>
+        <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:#f4b728;color:#201515;display:grid;place-items:center;font-size:22px;padding-left:4px">▶</span>
+        <span style="position:relative;display:flex;flex-direction:column;gap:2px"><b style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:20px;letter-spacing:.06em">CASHDROP DEMO</b><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#d9d4c7">PRODUCT · PRIVACY · SEND · RECEIVE · 3:20</span></span>
+      </a>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <h2 style="margin:0 0 20px;font-family:Newsreader,serif;font-weight:300;font-size:clamp(36px,4vw,48px);letter-spacing:-.03em">Before you drop.</h2>
+      <details open="" style="border-top:1px solid #201515;padding:18px 0"><summary style="cursor:pointer;font-weight:600;font-size:16px">Is this real Zcash?</summary><p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#36342e">Yes. The beta runs on the public Zcash testnet with real shielded addresses and transactions. Testnet coins have no monetary value.</p></details>
+      <details style="border-top:1px solid #eceae3;padding:18px 0"><summary style="cursor:pointer;font-weight:600;font-size:16px">Does the link contain the money?</summary><p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#36342e">It carries encrypted recovery material for a fresh shielded wallet. Treat it like cash: whoever unlocks the complete link can claim first.</p></details>
+      <details style="border-top:1px solid #eceae3;padding:18px 0"><summary style="cursor:pointer;font-weight:600;font-size:16px">Can CashDrop recover my link?</summary><p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#36342e">No — it’s non-custodial. Save the recovery file when you create a drop, fund, checkout or plan.</p></details>
+      <details style="border-top:1px solid #eceae3;padding:18px 0"><summary style="cursor:pointer;font-weight:600;font-size:16px">Can a Plan charge me automatically?</summary><p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#36342e">Never. CashDrop holds no wallet authority. Every renewal is a payment the customer chooses to send.</p></details>
+      <details style="border-top:1px solid #eceae3;border-bottom:1px solid #eceae3;padding:18px 0"><summary style="cursor:pointer;font-weight:600;font-size:16px">Is it mainnet-ready?</summary><p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#36342e">Not yet. This release is testnet-only and needs an independent security review before it handles real value.</p></details>
+    </div>
+  </div>
+</section>
+<section style="position:relative;overflow:hidden">
+
+  <div style="position:relative;max-width:900px;margin:0 auto;padding:clamp(96px,12vw,152px) clamp(20px,4vw,48px);display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center">
+    <div style="position:relative;width:260px;height:120px;perspective:900px;transform-style:preserve-3d"><div style="position:absolute;left:94px;top:20px;transform:translateZ(40px);width:72px;height:72px;transform-style:preserve-3d"><div style="width:100%;height:100%;transform-style:preserve-3d;animation:cdbob 4.800000000000001s ease-in-out 0s infinite"><div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:cdspin 6s linear 0s infinite"><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-3.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-2.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-1.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-0.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(0.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(1.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(2.5px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(3.5px)"></div><div style="position:absolute;inset:0;transform:translateZ(4.5px);backface-visibility:hidden"><svg width="72" height="72" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(4.5px);backface-visibility:hidden"><svg width="72" height="72" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div><div style="position:absolute;left:20px;top:44px;transform:translateZ(-20px);width:44px;height:44px;transform-style:preserve-3d"><div style="width:100%;height:100%;transform-style:preserve-3d;animation:cdbob 4s ease-in-out -1.5s infinite"><div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:cdspin 5s linear -1.5s infinite"><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-2px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(0px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(2px)"></div><div style="position:absolute;inset:0;transform:translateZ(3px);backface-visibility:hidden"><svg width="44" height="44" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(3px);backface-visibility:hidden"><svg width="44" height="44" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div><div style="position:absolute;right:20px;top:30px;transform:translateZ(-20px);width:44px;height:44px;transform-style:preserve-3d"><div style="width:100%;height:100%;transform-style:preserve-3d;animation:cdbob 4.4s ease-in-out -3s infinite"><div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:cdspin 5.5s linear -3s infinite"><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(-2px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(-1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(0px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#c98a0c;transform:translateZ(1px)"></div><div style="position:absolute;inset:0;border-radius:50%;background:#b77d08;transform:translateZ(2px)"></div><div style="position:absolute;inset:0;transform:translateZ(3px);backface-visibility:hidden"><svg width="44" height="44" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(3px);backface-visibility:hidden"><svg width="44" height="44" viewBox="0 0 48 48" style="display:block"><circle cx="24" cy="24" r="22" fill="#f4b728"></circle><circle cx="24" cy="24" r="17.5" fill="none" stroke="#c98a0c" stroke-width="1.4" stroke-dasharray="2 2.2"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div></div>
+    <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(52px,7vw,96px);line-height:.92;text-transform:uppercase">The money<br><span style="font-family:Newsreader,serif;font-style:italic;font-weight:300;text-transform:none;color:#f4b728">can be waiting.</span></h2>
+    <p style="margin:0;font-size:17px;color:#a1a1aa;max-width:30em">Run the full create → fund → claim loop with free testnet ZEC. Nothing to install.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+      <a href="./app/" style="background:#f4b728;color:#201515;border-radius:999px;padding:14px 26px;font-size:15px;font-weight:600" style-hover="background:#ffd166;color:#201515">Open the app</a>
+      <a href="https://github.com/ezekiel6262/cashdrop" target="_blank" style="border:1px solid #5c5c61;color:#fafafa;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:500" style-hover="border-color:#fafafa;color:#fafafa">Source on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top:1px solid #232324;background:#0e0e10">
+  <div style="max-width:1200px;margin:0 auto;padding:28px clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:16px 28px;font-size:13px;color:#a1a1aa">
+    <span style="margin-right:auto;display:flex;align-items:center;gap:10px"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true" style="flex:none"><circle cx="24" cy="24" r="21" fill="none" stroke="#f4b728" stroke-width="4" stroke-dasharray="2.6 2.4"></circle><circle cx="24" cy="24" r="18.5" fill="#f4b728"></circle><path d="M24 13 V31 M16 24 L24 32 L32 24" fill="none" stroke="#201515" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>CashDrop · MIT · Testnet ZEC has no monetary value.</span>
+    <a href="Threat Model.dc.html" style="color:#a1a1aa" style-hover="color:#fafafa">Threat model</a><a href="CashDrop Pitch Deck.dc.html" style="color:#a1a1aa" style-hover="color:#fafafa">Pitch deck</a><a href="https://github.com/ChainSafe/WebZjs" target="_blank" style="color:#a1a1aa" style-hover="color:#fafafa">WebZjs</a>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  tilt = React.createRef();
+  stage = React.createRef();
+  componentDidMount() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    this.onMove = e => {
+      const st = this.stage.current, el = this.tilt.current;
+      if (!st || !el) return;
+      const r = st.getBoundingClientRect();
+      const x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 0.9)));
+      const y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 0.9)));
+      el.style.transform = `rotateX(${16 - y * 14}deg) rotateY(${-24 + x * 30}deg)`;
+    };
+    this.onLeave = () => { if (this.tilt.current) this.tilt.current.style.transform = 'rotateX(16deg) rotateY(-24deg)'; };
+    window.addEventListener('pointermove', this.onMove, { passive: true });
+    document.addEventListener('pointerleave', this.onLeave);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('pointermove', this.onMove);
+    document.removeEventListener('pointerleave', this.onLeave);
+  }
+  renderVals() { return { tiltRef: this.tilt, stageRef: this.stage }; }
+}
+</script>
+</body>
+</html>
