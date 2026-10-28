@@ -1,0 +1,24 @@
+@media(max-width:700px){
+  html,body{max-width:100%;overflow-x:hidden}
+  nav>div{height:56px!important;padding:0 16px!important;gap:12px!important}
+  nav>div>div{display:none!important}
+  nav a[style*="background:#fafafa"]{padding:8px 14px!important;font-size:13px!important;white-space:nowrap}
+  header>div{padding:56px 20px 64px!important;gap:22px!important}
+  header h1{font-size:clamp(52px,15vw,68px)!important;line-height:.88!important}
+  header p{font-size:16px!important}
+  header a{min-height:48px;display:inline-flex!important;align-items:center;justify-content:center}
+  header div[style*="aspect-ratio:1/1"]{width:100%!important;max-width:390px!important}
+  section{overflow:hidden}
+  section>div[style*="max-width:1200px"],section[style*="max-width:1200px"]{padding-left:20px!important;padding-right:20px!important}
+  h2{overflow-wrap:anywhere}
+  div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px)"]{grid-template-columns:1fr!important}
+  div[style*="grid-template-columns:repeat(auto-fill,minmax(250px"]{grid-template-columns:1fr 1fr!important}
+  a[style*="padding:24px 20px 28px 0"]{padding:20px 12px!important}
+  div[style*="font-size:clamp(56px,6vw,76px)"]{font-size:42px!important}
+  section#demo>div{grid-template-columns:1fr!important}
+  footer>div{padding-left:20px!important;padding-right:20px!important;align-items:flex-start!important}
+}
+@media(max-width:420px){
+  div[style*="grid-template-columns:repeat(auto-fill,minmax(250px"]{grid-template-columns:1fr!important}
+  header h1{font-size:52px!important}
+}
