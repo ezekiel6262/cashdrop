@@ -25,6 +25,8 @@ Zcash is essential to the design. A public-chain payment link would publish a la
 | CashDrop | One private gift, reward, refund, or payment | Optional password; encrypted bearer link |
 | DropBatch | Events, community rewards, private payroll, giveaways | A distinct seed and shielded address per recipient |
 | Private Fund | Seed funding, community campaigns, general fundraising | Public goal and story; no public donor list or inferred balance |
+| CashDrop Checkout | Point of sale for products and services | Exact-price request to a fresh merchant shielded address |
+| CashDrop Plans | Weekly, monthly, or yearly subscriptions | Customer-approved renewals; no automatic wallet authority |
 | Recover / reclaim | Sender recovery of an unspent envelope | Recovery bundle stays local and never reaches CashDrop |
 | Browser wallet | Recipient onboarding without an extension | Seed and address generated locally |
 
@@ -134,7 +136,7 @@ docs/
 
 ## What makes CashDrop different
 
-Basic Zcash payment links describe where a sender should pay. CashDrop creates a funded, one-time shielded envelope that can be handed to a recipient who does not yet have a wallet. It combines recipient onboarding, password-protected bearer links, independent bulk envelopes, private fundraising, and sender recovery in one browser-native product.
+Basic Zcash payment links describe where a sender should pay. CashDrop creates a funded, one-time shielded envelope that can be handed to a recipient who does not yet have a wallet. It combines recipient onboarding, password-protected bearer links, independent bulk envelopes, private fundraising, private checkout, customer-approved subscriptions, and sender recovery in one browser-native product.
 
 ## Verification performed
 

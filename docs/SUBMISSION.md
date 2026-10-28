@@ -46,6 +46,8 @@ The same foundation powers:
 - password-protected one-person drops;
 - independent DropBatches for events, rewards, or payroll;
 - Private Fund pages without a public donor list or contribution graph;
+- CashDrop Checkout for exact-price private point-of-sale requests;
+- CashDrop Plans for customer-approved shielded subscription renewals;
 - sender recovery and reclaim;
 - a browser wallet for recipients who do not yet have an address.
 

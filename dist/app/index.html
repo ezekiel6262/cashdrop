@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0d0b">
   <meta name="description" content="Create and claim private Zcash testnet payment links in your browser.">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=4">
+  <link rel="stylesheet" href="./styles.css?v=5">
   <title>CashDrop — Testnet web app</title>
 </head>
 <body>
@@ -28,6 +28,8 @@
     </section>
 
     <section class="tool-grid" aria-label="CashDrop tools">
+      <button id="start-checkout" class="tool"><b>CashDrop Checkout</b><span>Create a private point-of-sale payment request for a product or service.</span></button>
+      <button id="start-plan" class="tool"><b>CashDrop Plans</b><span>Offer customer-approved private subscription renewals.</span></button>
       <button id="start-fund" class="tool"><b>Private Fund</b><span>Raise shielded contributions through one shareable campaign page.</span></button>
       <button id="start-recover" class="tool"><b>Recover or reclaim</b><span>Sweep an unclaimed drop using its private recovery file.</span></button>
       <button id="start-wallet" class="tool"><b>Browser wallet</b><span>Create a testnet address without installing anything.</span></button>
@@ -46,6 +48,7 @@
   </main>
 
   <footer><a href="../Threat%20Model.dc.html">Threat model</a><a href="https://github.com/ChainSafe/WebZjs" target="_blank" rel="noreferrer">WebZjs source</a><a href="../">About CashDrop</a></footer>
-  <script type="module" src="./app.js?v=4"></script>
+  <script src="./vendor/qrcode.min.js"></script>
+  <script type="module" src="./app.js?v=5"></script>
 </body>
 </html>
