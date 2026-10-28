@@ -1,0 +1,16 @@
+.tool.featured{border-color:#7d6424;background:linear-gradient(145deg,#241d0c,var(--panel))}
+.verification{display:grid;gap:12px;margin:22px 0}
+.receipt{padding:16px;border:1px solid var(--line);border-radius:14px;background:#11110e}
+.receipt.confirmed{border-color:#5f7f4a;background:#11180e}
+.receipt.pending{border-color:#8a6c29}
+.receipt-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.receipt-head b{font-size:18px}
+.badge{border:1px solid currentColor;border-radius:999px;padding:4px 8px;font:10px ui-monospace,monospace;letter-spacing:.08em}
+.badge.good{color:#9bd27b}
+.badge.wait{color:#f4b729}
+.receipt dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:12px 0 0;font-size:13px}
+.receipt dt{color:var(--muted)}
+.receipt dd{margin:0;min-width:0;word-break:break-all}
+.privacy-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
+.privacy-proof span{padding:10px;border:1px solid var(--line);border-radius:10px;text-align:center;font:11px ui-monospace,monospace;color:var(--muted)}
+@media(max-width:560px){.privacy-proof{grid-template-columns:1fr}.receipt-head{align-items:flex-start;flex-direction:column}}

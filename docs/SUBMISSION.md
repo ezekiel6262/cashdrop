@@ -47,6 +47,7 @@ The same foundation powers:
 - independent DropBatches for events, rewards, or payroll;
 - Private Fund pages without a public donor list or contribution graph;
 - CashDrop Checkout for exact-price private point-of-sale requests;
+- local merchant verification that scans confirmed shielded transaction history without uploading the recovery seed or publishing a customer record;
 - CashDrop Plans for customer-approved shielded subscription renewals;
 - sender recovery and reclaim;
 - a browser wallet for recipients who do not yet have an address.

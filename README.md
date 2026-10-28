@@ -26,7 +26,8 @@ Zcash is essential to the design. A public-chain payment link would publish a la
 | DropBatch | Events, community rewards, private payroll, giveaways | A distinct seed and shielded address per recipient |
 | Private Fund | Seed funding, community campaigns, general fundraising | Public goal and story; no public donor list or inferred balance |
 | CashDrop Checkout | Point of sale for products and services | Exact-price request to a fresh merchant shielded address |
-| CashDrop Plans | Weekly, monthly, or yearly subscriptions | Customer-approved renewals; no automatic wallet authority |
+| Private Payment Verification | Merchant confirmation without a public receipt server | Imports the private recovery file, scans testnet locally, and distinguishes confirmed, pending, underpaid, and unpaid requests |
+| CashDrop Plans | Weekly, monthly, or yearly subscriptions | Customer-approved renewals with local merchant-side verification; no automatic wallet authority |
 | Recover / reclaim | Sender recovery of an unspent envelope | Recovery bundle stays local and never reaches CashDrop |
 | Browser wallet | Recipient onboarding without an extension | Seed and address generated locally |
 
